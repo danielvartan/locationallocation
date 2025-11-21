@@ -54,7 +54,7 @@ if (FALSE)     ggplot2::labs(x = NULL, y = NULL) +
 #> <GMLEnvelope>
 #> ....|-- lowerCorner: 40.79281558987 14.1353871711579
 #> ....|-- upperCorner: 40.9149179937145 14.3527090131438
-#> ✔ Downloading friction data from the Malaria Atlas Project [38.5s]
+#> ✔ Downloading friction data from the Malaria Atlas Project [38.2s]
 #> 
 #> ℹ Downloading data from OpenStreetMap
 #> Selecting best model parameters
@@ -79,14 +79,14 @@ if (FALSE)     ggplot2::labs(x = NULL, y = NULL) +
 #> | -- updating predictions
 #> | -- RMSE = 0.016
 #> Retaining model fitted at iteration 3
-#> ✔ Downloading data from OpenStreetMap [29.6s]
+#> ✔ Downloading data from OpenStreetMap [29.9s]
 #> 
 #> ℹ Computing transition matrix and geocorrection
-#> ✔ Computing transition matrix and geocorrection [3.1s]
+#> ✔ Computing transition matrix and geocorrection [3.2s]
 #> 
 #> ℹ Computing travel time map
 #> Warning: [mask] CRS do not match
-#> ✔ Computing travel time map [950ms]
+#> ✔ Computing travel time map [951ms]
 #> 
 
   allocation <-
