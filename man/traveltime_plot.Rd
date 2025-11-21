@@ -2,25 +2,60 @@
 % Please edit documentation in R/traveltime_plot.R
 \name{traveltime_plot}
 \alias{traveltime_plot}
-\title{Plot results of the traveltime function}
+\title{Plot results of the \code{traveltime()} function}
 \usage{
 traveltime_plot(
   traveltime,
   bb_area,
   facilities = NULL,
-  contour_traveltime = NULL
+  contour_traveltime = 15
 )
 }
 \arguments{
-\item{traveltime}{The output of the traveltime function.}
+\item{traveltime}{A \code{\link[base:list]{list}} with the output of the
+\code{\link[=traveltime]{traveltime()}} function.}
 
-\item{bb_area}{A boundary box object with the area of interest.}
+\item{bb_area}{A \code{\link[sf:st_as_sf]{sf}} boundary box object with the area
+of interest.}
 
-\item{facilities}{A sf object with the existing facilities.}
+\item{facilities}{A \code{\link[sf:st_as_sf]{sf}} object with the existing
+facilities.}
 
-\item{contour_traveltime}{A numeric vector with the contour thresholds for the travel time.}
+\item{contour_traveltime}{(optional) A number indicating the contour
+thresholds for the travel time (default: \code{15}).}
+}
+\value{
+A \code{\link[ggplot2:ggplot]{ggplot2}} plot showing the travel time from
+the  facilities to the area of interest.
 }
 \description{
-This function is used to plot the results of the traveltime function. It shows the travel time from the facilities to the area of interest.
+\code{traveltime_plot()} is used to plot the results of the
+\code{\link[=traveltime]{traveltime()}} function. It shows the travel time from the
+facilities to the area of interest.
 }
+\examples{
+\dontrun{
+  traveltime_data <-
+    naples_fountains |>
+    traveltime(
+      bb_area = naples_shape,
+      dowscaling_model_type = "lm",
+      mode = "walk",
+      res_output = 100
+    )
+
+  traveltime_data |>
+    traveltime_plot(
+      bb_area = naples_shape,
+      facilities = naples_fountains
+    )
+}
+}
+\seealso{
+Other travel time functions: 
+\code{\link{friction}()},
+\code{\link{traveltime}()},
+\code{\link{traveltime_stats}()}
+}
+\concept{travel time functions}
 \keyword{reporting}

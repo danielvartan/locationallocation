@@ -19,3 +19,7 @@ paper/paper.pdf
 paper/paper.zip
 paper/social_media_posts.docx
 todo.txt
+inst/doc
+
+/.quarto/
+**/*.quarto_ipynb

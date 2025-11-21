@@ -2,16 +2,63 @@
 % Please edit documentation in R/allocation_plot.R
 \name{allocation_plot_discrete}
 \alias{allocation_plot_discrete}
-\title{Plot results of the allocation and allocation_discrete functions}
+\title{Plot results of the \code{allocation_discrete()} function}
 \usage{
-allocation_plot_discrete(output_allocation, bb_area)
+allocation_plot_discrete(allocation, bb_area)
 }
 \arguments{
-\item{bb_area}{A boundary box object with the area of interest.}
+\item{allocation}{The output of the
+\code{\link[=allocation_discrete]{allocation_discrete}} function.}
 
-\item{allocation_plot_discrete}{The output of the allocation function.}
+\item{bb_area}{A \code{\link[sf:st_as_sf]{sf}} boundary box object with the area
+of interest.}
+}
+\value{
+A \code{\link[ggplot2:ggplot]{ggplot2}} plot showing the potential locations
+for new facilities.
 }
 \description{
-This function is used to plot the results of the allocation and allocation_discrete functions. It shows the potential locations for new facilities and the coverage attained.
+\code{allocation_plot_discrete()} is used to plot the results of the
+\code{\link[=allocation_discrete]{allocation_discrete}} function. It shows the
+potential locations for new facilities and the coverage attained.
 }
+\examples{
+\dontrun{    ggplot2::labs(x = NULL, y = NULL) +
+  library(sf)
+
+  candidates <- naples_shape |> st_sample(20)
+
+  traveltime <- traveltime(
+    facilities = naples_fountains,
+    bb_area = naples_shape,
+    dowscaling_model_type = "lm",
+    mode = "walk",
+    res_output = 100
+  )
+
+  allocation <-
+    naples_population |>
+    allocation_discrete(
+      traveltime = traveltime,
+      bb_area = naples_shape,
+      facilities = naples_fountains,
+      candidate = candidates,
+      n_fac = 2,
+      weights = NULL,
+      objectiveminutes = 15,
+      dowscaling_model_type = "lm",
+      mode = "walk",
+      res_output = 100,
+      n_samples = 1000,
+      par = TRUE
+    )
+
+  allocation |> allocation_plot(naples_shape)
+}
+}
+\seealso{
+Other plot functions: 
+\code{\link{allocation_plot}()}
+}
+\concept{plot functions}
 \keyword{reporting}

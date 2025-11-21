@@ -2,55 +2,137 @@
 % Please edit documentation in R/allocation.R
 \name{allocation}
 \alias{allocation}
-\title{Location allocation (continuous problem)}
+\title{Compute the maximal coverage location-allocation for continuous problems}
 \usage{
 allocation(
-  demand_raster,
-  traveltime_raster = NULL,
+  demand,
   bb_area,
-  facilities = facilities,
+  facilities,
+  traveltime = NULL,
+  mode = "walk",
+  dowscaling_model_type = "lm",
+  res_output = 100,
   weights = NULL,
-  objectiveminutes = 10,
+  objectiveminutes = 15,
   objectiveshare = 0.99,
   heur = "max",
-  dowscaling_model_type,
-  mode,
-  res_output,
   approach = "norm",
   exp_demand = 1,
   exp_weights = 1
 )
 }
 \arguments{
-\item{demand_raster}{A raster object with the demand for the service.}
+\item{demand}{A \code{\link[raster:raster]{RasterLayer}} object with the
+demand layer (e.g. population density).}
 
-\item{traveltime_raster}{The output of the traveltime function. If not provided, the function will run the traveltime function first.}
+\item{bb_area}{A \code{\link[sf:st_as_sf]{sf}} boundary box object with the area
+of interest.}
 
-\item{bb_area}{A boundary box object with the area of interest.}
+\item{facilities}{A \code{\link[sf:st_as_sf]{sf}} object with the existing
+facilities.}
 
-\item{facilities}{A sf object with the existing facilities.}
+\item{traveltime}{A \code{\link[base:list]{list}} with the output of the
+\code{\link[=traveltime]{traveltime()}} function. If not provided, the function will
+run the \code{\link[=traveltime]{traveltime()}} function based on the provided
+parameters.}
 
-\item{weights}{A raster with the weights for the demand.}
+\item{mode}{(optional) A \code{\link[base:character]{character}} string indicating
+the mode of transport. Options are \code{"fastest"} and \code{"walk"} (default =
+\code{"walk"}).
+\itemize{
+\item For \code{"fastest"}: The friction layer accounts for multiple modes of
+transport, including walking, cycling, driving, and public transport, and are
+based on the Malaria Atlas Project (2019) \emph{Global Travel Speed Friction
+Surface}.
+\item For \code{"walk"}: The friction layer accounts only for walking speeds and is
+based on the Malaria Atlas Project (2015) \emph{Global Walking Only Friction
+Surface}.
+}}
 
-\item{objectiveminutes}{The objective travel time in minutes.}
+\item{dowscaling_model_type}{(optional) A \code{\link[base:character]{character}}
+string indicating the type of model used for the spatial downscaling of the
+friction layer. Options are \code{"lm"} (linear model) and \code{"rf"} (random
+forest) (default: \code{"lm"}).}
 
-\item{objectiveshare}{The share of the demand to be covered.}
+\item{res_output}{(optional) A positive
+\link[checkmate:checkIntegerish]{integerish} number indicating the spatial
+resolution of the friction raster (and of the analysis), in meters. If the
+resolution is less than \code{1000}, a spatial downscaling approach is used
+(default: \code{100}).}
 
-\item{heur}{The heuristic approach to be used. Options are "max" (default) and "kd".}
+\item{weights}{(optional) A raster with the weights for the demand (default:
+\code{NULL}).}
 
-\item{dowscaling_model_type}{The type of model used for the spatial downscaling of the travel time layer.}
+\item{objectiveminutes}{(optional) A number indicating the target travel time
+in minutes used to compute the statistics (default: \code{15}).}
 
-\item{mode}{The mode of transport.}
+\item{objectiveshare}{(optional) A number indicating the proportion of the
+demand to be covered (default: \code{0.99}).}
 
-\item{res_output}{The spatial resolution of the friction raster (and of the analysis), in meters. If <1000, a spatial downscaling approach is used.}
+\item{heur}{(optional) The heuristic approach to be used. Options are \code{"max"}
+and \code{"kd"} (default: \code{"max"}).}
 
-\item{approach}{The approach to be used for the allocation. Options are "norm" (default) and "equity". If "norm", the allocation is based on the normalized demand raster multiplied by the normalized weights raster. If "absweights", the allocation is based on the normalized demand raster multiplied by the raw weights raster.}
+\item{approach}{(optional) The approach to be used for the allocation.
+Options are \code{"norm"} and \code{"absweights"}. If "norm", the allocation is based
+on the normalized demand raster multiplied by the normalized weights
+raster. If \code{"absweights"}, the allocation is based on the normalized demand
+raster multiplied by the raw weights raster (default: \code{"norm"}).}
 
-\item{exp_demand}{The exponent for the demand raster. Default is 1. A higher value will give less relative weight to areas with higher demand - with respect to the weights layer. This is useful in cases where the users want to increase the allocation in areas with higher values in the weights layer.}
+\item{exp_demand}{(optional) The exponent for the demand raster. Default is
+\enumerate{
+\item A higher value will give less relative weight to areas with higher
+demand - with respect to the weights layer. This is useful in cases where
+the users want to increase the allocation in areas with higher values in
+the weights layer (default: \code{1}).
+}}
 
-\item{exp_weights}{The exponent for the weights raster. Default is 1.A higher value will give less relative weight to areas with higher weights - with respect to the demand layer. This is useful in cases where the users want to increase the allocation in areas with higher values in the demand layer.}
+\item{exp_weights}{(optional) The exponent for the weights raster. Default is
+\enumerate{
+\item A higher value will give less relative weight to areas with higher
+weights - with respect to the demand layer. This is useful in cases where
+the users want to increase the allocation in areas with higher values in
+the demand layer (default: \code{1}).
+}}
+}
+\value{
+A \code{\link[base:list]{list}} with the following elements:
+\itemize{
+\item A \code{\link[sf:sf]{sf}} object with the newly allocated facilities.
+\item A \code{\link[raster:raster]{raster}} RasterLayer object representing the travel
+time map with the newly allocated facilities.
+}
 }
 \description{
-This function is used to allocate facilities in a continuous location problem. It uses the accumulated cost algorithm to find the optimal location for the facilities based on the demand, travel time, and weights for the demand, and target travel time threshold and share of the demand to be covered.
+\code{allocation()} is used to allocate facilities in a continuous location
+problem. It uses the accumulated cost algorithm to find the optimal location
+for the facilities based on the demand, travel time, and weights for the
+demand, and target travel time threshold and share of the demand to be
+covered.
 }
+\details{
+See \code{\link[=allocation_discrete]{allocation_discrete()}} for discrete
+location-allocation problems.
+}
+\examples{
+\dontrun{
+  library(dplyr)
+
+  allocation_data <-
+    naples_population |>
+    allocation(
+      bb_area = naples_shape,
+      facilities = naples_fountains,
+      weights = naples_hot_day
+    )
+
+  allocation_data |> glimpse()
+
+  allocation_data |> allocation_plot(naples_shape)
+}
+}
+\seealso{
+Other location-allocation functions: 
+\code{\link{allocation_discrete}()}
+}
+\concept{location-allocation functions}
 \keyword{location-allocation}

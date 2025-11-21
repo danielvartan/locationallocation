@@ -17,7 +17,7 @@ affiliations:
    index: 1
  - name: International Institute for Applied Systems Analysis, Laxenburg, Austria
    index: 2
-repository: https://github.com/giacfalk/locationallocation 
+repository: https://github.com/giacfalk/locationallocation
 date: 24 March 2025
 bibliography: paper.bib
 ---
@@ -282,7 +282,7 @@ arguments:
 
 ``` {.r language="R"}
 
-allocation(demand_raster, traveltime_raster = NULL, bb_area,
+allocation(demand, traveltime = NULL, bb_area,
 facilities = facilities, weights = NULL,
 objectiveminutes = 10, objectiveshare = 0.99, heur = "max",
 dowscaling_model_type, mode, res_output)
@@ -323,7 +323,7 @@ of the demand to be covered, having the following arguments:
 
 ``` {.r language="R"}
 
-allocation_discrete(demand_raster, traveltime_raster = NULL, bb_area,
+allocation_discrete(demand, traveltime = NULL, bb_area,
 facilities = NULL, candidate, n_fac = Inf, weights = NULL,
 objectiveminutes = 10, dowscaling_model_type, mode,
 res_output, n_samples)
@@ -395,9 +395,7 @@ Temperature from the UrbClim model [@Lauwaet2024], and the
 administrative boundaries of the city of Naples from the Eurostat's LAU
 database, as depicted in Figure
 [1](fig:maps_naples){reference-type="ref" reference="fig:maps_naples"}.
-The following example datasets are fully embedded in the package and
-they become available in the R global environment by calling the
-*demo_data_load* function.
+The following example datasets are fully embedded in the package.
 
 ![Map of population density and location of public drinking water
 fountains in Naples, Italy.\label{fig:maps_naples}](figures_paper/maps_Napoli.pdf)
@@ -407,7 +405,7 @@ accessibility to public drinking water sources as follows:
 
 ``` {.r language="R"}
 
-out_tt <- traveltime(facilities=fountains, bb_area=boundary,
+out_tt <- traveltime(facilities=naples_fountains, bb_area=naples_shape,
 dowscaling_model_type="lm", mode="walk", res_output=100)
 ```
 
@@ -418,7 +416,7 @@ be visualized via:
 
 ``` {.r language="R"}
 
-traveltime_plot(traveltime=out_tt,  bb_area=boundary, facilities = fountains)
+traveltime_plot(traveltime=out_tt,  bb_area=naples_shape, facilities = naples_fountains)
 ```
 
 ![Map of the walking travel time to the nearest public drinking water
@@ -431,7 +429,7 @@ as well as a given time threshold parameter:
 
 ``` {.r language="R"}
 
-traveltime_stats(traveltime = out_tt, demand_raster = pop, breaks=c(5, 10, 15, 30),
+traveltime_stats(traveltime = out_tt, demand = naples_population, breaks=c(5, 10, 15, 30),
 objectiveminutes=5)
 ```
 
@@ -439,7 +437,7 @@ yielding:
 
         [1] "38.54 % of demand layer within the objectiveminutes threshold."
 
-We then can proceed and optimize allocation of new water fountains to
+We then can proceed and optimize allocation of new water naples_fountains to
 cover maximum fraction of (unweighted) population. Location-allocation
 can be either solved discretely or continuously over space, and either
 with a facility constraint or with a policy goal for demand (population)
@@ -449,12 +447,12 @@ population (exposure), we can use:
 
 ``` {.r language="R"}
 
-output_allocation <- allocation(demand_raster = pop, traveltime_raster=out_tt,
-bb_area = boundary, facilities=fountains, weights=NULL, objectiveminutes=15,
+output_allocation <- allocation(demand = naples_population, traveltime=out_tt,
+bb_area = naples_shape, facilities=naples_fountains, weights=NULL, objectiveminutes=15,
 objectiveshare=0.99, heur="max", dowscaling_model_type="lm",
 mode="walk", res_output=100)
 
-allocation_plot(output_allocation, bb_area = boundary)
+allocation_plot(output_allocation, bb_area = naples_shape)
 ```
 
 This yields an output object containing both the coordinate location of
@@ -470,16 +468,16 @@ If we use demand weights (e.g. maximum temperature), we can use:
 
 ``` {.r language="R"}
 
-output_allocation_weighted <- allocation(demand_raster = pop, traveltime_raster=out_tt,
-bb_area = boundary, facilities=fountains, weights=hotdays,
+output_allocation_weighted <- allocation(demand = naples_population, traveltime=out_tt,
+bb_area = naples_shape, facilities=naples_fountains, weights=naples_hot_days,
 objectiveminutes=15, objectiveshare=0.99, heur="max",
 dowscaling_model_type="lm", mode="walk", res_output=100)
 
-allocation_plot(output_allocation_weighted, bb_area = boundary)
+allocation_plot(output_allocation_weighted, bb_area = naples_shape)
 ```
 
 where $tmax$ is a raster layer matching the extent, spatial resolution
-of the $pop$ demand raster. We can notice how results change when using
+of the $naples_population$ demand raster. We can notice how results change when using
 such weighted approach:
 
 ![Map of the continuous location-allocation weighted problem solution
@@ -493,14 +491,14 @@ potential sites (e.g. sites along the water pipes network), we can use:
 
 ``` {.r language="R"}
 
-candidates <- st_sample(boundary, 30)
+candidates <- st_sample(naples_shape, 30)
 
-output_allocation_discrete <- allocation_discrete(demand_raster = pop,
-traveltime_raster=NULL, bb_area = boundary, facilities=fountains,
+output_allocation_discrete <- allocation_discrete(demand = naples_population,
+traveltime=NULL, bb_area = naples_shape, facilities=naples_fountains,
 candidate=candidates, n_fac = 10, weights=NULL, objectiveminutes=15,
 dowscaling_model_type="lm", mode="walk", res_output=100, n_samples=100)
 
-allocation_plot_discrete(output_allocation_discrete, bb_area = boundary)
+allocation_plot_discrete(output_allocation_discrete, bb_area = naples_shape)
 ```
 
 The resulting map shows the coordinate location of the selected
@@ -520,12 +518,12 @@ scratch, i.e. in the absence of pre-existing facilities:
 
 set.seed(333)
 
-output_allocation_discrete_from_scratch <- allocation_discrete(demand_raster = pop,
-traveltime_raster=NULL, bb_area = boundary, facilities=NULL, candidate=candidates,
+output_allocation_discrete_from_scratch <- allocation_discrete(demand = naples_population,
+traveltime=NULL, bb_area = naples_shape, facilities=NULL, candidate=candidates,
 n_fac = 10, weights=NULL, objectiveminutes=15, dowscaling_model_type="lm",
 mode="walk", res_output=100, n_samples=100)
 
-allocation_plot_discrete(output_allocation_discrete_from_scratch, bb_area = boundary)
+allocation_plot_discrete(output_allocation_discrete_from_scratch, bb_area = naples_shape)
 ```
 
 Also in this case, the resulting map shows the coordinate location of

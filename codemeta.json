@@ -1,0 +1,384 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "identifier": "locationallocation",
+  "description": "Functions to perform Maximal Coverage Location-Allocation analyses using geospatial data. It is designed to help decision-makers optimally allocate resources and facilities in various contexts, such as public health, emergency response, and urban planning.",
+  "name": "locationallocation: Maximal Coverage Location-Allocation Using Geospatial Data",
+  "relatedLink": "https://giacfalk.github.io/locationallocation",
+  "codeRepository": "https://github.com/giacfalk/locationallocation",
+  "issueTracker": "https://github.com/giacfalk/locationallocation/issues/",
+  "license": "https://spdx.org/licenses/GPL-3.0",
+  "version": "0.1.1.9000",
+  "programmingLanguage": {
+    "@type": "ComputerLanguage",
+    "name": "R",
+    "url": "https://r-project.org"
+  },
+  "runtimePlatform": "R version 4.5.2 (2025-10-31)",
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Giacomo",
+      "familyName": "Falchetta",
+      "email": "giacomo.falchetta@cmcc.it",
+      "@id": "https://orcid.org/0000-0003-2607-2195"
+    }
+  ],
+  "contributor": [
+    {
+      "@type": "Person",
+      "givenName": "Daniel",
+      "familyName": "Vartanian",
+      "email": "danielvartan@proton.me",
+      "@id": "https://orcid.org/0000-0001-7782-759X"
+    }
+  ],
+  "copyrightHolder": [
+    {
+      "@type": "Person",
+      "givenName": "Giacomo",
+      "familyName": "Falchetta",
+      "email": "giacomo.falchetta@cmcc.it",
+      "@id": "https://orcid.org/0000-0003-2607-2195"
+    }
+  ],
+  "maintainer": [
+    {
+      "@type": "Person",
+      "givenName": "Giacomo",
+      "familyName": "Falchetta",
+      "email": "giacomo.falchetta@cmcc.it",
+      "@id": "https://orcid.org/0000-0003-2607-2195"
+    }
+  ],
+  "softwareSuggestions": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "bslib",
+      "name": "bslib",
+      "version": ">= 0.9.0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=bslib"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "covr",
+      "name": "covr",
+      "version": ">= 3.6.5",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=covr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "knitr",
+      "name": "knitr",
+      "version": ">= 1.50",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=knitr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "qpdf",
+      "name": "qpdf",
+      "version": ">= 1.4.1",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=qpdf"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "rmarkdown",
+      "name": "rmarkdown",
+      "version": ">= 2.30",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "spelling",
+      "name": "spelling",
+      "version": ">= 2.3.2",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=spelling"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "testthat",
+      "name": "testthat",
+      "version": ">= 3.3.0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=testthat"
+    }
+  ],
+  "softwareRequirements": {
+    "1": {
+      "@type": "SoftwareApplication",
+      "identifier": "R",
+      "name": "R",
+      "version": ">= 4.5"
+    },
+    "2": {
+      "@type": "SoftwareApplication",
+      "identifier": "checkmate",
+      "name": "checkmate",
+      "version": ">= 2.3.3",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=checkmate"
+    },
+    "3": {
+      "@type": "SoftwareApplication",
+      "identifier": "cli",
+      "name": "cli",
+      "version": ">= 3.6.5",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=cli"
+    },
+    "4": {
+      "@type": "SoftwareApplication",
+      "identifier": "curl",
+      "name": "curl",
+      "version": ">= 7.0.0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=curl"
+    },
+    "5": {
+      "@type": "SoftwareApplication",
+      "identifier": "dissever",
+      "name": "dissever",
+      "version": ">= 0.2.3",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=dissever"
+    },
+    "6": {
+      "@type": "SoftwareApplication",
+      "identifier": "dplyr",
+      "name": "dplyr",
+      "version": ">= 1.1.4",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=dplyr"
+    },
+    "7": {
+      "@type": "SoftwareApplication",
+      "identifier": "gdistance",
+      "name": "gdistance",
+      "version": ">= 1.6.5",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=gdistance"
+    },
+    "8": {
+      "@type": "SoftwareApplication",
+      "identifier": "ggplot2",
+      "name": "ggplot2",
+      "version": ">= 4.0.1",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=ggplot2"
+    },
+    "9": {
+      "@type": "SoftwareApplication",
+      "identifier": "magrittr",
+      "name": "magrittr",
+      "version": ">= 2.0.4",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=magrittr"
+    },
+    "10": {
+      "@type": "SoftwareApplication",
+      "identifier": "malariaAtlas",
+      "name": "malariaAtlas",
+      "version": ">= 1.6.4",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=malariaAtlas"
+    },
+    "11": {
+      "@type": "SoftwareApplication",
+      "identifier": "osmdata",
+      "name": "osmdata",
+      "version": ">= 0.3.0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=osmdata"
+    },
+    "12": {
+      "@type": "SoftwareApplication",
+      "identifier": "parallel",
+      "name": "parallel",
+      "version": ">= 4.4"
+    },
+    "13": {
+      "@type": "SoftwareApplication",
+      "identifier": "raster",
+      "name": "raster",
+      "version": ">= 3.6.32",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=raster"
+    },
+    "14": {
+      "@type": "SoftwareApplication",
+      "identifier": "sf",
+      "name": "sf",
+      "version": ">= 1.0.22",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=sf"
+    },
+    "15": {
+      "@type": "SoftwareApplication",
+      "identifier": "spatialEco",
+      "name": "spatialEco",
+      "version": ">= 2.0.3",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=spatialEco"
+    },
+    "16": {
+      "@type": "SoftwareApplication",
+      "identifier": "stats",
+      "name": "stats",
+      "version": ">= 4.4"
+    },
+    "17": {
+      "@type": "SoftwareApplication",
+      "identifier": "terra",
+      "name": "terra",
+      "version": ">= 1.8.80",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=terra"
+    },
+    "SystemRequirements": null
+  },
+  "fileSize": "3631.966KB",
+  "citation": [
+    {
+      "@type": "ScholarlyArticle",
+      "datePublished": "2025",
+      "author": [
+        {
+          "@type": "Person",
+          "givenName": "Giacomo",
+          "familyName": "Falchetta",
+          "email": "giacomo.falchetta@cmcc.it",
+          "@id": "https://orcid.org/0000-0003-2607-2195"
+        }
+      ],
+      "name": "locationallocation: Solving Maximal Coverage Location-Allocation geospatial infrastructure assessment and planning problems",
+      "identifier": "10.31223/X5XQ69",
+      "description": "Preprint, manuscript submitted for publication",
+      "@id": "https://doi.org/10.31223/X5XQ69",
+      "sameAs": "https://doi.org/10.31223/X5XQ69",
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "datePublished": "2025",
+        "isPartOf": {
+          "@type": ["PublicationVolume", "Periodical"],
+          "name": "EarthArXiv"
+        }
+      }
+    }
+  ],
+  "releaseNotes": "https://github.com/giacfalk/locationallocation/blob/main/NEWS.md",
+  "readme": "https://github.com/giacfalk/locationallocation/blob/main/README.md",
+  "contIntegration": "https://github.com/giacfalk/locationallocation/actions",
+  "developmentStatus": "https://www.repostatus.org/#active",
+  "keywords": ["accessibility-analysis", "geospatial-analysis", "location-allocation", "r", "spatial-accessibility", "travel-time", "mcla-problem"]
+}

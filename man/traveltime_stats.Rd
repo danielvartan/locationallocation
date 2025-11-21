@@ -2,25 +2,74 @@
 % Please edit documentation in R/traveltime_stats.r
 \name{traveltime_stats}
 \alias{traveltime_stats}
-\title{Summary of traveltime function results}
+\title{Summarize results of the \code{traveltime()} function}
 \usage{
 traveltime_stats(
   traveltime,
-  demand_raster,
+  demand,
   breaks = c(5, 10, 15, 30),
-  objectiveminutes = 15
+  objectiveminutes = 15,
+  print = TRUE
 )
 }
 \arguments{
-\item{traveltime}{The output object of the traveltime function.}
+\item{traveltime}{A \code{\link[base:list]{list}} with the output of the
+\code{\link[=traveltime]{traveltime()}} function.}
 
-\item{demand_raster}{The demand raster layer.}
+\item{demand}{A \code{\link[raster:raster]{RasterLayer}} object with the
+demand layer (e.g. population density).}
 
-\item{breaks}{The breaks (minutes) for the cumulative curve plot.}
+\item{breaks}{(optional) A \code{\link[base:numeric]{numeric}} object indicating the
+breaks (in minutes) for the cumulative curve plot
+(default: \code{c(5, 10, 15, 30)}).}
 
-\item{objectiveminutes}{The objective travel time in minutes to calculate the statistic from.}
+\item{objectiveminutes}{(optional) A number indicating the target travel time
+in minutes used to compute the statistics (default: \code{15}).}
+
+\item{print}{(optional) A \code{\link[base:logical]{logical}} flag indicating
+whether to print the results to the console (default: \code{TRUE}).}
+}
+\value{
+A \code{\link[base:list]{list}} containing:
+\itemize{
+\item \code{percent}: A \code{\link[base:numeric]{numeric}} value indicating the percent of
+demand covered within the objective travel time.
+\item \code{data}: A \code{\link[base:data.frame]{data.frame}} object with the data used to
+generate the cumulative curve plot.
+\item \code{plot}: A \code{\link[ggplot2:ggplot]{ggplot}} object with the cumulative curve
+plot.
+}
 }
 \description{
-This function generates a summary of the traveltime function results, producing a cumulative curve plot and a statistic for the fraction of demand which is covered within a given objective travel time.
+\code{traveltime_stats()} generates a summary of the
+\code{\link[=traveltime]{traveltime()}} function results, producing a statistic for
+the percent of demand which is covered within a given objective travel time
+along with a cumulative curve plot.
 }
+\examples{
+\dontrun{
+  traveltime_data <-
+    naples_fountains |>
+    traveltime(
+      bb_area = naples_shape,
+      dowscaling_model_type = "lm",
+      mode = "walk",
+      res_output = 100
+    )
+
+  traveltime_data |>
+    traveltime_stats(
+      demand = naples_population,
+      breaks = c(5, 10, 15, 30),
+      objectiveminutes = 15
+    )
+}
+}
+\seealso{
+Other travel time functions: 
+\code{\link{friction}()},
+\code{\link{traveltime}()},
+\code{\link{traveltime_plot}()}
+}
+\concept{travel time functions}
 \keyword{reporting}
