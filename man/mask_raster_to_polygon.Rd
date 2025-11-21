@@ -2,7 +2,7 @@
 % Please edit documentation in R/mask_raster_to_polygon.R
 \name{mask_raster_to_polygon}
 \alias{mask_raster_to_polygon}
-\title{Quick masking of a \code{RasterLayer} object to a \code{sf} object}
+\title{Mask a \code{RasterLayer} object to a \code{sf} object}
 \usage{
 mask_raster_to_polygon(ras, mask, inverse = FALSE, updatevalue = NA)
 }

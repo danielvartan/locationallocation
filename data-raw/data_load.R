@@ -37,12 +37,12 @@ data_load <- function() {
     ),
     list(
       file = here::here("data-raw", "pop_napoli.tif"),
-      fun = raster::raster,
+      fun = \(x) raster::readAll(raster::raster(x)),
       name = "naples_population"
     ),
     list(
       file = here::here("data-raw", "hotdays_napoli.tif"),
-      fun = raster::raster,
+      fun = \(x) raster::readAll(raster::raster(x)),
       name = "naples_hot_days"
     )
   )
@@ -53,6 +53,8 @@ data_load <- function() {
 
   invisible()
 }
+
+data_load()
 
 usethis::use_data(
   naples_shape,
