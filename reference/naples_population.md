@@ -14,6 +14,18 @@ naples_population
 A [`RasterLayer`](https://rdrr.io/pkg/raster/man/raster.html) object
 with 1 layer.
 
+## Source
+
+Global Human Settlement Layer
+([GHSL](https://human-settlement.emergency.copernicus.eu)).
+
+## Details
+
+The dataset is based on the Global Human Settlement Layer
+([GHSL](https://human-settlement.emergency.copernicus.eu)) population
+grid
+([GHS-POP](https://human-settlement.emergency.copernicus.eu/download.php?ds=pop)).
+
 ## See also
 
 Other datasets:

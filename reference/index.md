@@ -72,7 +72,7 @@ Datasets included in the package for examples and testing.
 
 ## Utilities
 
-Utility functions to help with examples and data manipulation.
+Utility functions to help with data manipulation.
 
 - [`mask_raster_to_polygon()`](https://giacfalk.github.io/locationallocation/reference/mask_raster_to_polygon.md)
   :

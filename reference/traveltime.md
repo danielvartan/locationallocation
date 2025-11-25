@@ -3,6 +3,10 @@
 `traveltime()` generates a travel time map based on the input
 facilities, bounding box area, and travel mode.
 
+See the
+[`friction()`](https://giacfalk.github.io/locationallocation/reference/friction.md)
+function for details on how the friction layer is generated.
+
 ## Usage
 
 ``` r
@@ -69,12 +73,6 @@ A [`list`](https://rdrr.io/r/base/list.html) containing:
   outputs of the
   [`friction()`](https://giacfalk.github.io/locationallocation/reference/friction.md)
   function.
-
-## Details
-
-See the
-[`friction()`](https://giacfalk.github.io/locationallocation/reference/friction.md)
-function for details on how the friction layer is generated.
 
 ## See also
 

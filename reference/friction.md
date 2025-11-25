@@ -1,12 +1,14 @@
 # Download and downscale a friction surface layer
 
-`friction()` retrieves the [friction
+`friction()` retrieves a [friction
 surface](https://en.wikipedia.org/wiki/Friction_of_distance) layer from
 the Malaria Atlas Project ([MAP](https://malariaatlas.org/)) database
 (Hay et al., 2006; Malaria Atlas Project, 2015, 2019) and optionally
 downscale it to the spatial resolution of the analysis using road
 network data from OpenStreetMap (n.d.)
 ([OSM](https://www.openstreetmap.org/)).
+
+This function requires an active internet connection.
 
 ## Usage
 
@@ -71,10 +73,6 @@ A [`list`](https://rdrr.io/r/base/list.html) containing:
 - `geocorrection_matrix`: A
   [`TransitionLayer`](https://AgrDataSci.github.io/gdistance/reference/transition.html)
   with the geocorrection matrix for accurate distance calculations.
-
-## Details
-
-This function requires an active internet connection.
 
 ## References
 

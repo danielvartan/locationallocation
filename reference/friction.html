@@ -5,17 +5,19 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Download and downscale a friction surface layer — friction"><meta name="description" content="friction() retrieves the
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Download and downscale a friction surface layer — friction"><meta name="description" content="friction() retrieves a
 friction surface layer
 from the Malaria Atlas Project (MAP) database
 (Hay et al., 2006; Malaria Atlas Project, 2015, 2019) and optionally
 downscale it to the spatial resolution of the analysis using road network
-data from OpenStreetMap (n.d.) (OSM)."><meta property="og:description" content="friction() retrieves the
+data from OpenStreetMap (n.d.) (OSM).
+This function requires an active internet connection."><meta property="og:description" content="friction() retrieves a
 friction surface layer
 from the Malaria Atlas Project (MAP) database
 (Hay et al., 2006; Malaria Atlas Project, 2015, 2019) and optionally
 downscale it to the spatial resolution of the analysis using road network
-data from OpenStreetMap (n.d.) (OSM)."><meta property="og:image" content="https://giacfalk.github.io/locationallocation/reference/figures/og-image.png"><meta property="og:image:alt" content="locationallocation"></head><body>
+data from OpenStreetMap (n.d.) (OSM).
+This function requires an active internet connection."><meta property="og:image" content="https://giacfalk.github.io/locationallocation/reference/figures/og-image.png"><meta property="og:image:alt" content="locationallocation"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -55,12 +57,13 @@ data from OpenStreetMap (n.d.) (OSM)."><meta property="og:image" content="https:
     </div>
 
     <div class="ref-description section level2">
-    <p><code>friction()</code> retrieves the
+    <p><code>friction()</code> retrieves a
 <a href="https://en.wikipedia.org/wiki/Friction_of_distance" class="external-link">friction surface</a> layer
 from the Malaria Atlas Project (<a href="https://malariaatlas.org/" class="external-link">MAP</a>) database
 (Hay et al., 2006; Malaria Atlas Project, 2015, 2019) and optionally
 downscale it to the spatial resolution of the analysis using road network
 data from OpenStreetMap (n.d.) (<a href="https://www.openstreetmap.org/" class="external-link">OSM</a>).</p>
+<p>This function requires an active internet connection.</p>
     </div>
 
     <div class="section level2">
@@ -119,10 +122,6 @@ the transition matrix for cost-distance calculations.</p></li>
 <li><p><code>geocorrection_matrix</code>: A <code><a href="https://AgrDataSci.github.io/gdistance/reference/transition.html" class="external-link">TransitionLayer</a></code>
 with the geocorrection matrix for accurate distance calculations.</p></li>
 </ul></div>
-    <div class="section level2">
-    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>This function requires an active internet connection.</p>
-    </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Hay, S. I., &amp; Snow, R. W. (2006). The Malaria Atlas Project: Developing

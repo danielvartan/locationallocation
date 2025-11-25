@@ -1,8 +1,8 @@
 # Plot results of the `allocation()` function
 
-`allocation_plot()` is used to plot the results of the
+`allocation_plot()` plot the results of the
 [`allocation`](https://giacfalk.github.io/locationallocation/reference/allocation.md)
-function. It shows the potential locations for new facilities and the
+function, showing the potential locations for new facilities and the
 coverage attained.
 
 ## Usage

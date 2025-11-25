@@ -14,6 +14,18 @@ naples_hot_days
 A [`RasterLayer`](https://rdrr.io/pkg/raster/man/raster.html) object
 with 1 layer.
 
+## Source
+
+[UrbClim](https://www.urban-climate.eu/model).
+
+## Details
+
+This 100-meter resolution heat hazard map shows the number of days with
+[Wet-Bulb Globe
+Temperature](https://en.wikipedia.org/wiki/Wet-bulb_globe_temperature)
+above 25 °C during 2008–2017, based on simulations from the
+[UrbClim](https://www.urban-climate.eu/model) model.
+
 ## See also
 
 Other datasets:

@@ -1,10 +1,12 @@
 # Compute the maximal coverage location-allocation for continuous problems
 
-`allocation()` is used to allocate facilities in a continuous location
-problem. It uses the accumulated cost algorithm to find the optimal
-location for the facilities based on the demand, travel time, and
-weights for the demand, and target travel time threshold and share of
-the demand to be covered.
+`allocation()` allocate facilities in a continuous location problem. It
+uses the accumulated cost algorithm to find the optimal location for the
+facilities based on the share of the demand to be covered.
+
+See
+[`allocation_discrete()`](https://giacfalk.github.io/locationallocation/reference/allocation_discrete.md)
+for discrete location-allocation problems.
 
 ## Usage
 
@@ -132,18 +134,14 @@ allocation(
 A [`list`](https://rdrr.io/r/base/list.html) with the following
 elements:
 
-- A [`sf`](https://r-spatial.github.io/sf/reference/sf.html) object with
+- `facilities`: A
+  [`sf`](https://r-spatial.github.io/sf/reference/sf.html) object with
   the newly allocated facilities.
 
-- A [`raster`](https://rdrr.io/pkg/raster/man/raster.html) RasterLayer
+- `travel_time`: A
+  [`raster`](https://rdrr.io/pkg/raster/man/raster.html) RasterLayer
   object representing the travel time map with the newly allocated
   facilities.
-
-## Details
-
-See
-[`allocation_discrete()`](https://giacfalk.github.io/locationallocation/reference/allocation_discrete.md)
-for discrete location-allocation problems.
 
 ## See also
 

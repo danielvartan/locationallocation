@@ -1,10 +1,21 @@
 # Compute the maximal coverage location-allocation for discrete problems
 
-`allocation_discrete()` is used to allocate facilities in a discrete
-location problem. It uses the accumulated cost algorithm to find the
-optimal location for the facilities based on a user-defined set of
-locations, objective travel time, and (maximum) number of allocable
-facilities.
+`allocation_discrete()` allocates facilities in a discrete location
+problem. It uses the accumulated cost algorithm to identify optimal
+facility locations based on the share of demand to be covered, given a
+user-defined set of candidate locations and a maximum number of
+allocable facilities.
+
+If a `objectiveshare` parameter is specified, the algorithm identifies
+the best set of size of up to `n_fac` facilities to achieve the targeted
+coverage share. The problem is solved using a statistical heuristic
+approach that generates samples of the candidate locations (on top of
+the existing locations) and selects the facilities in the one that
+minimizes the objective function.
+
+See
+[`allocation()`](https://giacfalk.github.io/locationallocation/reference/allocation.md)
+for continuous location-allocation problems.
 
 ## Usage
 
@@ -159,29 +170,18 @@ allocation_discrete(
 A [`list`](https://rdrr.io/r/base/list.html) with the following
 elements:
 
-- A [`sf`](https://r-spatial.github.io/sf/reference/sf.html) object with
+- `facilities`: A
+  [`sf`](https://r-spatial.github.io/sf/reference/sf.html) object with
   the newly allocated facilities.
 
-- A [`raster`](https://rdrr.io/pkg/raster/man/raster.html) RasterLayer
+- `travel_time`: A
+  [`raster`](https://rdrr.io/pkg/raster/man/raster.html) RasterLayer
   object representing the travel time map with the newly allocated
   facilities.
 
-- A [`numeric`](https://rdrr.io/r/base/numeric.html) value indicating
-  the share of demand covered within the objective travel time after the
-  allocation.
-
-## Details
-
-If a `objectiveshare` parameter is specified, the algorithm identifies
-the best set of size of up to `n_fac` facilities to achieve the targeted
-coverage share. The problem is solved using a statistical heuristic
-approach that generates samples of the candidate locations (on top of
-the existing locations) and selects the facilities in the one that
-minimizes the objective function.
-
-See
-[`allocation()`](https://giacfalk.github.io/locationallocation/reference/allocation.md)
-for continuous location-allocation problems.
+- `unmet_demand`: A [`numeric`](https://rdrr.io/r/base/numeric.html)
+  value indicating the share of demand that remains unmet after
+  allocating the new facilities.
 
 ## See also
 

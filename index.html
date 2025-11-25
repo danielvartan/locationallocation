@@ -79,21 +79,12 @@
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p><code>locationallocation</code> is an <a href="https://www.r-project.org/" class="external-link">R</a> package to solve Maximal Coverage <a href="https://en.wikipedia.org/wiki/Location-allocation" class="external-link">Location-Allocation</a> (MCLA) problems using geospatial data.</p>
+<p>Assessing and planning infrastructure and service networks, given a dispersed demand, limited capacity, accessibility targets, and concerns about spatial justice, is a central policy challenge. Problems of this type are commonly referred to as <em>Maximal Coverage Location-Allocation</em> (MCLA) spatial optimization problems.</p>
+<p><code>locationallocation</code> is an R package that provides tools for solving MCLA problems with geospatial data. It builds on widely used spatial libraries in R, follows <a href="https://tidyverse.tidyverse.org/articles/manifesto.html" class="external-link">tidyverse principles</a>, and integrates seamlessly with the broader <a href="https://www.tidyverse.org/" class="external-link">tidyverse ecosystem</a>. The package can generate travel-time maps and optimize the placement of facilities or infrastructure according to accessibility criteria, which can be weighted by one or more variables or by a user-defined function.</p>
+<p>Potential applications of the package extend to the domains of public infrastructure assessment and planning (public services provision, e.g. transport, social services, healthcare, parks), urban environmental and climate risk reduction interventions, logistics and hubs allocation, commercial and strategic decisions.</p>
 <blockquote>
 <p>If you find this project useful, please consider giving it a star!   <a href="https://github.com/giacfalk/locationallocation/" class="external-link"><img src="https://img.shields.io/github/stars/giacfalk/locationallocation" alt="GitHub Repository Stars"></a></p>
 </blockquote>
-</div>
-<div class="section level2">
-<h2 id="background">Background<a class="anchor" aria-label="anchor" href="#background"></a>
-</h2>
-<p>Assessing and planning infrastructure and networks over space conditional to a spatially distributed demand and with consideration of accessibility and spatial justice goals and under infrastructure allocation constraints is a key policy objective. This class of problems is generally defined as <em>Maximal Coverage Location-Allocation</em> (MCLA) spatial optimization problems.</p>
-<p><code>locationallocation</code>, an R package to solve MCLA problems using geospatial data in widely used R programming language geospatial libraries. The locationallocation package allows to produce travel time maps and spatially optimize the allocation of facilities/infrastructure based on spatial accessibility criteria weighted by one or more variables or a function of those.</p>
-</div>
-<div class="section level2">
-<h2 id="potential-applications">Potential Applications<a class="anchor" aria-label="anchor" href="#potential-applications"></a>
-</h2>
-<p>Potential applications of the package extend to the domains of public infrastructure assessment and planning (public services provision, e.g. transport, social services, healthcare, parks), urban environmental and climate risk reduction interventions, logistics and hubs allocation, commercial and strategic decisions.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -102,17 +93,18 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages(remotes)</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"giacfalk/locationallocation"</span><span class="op">)</span></span></code></pre></div>
+<p>A <a href="https://cran.r-project.org/" class="external-link">CRAN</a> version of the package is planned for the near future.</p>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
-<p>Operate the package as follows.</p>
-<p>First, load the package.</p>
+<p>To use the package, start by loading it to your R session using the <code>library</code> function:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://giacfalk.github.io/locationallocation">locationallocation</a></span><span class="op">)</span></span></code></pre></div>
-<p>As an example, We demonstrate how the package can tackle urban-scale climate risk through robust infrastructure assessment and geospatial planning. For this we will use the demo datasets that comes with the package. These data contains the coordinate-point location of public drinking water fountains in the city of Naples, Italy, as well as a gridded population raster data from GHS-POP, a 100-m resolution map of heat hazard (number of days with Wet-Bulb Globe Temperature greater than 25° C in the historical period 2008-2017, obtained from the UrbClim model), and the administrative boundaries of the city.</p>
+<p>As an example, we demonstrate how the package can address urban-scale climate risk through infrastructure assessment and geospatial planning. For this demonstration, we use the demo datasets included with the package.</p>
+<p>These datasets include the coordinates of public drinking water fountains (blue dots) in Naples, Italy (<a href="https://giacfalk.github.io/locationallocation/reference/naples_fountains.html"><code>naples_fountains</code></a>); a gridded population raster from the Global Human Settlement Layer (<a href="https://human-settlement.emergency.copernicus.eu" class="external-link">GHSL</a>) Population Grid (<a href="https://human-settlement.emergency.copernicus.eu/download.php?ds=pop" class="external-link">GHS-POP</a>) (<a href="https://giacfalk.github.io/locationallocation/reference/naples_population.html"><code>naples_population</code></a>); a 100-meter resolution heat hazard map, representing the number of days with <a href="https://en.wikipedia.org/wiki/Wet-bulb_globe_temperature" class="external-link">Wet-Bulb Globe Temperature</a> above 25°C during 2008–2017, obtained from the <a href="https://www.urban-climate.eu/model" class="external-link">UrbClim</a> model (<a href="https://giacfalk.github.io/locationallocation/reference/naples_hot_days.html"><code>naples_hot_days</code></a>); and the city’s administrative boundaries (<a href="https://giacfalk.github.io/locationallocation/reference/naples_shape.html"><code>naples_shape</code></a>).</p>
 <p><img src="reference/figures/existing-facilities-1.png"></p>
-<p>Then, we can use the <code>traveltime</code> function to generate a map of the current accessibility to the facility point sf input (here, naples_fountains) within the specified geographical boundaries, and with a chosen travel mode (walk or fastest), and a given output spatial resolution (in meters; achieved using dissevering spatial downscaling techniques). Once the function has run successfully, we can generate a map of the resulting layer using the <code>traveltime_plot</code> function.</p>
+<p>We can use the <a href="https://giacfalk.github.io/locationallocation/reference/traveltime.html"><code>traveltime()</code></a> function to create a map of current accessibility to the facility points (represented by the <a href="https://r-spatial.github.io/sf/" class="external-link"><code>sf</code></a> object <a href="https://giacfalk.github.io/locationallocation/reference/naples_fountains.html"><code>naples_fountains</code></a>) within the specified geographical boundaries. The function allows the user to select a travel mode (walking or fastest route) and an output spatial resolution in meters, achieved through <a href="https://doi.org/10.1016/j.cageo.2011.08.021" class="external-link">dissevering spatial downscaling techniques</a>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">traveltime_data</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">naples_fountains</span> <span class="op">|&gt;</span></span>
@@ -122,6 +114,7 @@
 <span>    mode <span class="op">=</span> <span class="st">"walk"</span>,</span>
 <span>    res_output <span class="op">=</span> <span class="fl">100</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
+<p>Once <a href="https://giacfalk.github.io/locationallocation/reference/traveltime.html"><code>traveltime()</code></a> has completed, the resulting layer can be visualized using the <a href="https://giacfalk.github.io/locationallocation/reference/traveltime_plot.html"><code>traveltime_plot()</code></a> function.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">traveltime_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/traveltime_plot.html">traveltime_plot</a></span><span class="op">(</span></span>
@@ -130,7 +123,7 @@
 <span>    contour_traveltime <span class="op">=</span> <span class="fl">15</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/traveltime-plot-1.png"></p>
-<p>We can also produce a summary plot and statistic based on the output of the traveltime function and a given demand (e.g., population) raster, as well as a given time threshold parameter:</p>
+<p>We can also generate a summary plot and compute statistics using the output of the <a href="https://giacfalk.github.io/locationallocation/reference/traveltime.html"><code>traveltime()</code></a> function, together with a demand raster (e.g., population density) and a specified time threshold, using the <a href="https://giacfalk.github.io/locationallocation/reference/traveltime_stats.html"><code>traveltime_stats</code></a> function:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">traveltime_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/traveltime_stats.html">traveltime_stats</a></span><span class="op">(</span></span>
@@ -138,9 +131,9 @@
 <span>    breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">15</span>, <span class="fl">30</span><span class="op">)</span>,</span>
 <span>    objectiveminutes <span class="op">=</span> <span class="fl">15</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="co">#&gt; ℹ 85.49% of coverage within the 15 minutes threshold.</span></span></code></pre></div>
+<span><span class="co">#&gt; ℹ 85.52495% of coverage within the 15 minutes threshold.</span></span></code></pre></div>
 <p><img src="reference/figures/traveltime-stats-1.png"></p>
-<p>We can now use the <code>allocation</code> function to optimize the spatial allocation of new water fountains to ensure that (virtually) everyone (i.e., the totality of the raster layer specified by the <code>demand</code> parameter) can walk to one within 15 minutes, as specified by the <code>objectiveminutes</code> parameter:</p>
+<p>We can now use the <a href="https://giacfalk.github.io/locationallocation/reference/allocation.html"><code>allocation()</code></a> function to optimize the placement of new water fountains, ensuring that (virtually) everyone (i.e., the full extent of the raster layer specified by the <code>demand</code> parameter) can reach one within 15 minutes, as defined by the <code>objectiveminutes</code> parameter:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">allocation_data</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">naples_population</span> <span class="op">|&gt;</span></span>
@@ -159,7 +152,7 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">allocation_data</span> <span class="op">|&gt;</span> <span class="fu"><a href="reference/allocation_plot.html">allocation_plot</a></span><span class="op">(</span><span class="va">naples_shape</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/allocation-plot-1-1.png"></p>
-<p>Note that is is also possible to solve an allocation problem specifying a <code>weights</code> parameter, to attribute more relative importance or priority to areas where the demand is overlapping with some weighting factors (defined by another raster layer), such as exposure to hot days, as in the following example:</p>
+<p>Note that it is also possible to solve an allocation problem using the <code>weights</code> parameter, which assigns greater relative importance or priority to areas where demand overlaps with weighting factors defined by another raster layer, such as exposure to hot days, as shown in the following example:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">allocation_data</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">naples_population</span> <span class="op">|&gt;</span></span>
@@ -178,7 +171,7 @@
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">allocation_data</span> <span class="op">|&gt;</span> <span class="fu"><a href="reference/allocation_plot.html">allocation_plot</a></span><span class="op">(</span><span class="va">naples_shape</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/allocation-plot-2-1.png"></p>
-<p>It is also possible to define different demand and weighting layers normalization and exponentiation (to increase the relative role of the two with respect to one another) via the <code>approach</code>, <code>exp_demand</code>, and <code>exp_weights</code> parameters (see the package help file for more details):</p>
+<p>It is also possible to apply normalization and exponentiation to different demand and weighting layers, enhancing their relative influence on the allocation, using the <code>approach</code>, <code>exp_demand</code>, and <code>exp_weights</code> parameters (see the <a href="https://giacfalk.github.io/locationallocation/reference/allocation.html">function documentation</a> for details):</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">allocation_data</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">naples_population</span> <span class="op">|&gt;</span></span>
@@ -197,7 +190,8 @@
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">allocation_data</span> <span class="op">|&gt;</span> <span class="fu"><a href="reference/allocation_plot.html">allocation_plot</a></span><span class="op">(</span><span class="va">naples_shape</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/allocation-plot-3-1.png"></p>
-<p>A variant of the allocation problem is the case when the set of candidate locations to allocate new facilities is discrete (and not continuous over the study area, as in the previous example). In this case, the user needs to provide a discrete set of location points into the <code>candidate</code> parameter of the allocation_discrete function, as well as a maximum number of facilities (<code>n_fac</code> parameter) that can be selected among the candidate locations. The function will apply a quasi-optimality heuristic (using a randomization based approach, where the number of replications - defined by the <code>n_samples</code> parameters - will gradually approach the global optimum but it will linearly increase the computational time. Of course, also in the case of the discrete allocation problem, a weight layer and weights normalization and exponentiation parameters can be set as arguments to the function.</p>
+<p>A variant of the allocation problem arises when the set of candidate locations for new facilities is <strong>discrete</strong>, rather than <strong>continuous</strong> across the study area as in the previous example.</p>
+<p>In this case, the user must provide a set of candidate points via the <code>candidate</code> parameter of the <a href="https://giacfalk.github.io/locationallocation/reference/allocation_discrete.html"><code>allocation_discrete()</code></a> function, along with the maximum number of facilities that can be selected (<code>n_fac</code> parameter). The function applies a quasi-optimality heuristic based on a randomization approach, where the number of replications (<code>n_samples</code> parameter) gradually approaches the global optimum, although computational time increases linearly. As with the continuous allocation problem, a weight layer and normalization and exponentiation parameters can also be specified.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span></span>
 <span></span>
@@ -207,8 +201,8 @@
 <span>    bb_area <span class="op">=</span> <span class="va">naples_shape</span>,</span>
 <span>    candidate <span class="op">=</span> <span class="va">naples_shape</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_sample.html" class="external-link">st_sample</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span>,</span>
 <span>    facilities <span class="op">=</span> <span class="va">naples_fountains</span>,</span>
-<span>    n_fac <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>    n_samples <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>    n_fac <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>    n_samples <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>    traveltime <span class="op">=</span> <span class="va">traveltime_data</span>,</span>
 <span>    weights <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>    objectiveminutes <span class="op">=</span> <span class="fl">15</span>,</span>
@@ -216,13 +210,12 @@
 <span>    approach <span class="op">=</span> <span class="st">"norm"</span>,</span>
 <span>    exp_demand <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>    exp_weights <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>    par <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    par <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">allocation_data</span> <span class="op">|&gt;</span> <span class="fu"><a href="reference/allocation_plot_discrete.html">allocation_plot_discrete</a></span><span class="op">(</span><span class="va">naples_shape</span><span class="op">)</span></span></code></pre></div>
-<p align="center">
-<img src="reference/figures/allocation_discrete_fountains.png" alt="" width="600"></p>
-<p>Consider the scenario where the user wants to select up to <code>n_fac</code> facilities to attain a given <code>objectiveshare</code> of the total demand (if this is feasible):</p>
+<p><img src="reference/figures/allocation-plot-4-1.png"></p>
+<p>Now consider a scenario where the user wants to choose up to <code>n_fac</code> facilities to meet a target <code>objectiveshare</code> of the total demand, assuming that level of coverage is actually attainable.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span></span>
 <span></span>
@@ -232,8 +225,8 @@
 <span>    bb_area <span class="op">=</span> <span class="va">naples_shape</span>,</span>
 <span>    candidate <span class="op">=</span> <span class="va">naples_shape</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_sample.html" class="external-link">st_sample</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span>,</span>
 <span>    facilities <span class="op">=</span> <span class="va">naples_fountains</span>,</span>
-<span>    n_fac <span class="op">=</span> <span class="fl">15</span>,</span>
-<span>    n_samples <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>    n_fac <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>    n_samples <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>    traveltime <span class="op">=</span> <span class="va">traveltime_data</span>,</span>
 <span>    weights <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>    objectiveminutes <span class="op">=</span> <span class="fl">15</span>,</span>
@@ -241,13 +234,12 @@
 <span>    approach <span class="op">=</span> <span class="st">"norm"</span>,</span>
 <span>    exp_demand <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>    exp_weights <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>    par <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    par <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">allocation_data</span> <span class="op">|&gt;</span> <span class="fu"><a href="reference/allocation_plot_discrete.html">allocation_plot_discrete</a></span><span class="op">(</span><span class="va">naples_shape</span><span class="op">)</span></span></code></pre></div>
-<p align="center">
-<img src="reference/figures/allocation_discrete_fountains_targetshare.png" alt="" width="600"></p>
-<p>Finally, consider the case of a problem where there are no existing facilities to start with, and hence the discrete location-allocation problem needs to optimize the allocation to cover as much as possible of the demand within the limited set of discrete choices over space to allocate new facilities, as well as the constraint set by the maximum number of allocable facilities:</p>
+<p><img src="reference/figures/allocation-plot-5-1.png"></p>
+<p>Finally, consider a case with no preexisting facilities. The discrete location-allocation problem must then identify where to place new facilities to cover as much demand as possible, given the limited set of spatial options and the cap on how many facilities can be allocated.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span></span>
 <span></span>
@@ -256,22 +248,21 @@
 <span>  <span class="fu"><a href="reference/allocation_discrete.html">allocation_discrete</a></span><span class="op">(</span></span>
 <span>    bb_area <span class="op">=</span> <span class="va">naples_shape</span>,</span>
 <span>    candidate <span class="op">=</span> <span class="va">naples_shape</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_sample.html" class="external-link">st_sample</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span>,</span>
-<span>    facilities <span class="op">=</span> <span class="va">naples_fountains</span>,</span>
-<span>    n_fac <span class="op">=</span> <span class="fl">10</span>,</span>
-<span>    n_samples <span class="op">=</span> <span class="fl">1000</span>,</span>
-<span>    traveltime <span class="op">=</span> <span class="va">traveltime_data</span>,</span>
+<span>    facilities <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    n_fac <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>    n_samples <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>    traveltime <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>    weights <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>    objectiveminutes <span class="op">=</span> <span class="fl">15</span>,</span>
 <span>    objectiveshare <span class="op">=</span> <span class="fl">0.85</span>,</span>
 <span>    approach <span class="op">=</span> <span class="st">"norm"</span>,</span>
 <span>    exp_demand <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>    exp_weights <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>    par <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>    par <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">allocation</span> <span class="op">|&gt;</span> <span class="fu"><a href="reference/allocation_plot_discrete.html">allocation_plot_discrete</a></span><span class="op">(</span><span class="va">naples_shape</span><span class="op">)</span></span></code></pre></div>
-<p align="center">
-<img src="reference/figures/allocation_discrete_fromscratch_fountains.png" alt="" width="600"></p>
+<code class="sourceCode R"><span><span class="va">allocation_data</span> <span class="op">|&gt;</span> <span class="fu"><a href="reference/allocation_plot_discrete.html">allocation_plot_discrete</a></span><span class="op">(</span><span class="va">naples_shape</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/allocation-plot-6-1.png"></p>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
@@ -280,14 +271,14 @@
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"locationallocation"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; To cite locationallocation in publications use:</span></span>
-<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;</span></span>
 <span><span class="co">#&gt;   Falchetta, G. (2025). locationallocation: Solving Maximal Coverage</span></span>
 <span><span class="co">#&gt;   Location-Allocation geospatial infrastructure assessment and</span></span>
 <span><span class="co">#&gt;   planning problems [Preprint, manuscript submitted for</span></span>
 <span><span class="co">#&gt;   publication]. EarthArXiv. https://doi.org/10.31223/X5XQ69</span></span>
-<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;</span></span>
 <span><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
-<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;</span></span>
 <span><span class="co">#&gt;   @Article{falchetta2025,</span></span>
 <span><span class="co">#&gt;     title = {locationallocation: Solving Maximal Coverage Location-Allocation geospatial infrastructure assessment and planning problems},</span></span>
 <span><span class="co">#&gt;     author = {Giacomo Falchetta},</span></span>

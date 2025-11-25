@@ -1,8 +1,8 @@
 # Plot results of the `traveltime()` function
 
-`traveltime_plot()` is used to plot the results of the
+`traveltime_plot()` plot the results of the
 [`traveltime()`](https://giacfalk.github.io/locationallocation/reference/traveltime.md)
-function. It shows the travel time from the facilities to the area of
+function, showing the travel time from the facilities to the area of
 interest.
 
 ## Usage

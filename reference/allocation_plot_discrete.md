@@ -37,11 +37,10 @@ Other plot functions:
 ## Examples
 
 ``` r
-if (FALSE)     ggplot2::labs(x = NULL, y = NULL) +
+if (FALSE) { # \dontrun{
   library(sf)
 
   candidates <- naples_shape |> st_sample(20)
-#> Error in st_sample(naples_shape, 20): could not find function "st_sample"
 
   traveltime <- traveltime(
     facilities = naples_fountains,
@@ -50,46 +49,8 @@ if (FALSE)     ggplot2::labs(x = NULL, y = NULL) +
     mode = "walk",
     res_output = 100
   )
-#> ℹ Downloading friction data from the Malaria Atlas Project
-#> <GMLEnvelope>
-#> ....|-- lowerCorner: 40.79281558987 14.1353871711579
-#> ....|-- upperCorner: 40.9149179937145 14.3527090131438
-#> ✔ Downloading friction data from the Malaria Atlas Project [38.2s]
-#> 
-#> ℹ Downloading data from OpenStreetMap
-#> Selecting best model parameters
-#> Loading required package: ggplot2
-#> Loading required package: lattice
-#> 
-#> Attaching package: ‘caret’
-#> The following object is masked from ‘package:future’:
-#> 
-#>     cluster
-#> Parameters retained: intercept = 1
-#> | - iteration 1
-#> | -- updating model
-#> | -- updating predictions
-#> | -- RMSE = 0.017
-#> | - iteration 2
-#> | -- updating model
-#> | -- updating predictions
-#> | -- RMSE = 0.016
-#> | - iteration 3
-#> | -- updating model
-#> | -- updating predictions
-#> | -- RMSE = 0.016
-#> Retaining model fitted at iteration 3
-#> ✔ Downloading data from OpenStreetMap [29.9s]
-#> 
-#> ℹ Computing transition matrix and geocorrection
-#> ✔ Computing transition matrix and geocorrection [3.2s]
-#> 
-#> ℹ Computing travel time map
-#> Warning: [mask] CRS do not match
-#> ✔ Computing travel time map [951ms]
-#> 
 
-  allocation <-
+  allocation_data <-
     naples_population |>
     allocation_discrete(
       traveltime = traveltime,
@@ -105,10 +66,7 @@ if (FALSE)     ggplot2::labs(x = NULL, y = NULL) +
       n_samples = 1000,
       par = TRUE
     )
-#> Error: object 'candidates' not found
 
-  allocation |> allocation_plot(naples_shape)
-#> Error in assert_allocation(allocation): allocation must be an output object from the allocation() or
-#> allocation_discrete() functions.
- # \dontrun{}
+  allocation_data |> allocation_plot(naples_shape)
+} # }
 ```
