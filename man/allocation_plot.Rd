@@ -18,9 +18,9 @@ A \code{\link[ggplot2:ggplot]{ggplot2}} plot showing the potential locations
 for new facilities.
 }
 \description{
-\code{allocation_plot()} is used to plot the results of the
-\code{\link[=allocation]{allocation}} function. It shows the potential locations for
-new facilities and the coverage attained.
+\code{allocation_plot()} plot the results of the \code{\link[=allocation]{allocation}}
+function, showing the potential locations for new facilities and the
+coverage attained.
 }
 \examples{
 \dontrun{

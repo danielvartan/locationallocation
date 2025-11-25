@@ -97,19 +97,17 @@ the demand layer (default: \code{1}).
 \value{
 A \code{\link[base:list]{list}} with the following elements:
 \itemize{
-\item A \code{\link[sf:sf]{sf}} object with the newly allocated facilities.
-\item A \code{\link[raster:raster]{raster}} RasterLayer object representing the travel
-time map with the newly allocated facilities.
+\item \code{facilities}: A \code{\link[sf:sf]{sf}} object with the newly allocated
+facilities.
+\item \code{travel_time}: A \code{\link[raster:raster]{raster}} RasterLayer object
+representing the travel time map with the newly allocated facilities.
 }
 }
 \description{
-\code{allocation()} is used to allocate facilities in a continuous location
-problem. It uses the accumulated cost algorithm to find the optimal location
-for the facilities based on the demand, travel time, and weights for the
-demand, and target travel time threshold and share of the demand to be
-covered.
-}
-\details{
+\code{allocation()} allocate facilities in a continuous location problem. It uses
+the accumulated cost algorithm to find the optimal location for the
+facilities based on the share of the demand to be covered.
+
 See \code{\link[=allocation_discrete]{allocation_discrete()}} for discrete
 location-allocation problems.
 }

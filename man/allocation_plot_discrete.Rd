@@ -23,7 +23,7 @@ for new facilities.
 potential locations for new facilities and the coverage attained.
 }
 \examples{
-\dontrun{    ggplot2::labs(x = NULL, y = NULL) +
+\dontrun{
   library(sf)
 
   candidates <- naples_shape |> st_sample(20)
@@ -36,7 +36,7 @@ potential locations for new facilities and the coverage attained.
     res_output = 100
   )
 
-  allocation <-
+  allocation_data <-
     naples_population |>
     allocation_discrete(
       traveltime = traveltime,
@@ -53,7 +53,7 @@ potential locations for new facilities and the coverage attained.
       par = TRUE
     )
 
-  allocation |> allocation_plot(naples_shape)
+  allocation_data |> allocation_plot(naples_shape)
 }
 }
 \seealso{

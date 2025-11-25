@@ -51,14 +51,13 @@ with the geocorrection matrix for accurate distance calculations.
 }
 }
 \description{
-\code{friction()} retrieves the
+\code{friction()} retrieves a
 \href{https://en.wikipedia.org/wiki/Friction_of_distance}{friction surface} layer
 from the Malaria Atlas Project (\href{https://malariaatlas.org/}{MAP}) database
 (Hay et al., 2006; Malaria Atlas Project, 2015, 2019) and optionally
 downscale it to the spatial resolution of the analysis using road network
 data from OpenStreetMap (n.d.) (\href{https://www.openstreetmap.org/}{OSM}).
-}
-\details{
+
 This function requires an active internet connection.
 }
 \examples{

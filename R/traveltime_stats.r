@@ -1,5 +1,7 @@
 #' Summarize results of the `traveltime()` function
 #'
+#' @description
+#'
 #' `traveltime_stats()` generates a summary of the
 #' [`traveltime()`][traveltime()] function results, producing a statistic for
 #' the percent of demand which is covered within a given objective travel time
@@ -59,7 +61,7 @@ traveltime_stats <- function(
 
   # R CMD Check variable bindings fix
   # nolint start
-  values.t1. <- values.pop. <- P15_cumsum <- th <- NULL
+  values_t1 <- values_pop <- P15_cumsum <- th <- NULL
   # nolint end
 
   data_curve <-
@@ -70,16 +72,16 @@ traveltime_stats <- function(
     raster::values() |>
     data.frame(raster::values(demand)) |>
     stats::na.omit(data_curve) |>
-    magrittr::set_colnames(c("values.t1.", "values.pop.")) |>
-    dplyr::arrange(values.t1.) |>
+    magrittr::set_colnames(c("values_t1", "values_pop")) |>
+    dplyr::arrange(values_t1) |>
     dplyr::mutate(
       P15_cumsum =
-        values.pop. |>
-          cumsum() |>
-          magrittr::divide_by(sum(values.pop., na.rm = TRUE)) |>
-          magrittr::multiply_by(100),
+        values_pop |> #nolint
+        cumsum() |>
+        magrittr::divide_by(sum(values_pop, na.rm = TRUE)) |>
+        magrittr::multiply_by(100),
       th =
-        values.t1. |>
+        values_t1 |> #nolint
         cut(
           breaks = c(-Inf, breaks, Inf),
           labels = c(
@@ -91,30 +93,30 @@ traveltime_stats <- function(
 
   percent_within_objective <-
     data_curve |>
-      dplyr::pull(values.pop.) |>
-      magrittr::extract(data_curve$values.t1. <= objectiveminutes) |>
-      sum(na.rm = TRUE) |>
-      magrittr::divide_by(
-        data_curve |>
-          dplyr::pull(values.pop.) |>
-          sum(na.rm = TRUE)
-      ) |>
-      magrittr::multiply_by(100) |>
-      round(2)
+    dplyr::pull(values_pop) |>
+    magrittr::extract(data_curve$values_t1 <= objectiveminutes) |>
+    sum(na.rm = TRUE) |>
+    magrittr::divide_by(
+      data_curve |>
+        dplyr::pull(values_pop) |>
+        sum(na.rm = TRUE)
+    ) |>
+    magrittr::multiply_by(100) |>
+    round(5)
 
   plot <-
     data_curve |>
     ggplot2::ggplot() +
     ggplot2::geom_step(
-      ggplot2::aes(x = values.t1., y = P15_cumsum, color = th)
+      ggplot2::aes(x = values_t1, y = P15_cumsum, color = th)
     ) +
     ggplot2::scale_color_brewer(
       palette = "Reds",
       direction = 1
     ) +
     ggplot2::labs(
-      x = "Travel time",
-      y = "Cumulative coverage (%)",
+      x = "Travel Time",
+      y = "Cumulative Coverage (%)",
       color = "Minutes"
     ) +
     ggplot2::theme_bw() +

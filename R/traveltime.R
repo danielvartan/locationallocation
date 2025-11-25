@@ -1,5 +1,7 @@
 #' Generate a travel time map
 #'
+#' @description
+#'
 #' `traveltime()` generates a travel time map based on the input facilities,
 #' bounding box area, and travel mode.
 #'
@@ -10,7 +12,7 @@
 #'   - `travel_time`: A [`RasterLayer`][raster::raster()] object with the travel
 #'     time map.
 #'   - `friction`: A [`list`][base::list] with the outputs of the
-#'   [`friction()`][friction] function.
+#'     [`friction()`][friction] function.
 #'
 #' @template params-facilities
 #' @template params-bb-area
@@ -78,7 +80,7 @@ traveltime <- function(
     raster::`crs<-`(value = "+proj=longlat +datum=WGS84 +no_defs +type=crs")
 
   list(
-    "travel_time" = travel_time,
-    "friction" = friction_data
+    travel_time = travel_time,
+    friction = friction_data
   )
 }

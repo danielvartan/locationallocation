@@ -61,7 +61,16 @@
 #' A [`RasterLayer`][raster::raster()] object representing the population
 #' density in the city of Naples, Italy.
 #'
+#' The dataset is based on the Global Human
+#' Settlement Layer
+#' ([GHSL](https://human-settlement.emergency.copernicus.eu)) population grid
+#' ([GHS-POP](
+#' https://human-settlement.emergency.copernicus.eu/download.php?ds=pop)).
+#'
 #' @format A [`RasterLayer`][raster::raster()] object with 1 layer.
+#'
+#' @source Global Human Settlement Layer
+#' ([GHSL](https://human-settlement.emergency.copernicus.eu)).
 #'
 #' @family datasets
 "naples_population"
@@ -71,7 +80,15 @@
 #' A [`RasterLayer`][raster::raster()] object representing the number of hot
 #' days in the city of Naples, Italy.
 #'
+#' This 100-meter resolution heat hazard map shows the number of days with
+#' [Wet-Bulb Globe Temperature](
+#' https://en.wikipedia.org/wiki/Wet-bulb_globe_temperature)
+#' above 25 °C during 2008–2017, based on simulations from the
+#' [UrbClim](https://www.urban-climate.eu/model) model.
+#'
 #' @format A [`RasterLayer`][raster::raster()] object with 1 layer.
+#'
+#' @source [UrbClim](https://www.urban-climate.eu/model).
 #'
 #' @family datasets
 "naples_hot_days"

@@ -29,9 +29,9 @@ A \code{\link[ggplot2:ggplot]{ggplot2}} plot showing the travel time from
 the  facilities to the area of interest.
 }
 \description{
-\code{traveltime_plot()} is used to plot the results of the
-\code{\link[=traveltime]{traveltime()}} function. It shows the travel time from the
-facilities to the area of interest.
+\code{traveltime_plot()} plot the results of the \code{\link[=traveltime]{traveltime()}}
+function, showing the travel time from the facilities to the area of
+interest.
 }
 \examples{
 \dontrun{

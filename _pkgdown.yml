@@ -71,7 +71,7 @@ reference:
 
 - title: Utilities
   desc: >
-    Utility functions to help with examples and data manipulation.
+    Utility functions to help with data manipulation.
   contents:
   - mask_raster_to_polygon
 

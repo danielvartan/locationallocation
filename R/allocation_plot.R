@@ -1,8 +1,10 @@
 #' Plot results of the `allocation()` function
 #'
-#' `allocation_plot()` is used to plot the results of the
-#' [`allocation`][allocation()] function. It shows the potential locations for
-#' new facilities and the coverage attained.
+#' @description
+#'
+#' `allocation_plot()` plot the results of the [`allocation`][allocation()]
+#' function, showing the potential locations for new facilities and the
+#' coverage attained.
 #'
 #' @param allocation The output of the [`allocation`][allocation()]
 #'   function.
@@ -61,10 +63,9 @@ allocation_plot <- function(allocation, bb_area) {
         stats::na.omit()
     ) +
     ggplot2::geom_sf(
-      data = sf::st_as_sf(
-        allocation[[1]]),
-        color = "black",
-        size = 2.5
+      data = sf::st_as_sf(allocation[[1]]),
+      color = "black",
+      size = 2.5
     ) +
     ggplot2::scale_fill_distiller(
       palette = "Spectral",
@@ -97,7 +98,7 @@ allocation_plot <- function(allocation, bb_area) {
 #' @export
 #'
 #' @examples
-#' \dontrun{    ggplot2::labs(x = NULL, y = NULL) +
+#' \dontrun{
 #'   library(sf)
 #'
 #'   candidates <- naples_shape |> st_sample(20)
@@ -110,7 +111,7 @@ allocation_plot <- function(allocation, bb_area) {
 #'     res_output = 100
 #'   )
 #'
-#'   allocation <-
+#'   allocation_data <-
 #'     naples_population |>
 #'     allocation_discrete(
 #'       traveltime = traveltime,
@@ -127,10 +128,10 @@ allocation_plot <- function(allocation, bb_area) {
 #'       par = TRUE
 #'     )
 #'
-#'   allocation |> allocation_plot(naples_shape)
+#'   allocation_data |> allocation_plot(naples_shape)
 #' }
-allocation_plot_discrete <- function(allocation, bb_area){
-  assert_allocation(allocation)
+allocation_plot_discrete <- function(allocation, bb_area) {
+  assert_allocation_discrete(allocation)
   assert_bb_area(bb_area)
 
   # R CMD Check variable bindings fix
@@ -138,7 +139,7 @@ allocation_plot_discrete <- function(allocation, bb_area){
   x <- y <- layer <- NULL
   # nolint end
 
-  ggplot2::ggplot()+
+  ggplot2::ggplot() +
     ggplot2::geom_raster(
       mapping = ggplot2::aes(x = x, y = y, fill = layer),
       data =

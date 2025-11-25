@@ -8,24 +8,19 @@ test_check("locationallocation")
 
 # # To Do -----
 #
-# # - lint package.
-# # - Reduce cyclomatic complexity.
-# # - Add unit tests.
-# # - Add test coverage (Codecov).
-# # - Use the r-spatial framework instead of the rspatial framework or
-# #   starting using the `terra` package (the first option is align with
-# #   the tidyverse principles).
-# # - Normalize function names (e.g., friction -> compute_friction).
-# # - Normalize parameter names (e.g., updatevalue -> new_value).
-# # - Unify `traveltime` and `traveltime_discrete` functions.
-# # - Unify `allocation` and `allocation_discrete` functions.
-# # - Unify `allocation_plot` and `allocation_plot_discrete` functions.
-# # - Document data.
-# # - Add contributor guide.
-# # - Add references to functions (e.g., Malaria Atlas Project).
-# # - Add source and references in the datasets documentations.
-# # - Update hex logo.
-# # - Review algorithms.
+# - Reduce cyclomatic complexity.
+# - Add unit tests.
+# - Add test coverage (Codecov).
+# - Move to the r-spatial framework or adopt `terra` (the first option aligns better with tidyverse principles).
+# - Standardize parameter names (for example, `updatevalue` to `new_value`).
+# - Merge `traveltime` and `traveltime_discrete`.
+# - Merge `allocation` and `allocation_discrete`.
+# - Merge `allocation_plot` and `allocation_plot_discrete`.
+# - Document the data.
+# - Add a contributor guide.
+# - Add references to function documentations and data sources.
+# - Update the hex logo.
+# - Review algorithms.
 
 # # For Development Use Only (Comment the Code After Use) -----
 #

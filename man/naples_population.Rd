@@ -7,12 +7,22 @@
 \format{
 A \code{\link[raster:raster]{RasterLayer}} object with 1 layer.
 }
+\source{
+Global Human Settlement Layer
+(\href{https://human-settlement.emergency.copernicus.eu}{GHSL}).
+}
 \usage{
 naples_population
 }
 \description{
 A \code{\link[raster:raster]{RasterLayer}} object representing the population
 density in the city of Naples, Italy.
+}
+\details{
+The dataset is based on the Global Human
+Settlement Layer
+(\href{https://human-settlement.emergency.copernicus.eu}{GHSL}) population grid
+(\href{https://human-settlement.emergency.copernicus.eu/download.php?ds=pop}{GHS-POP}).
 }
 \seealso{
 Other datasets: 

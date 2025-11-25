@@ -1,8 +1,10 @@
 #' Plot results of the `traveltime()` function
 #'
-#' `traveltime_plot()` is used to plot the results of the
-#' [`traveltime()`][traveltime()] function. It shows the travel time from the
-#' facilities to the area of interest.
+#' @description
+#'
+#' `traveltime_plot()` plot the results of the [`traveltime()`][traveltime()]
+#' function, showing the travel time from the facilities to the area of
+#' interest.
 #'
 #' @param contour_traveltime (optional) A number indicating the contour
 #'   thresholds for the travel time (default: `15`).
@@ -90,8 +92,8 @@ traveltime_plot <- function(
         data = data,
         color = "black",
         breaks = contour_traveltime
-    )
-  } else{
+      )
+  } else {
     plot
   }
 }

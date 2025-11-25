@@ -1,6 +1,8 @@
 #' Download and downscale a friction surface layer
 #'
-#' `friction()` retrieves the
+#' @description
+#'
+#' `friction()` retrieves a
 #' [friction surface](https://en.wikipedia.org/wiki/Friction_of_distance) layer
 #' from the Malaria Atlas Project ([MAP](https://malariaatlas.org/)) database
 #' (Hay et al., 2006; Malaria Atlas Project, 2015, 2019) and optionally
@@ -75,21 +77,21 @@ friction <- function(
   checkmate::assert_count(res_output)
   assert_internet()
 
-  handle <- curl::new_handle(timeout = 120)
+  handle <- curl::new_handle(timeout = 120) #nolint
 
   cli::cli_progress_step(
     "Downloading friction data from the Malaria Atlas Project"
   )
 
-  if (mode =="fastest") {
+  if (mode == "fastest") {
     friction_layer <-
       "Accessibility__201501_Global_Travel_Speed_Friction_Surface" |>
       malariaAtlas::getRaster(
-        extent = matrix(sf::st_bbox(bb_area), ncol=2)
+        extent = matrix(sf::st_bbox(bb_area), ncol = 2)
       ) |>
       suppressMessages() |>
       suppressWarnings()
-  } else if (mode =="walk") {
+  } else if (mode == "walk") {
     friction_layer <-
       "Accessibility__202001_Global_Walking_Only_Friction_Surface" |>
       malariaAtlas::getRaster(
@@ -108,7 +110,7 @@ friction <- function(
       sf::st_bbox() |>
       osmdata::opq() |>
       osmdata::add_osm_feature(key = "highway") |>
-      osmdata::osmdata_sf () # Do not change!
+      osmdata::osmdata_sf () # Do not change! #nolint
 
     r <-
       bb_area |>
@@ -164,7 +166,7 @@ friction <- function(
       raster::values(friction_layer) <-
         stats::runif(
           min = unique(raster::values(friction_layer)) * 0.9,
-          max=unique(raster::values(friction_layer)) * 1.1,
+          max = unique(raster::values(friction_layer)) * 1.1,
           n = length(raster::values(friction_layer))
         )
     }
@@ -180,13 +182,13 @@ friction <- function(
     )
 
     raster::values(res_rf$map) <- ifelse(
-      raster::values(res_rf$map)<=0,
+      raster::values(res_rf$map) <= 0,
       min(raster::values(friction_layer), na.rm = TRUE),
       raster::values(res_rf$map)
     )
 
     friction_layer <- res_rf$map
-  } else{
+  } else {
     friction_layer <- friction_layer
   }
 
@@ -195,13 +197,13 @@ friction <- function(
   transition_matrix <-
     friction_layer |>
     # RAM intensive, can be very slow for large areas.
-    gdistance::transition(\(x) 1/mean(x), 16)
+    gdistance::transition(\(x) 1 / mean(x), 16)
 
   geocorrection_matrix <- gdistance::geoCorrection(transition_matrix)
 
   list(
-    "friction_layer" = friction_layer,
-    "transition_matrix" = transition_matrix,
-    "geocorrection_matrix" = geocorrection_matrix
+    friction_layer = friction_layer,
+    transition_matrix = transition_matrix,
+    geocorrection_matrix = geocorrection_matrix
   )
 }

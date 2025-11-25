@@ -35,6 +35,7 @@ Imports:
     dplyr (>= 1.1.4),
     gdistance (>= 1.6.5),
     ggplot2 (>= 4.0.1),
+    graphics (>= 4.4),
     magrittr (>= 2.0.4),
     malariaAtlas (>= 1.6.4),
     osmdata (>= 0.3.0),
@@ -48,7 +49,8 @@ Suggests:
     bslib (>= 0.9.0),
     covr (>= 3.6.5),
     knitr (>= 1.50),
-    qpdf (>= 1.4.1),
+    lifecycle (>= 1.0.4),
+    lwgeom (>= 0.2.14),
     rmarkdown (>= 2.30),
     spelling (>= 2.3.2),
     testthat (>= 3.3.0)

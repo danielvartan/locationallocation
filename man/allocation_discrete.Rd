@@ -115,20 +115,20 @@ to run the function in \link[parallel:clusterApply]{parallel} or not
 \value{
 A \code{\link[base:list]{list}} with the following elements:
 \itemize{
-\item A \code{\link[sf:sf]{sf}} object with the newly allocated facilities.
-\item A \code{\link[raster:raster]{raster}} RasterLayer object representing the travel
-time map with the newly allocated facilities.
-\item A \code{\link[base:numeric]{numeric}} value indicating the share of demand
-covered within the objective travel time after the allocation.
+\item \code{facilities}: A \code{\link[sf:sf]{sf}} object with the newly allocated
+facilities.
+\item \code{travel_time}: A \code{\link[raster:raster]{raster}} RasterLayer object
+representing the travel time map with the newly allocated facilities.
+\item \code{unmet_demand}: A \code{\link[base:numeric]{numeric}} value indicating the share
+of demand that remains unmet after allocating the new facilities.
 }
 }
 \description{
-\code{allocation_discrete()} is used to allocate facilities in a discrete location
-problem. It uses the accumulated cost algorithm to find the optimal location
-for the facilities based on a user-defined set of locations, objective travel
-time, and (maximum) number of allocable facilities.
-}
-\details{
+\code{allocation_discrete()} allocates facilities in a discrete location problem.
+It uses the accumulated cost algorithm to identify optimal facility locations
+based on the share of demand to be covered, given a user-defined set
+of candidate locations and a maximum number of allocable facilities.
+
 If a \code{objectiveshare} parameter is specified, the algorithm identifies the
 best set of size of up to \code{n_fac} facilities to achieve the targeted coverage
 share. The problem is solved using a statistical heuristic approach that

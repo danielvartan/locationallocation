@@ -191,6 +191,17 @@ references:
   doi: 10.32614/CRAN.package.ggplot2
   version: '>= 4.0.1'
 - type: software
+  title: graphics
+  abstract: 'R: A Language and Environment for Statistical Computing'
+  notes: Imports
+  authors:
+  - name: R Core Team
+  institution:
+    name: R Foundation for Statistical Computing
+    address: Vienna, Austria
+  year: '2025'
+  version: '>= 4.4'
+- type: software
   title: magrittr
   abstract: 'magrittr: A Forward-Pipe Operator for R'
   notes: Imports
@@ -395,19 +406,36 @@ references:
   doi: 10.32614/CRAN.package.knitr
   version: '>= 1.50'
 - type: software
-  title: qpdf
-  abstract: 'qpdf: Split, Combine and Compress PDF Files'
+  title: lifecycle
+  abstract: 'lifecycle: Manage the Life Cycle of your Package Functions'
   notes: Suggests
-  url: https://docs.ropensci.org/qpdf/
-  repository: https://CRAN.R-project.org/package=qpdf
+  url: https://lifecycle.r-lib.org/
+  repository: https://CRAN.R-project.org/package=lifecycle
   authors:
-  - family-names: Ooms
-    given-names: Jeroen
-    email: jeroenooms@gmail.com
-    orcid: https://orcid.org/0000-0002-4035-0289
+  - family-names: Henry
+    given-names: Lionel
+    email: lionel@posit.co
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@posit.co
+    orcid: https://orcid.org/0000-0003-4757-117X
   year: '2025'
-  doi: 10.32614/CRAN.package.qpdf
-  version: '>= 1.4.1'
+  doi: 10.32614/CRAN.package.lifecycle
+  version: '>= 1.0.4'
+- type: software
+  title: lwgeom
+  abstract: 'lwgeom: Bindings to Selected ''liblwgeom'' Functions for Simple Features'
+  notes: Suggests
+  url: https://r-spatial.github.io/lwgeom/
+  repository: https://CRAN.R-project.org/package=lwgeom
+  authors:
+  - family-names: Pebesma
+    given-names: Edzer
+    email: edzer.pebesma@uni-muenster.de
+    orcid: https://orcid.org/0000-0001-8049-7069
+  year: '2025'
+  doi: 10.32614/CRAN.package.lwgeom
+  version: '>= 0.2.14'
 - type: software
   title: rmarkdown
   abstract: 'rmarkdown: Dynamic Documents for R'

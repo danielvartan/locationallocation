@@ -55,8 +55,7 @@ time map.
 \description{
 \code{traveltime()} generates a travel time map based on the input facilities,
 bounding box area, and travel mode.
-}
-\details{
+
 See the \code{\link[=friction]{friction()}} function for details on how the friction
 layer is generated.
 }

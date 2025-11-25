@@ -2,20 +2,26 @@
 
 - Refactored the codebase for better maintainability.
 - Fixed R-CMD-check issues.
+- Added [`checkmate`](https://mllg.github.io/checkmate/) for defensive programming.
+- Added [`cli`](https://cli.r-lib.org/) for improved command line interface, including progress bars and clearer messages in `friction()`.
+- Added [`lintr`](https://lintr.r-lib.org/) and updated the code to follow the [tidy tools manifesto](https://tidyverse.tidyverse.org/articles/manifesto.html), the [tidyverse design principles](https://design.tidyverse.org/), and the [tidyverse style guide](https://style.tidyverse.org/).
+- Added [`spelling`](https://docs.ropensci.org/spelling/) for spell checking.
+- Added [`testthat`](https://testthat.r-lib.org/) for unit testing.
+- Added the [Contributor Code of Conduct v3](https://www.contributor-covenant.org/version/3/0/code_of_conduct/) to incentive contributions.
+- Added `CITATION.cff` and `codemeta.json` files for better citation and metadata.
 - Added a `NEWS.md` file to track changes to the package.
 - Added an R-CMD-check GitHub Action workflow.
-- Added [`lintr`](https://lintr.r-lib.org/) for code consistency. The package now follow the [tidy tools manifesto](https://tidyverse.tidyverse.org/articles/manifesto.html), the [tidyverse design principles](https://design.tidyverse.org/), and the [tidyverse style guide](https://style.tidyverse.org/).
-- Added [`checkmate`](https://mllg.github.io/checkmate/) for defensive programming.
-- Added [`testthat`](https://testthat.r-lib.org/) for unit testing.
-- Added [`spelling`](https://docs.ropensci.org/spelling/) for spell checking.
-- Added [Contributor Code of Conduct v3](https://www.contributor-covenant.org/version/3/0/code_of_conduct/) to incentive contributions.
-- Added the demo data as exports, and changed their names to: `naples_shape`, `naples_population`, `naples_fountains`, and `naples_hot_days`.
-- Removed `demo_data_load()`, as it is no longer necessary.
 - Added default values to `allocation()`, `allocation_discrete()` and other functions.
-- Added `CITATION.cff` and `codemeta.json` files for better citation and metadata.
-- Removed the `fasterize` dependency due to compatibility issues on Linux systems.
+- Added the demo data as documented exports, and changed their names to: `naples_shape`, `naples_population`, `naples_fountains`, and `naples_hot_days`.
+- Changed the code to follow the [tidy tools manifesto](https://tidyverse.tidyverse.org/articles/manifesto.html), the [tidyverse design principles](https://design.tidyverse.org/), and the [tidyverse style guide](https://style.tidyverse.org/).
+- Changed the theme of [`ggplot2`](https://ggplot2.tidyverse.org/) plots to `theme_minimal()` with customizations.
+- Improved code efficiency and performance.
+- Improved documentation and examples for all functions.
+- Removed `demo_data_load()`, as it is no longer necessary.
+- Removed the `fasterize` dependency due to compatibility issues with Linux systems.
+- Updated `_pkgdown.yml` for better pkgdown site generation.
 - Updated package dependencies to their latest versions.
-- Updated documentation.
+- Updated README documentation and added badges for R-CMD-check, DOI, license, and Contributor Code of Conduct.
 
 # locationallocation 0.1.1
 

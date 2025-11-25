@@ -1,5 +1,7 @@
 #' Mask a `RasterLayer` object to a `sf` object
 #'
+#' @description
+#'
 #' This function rapidly masks a [`RasterLayer`][raster::raster()] object to
 #' a [`sf`][sf::st_as_sf()] object.
 #'
@@ -17,7 +19,7 @@
 #'
 #' @examples
 #' naples_population |> mask_raster_to_polygon(naples_shape)
-mask_raster_to_polygon <- function (
+mask_raster_to_polygon <- function(
   ras,
   mask,
   inverse = FALSE,

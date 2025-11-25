@@ -7,12 +7,21 @@
 \format{
 A \code{\link[raster:raster]{RasterLayer}} object with 1 layer.
 }
+\source{
+\href{https://www.urban-climate.eu/model}{UrbClim}.
+}
 \usage{
 naples_hot_days
 }
 \description{
 A \code{\link[raster:raster]{RasterLayer}} object representing the number of hot
 days in the city of Naples, Italy.
+}
+\details{
+This 100-meter resolution heat hazard map shows the number of days with
+\href{https://en.wikipedia.org/wiki/Wet-bulb_globe_temperature}{Wet-Bulb Globe Temperature}
+above 25 °C during 2008–2017, based on simulations from the
+\href{https://www.urban-climate.eu/model}{UrbClim} model.
 }
 \seealso{
 Other datasets: 
