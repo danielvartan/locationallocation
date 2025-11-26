@@ -1,5 +1,7 @@
 #' Administrative boundary of the city of Naples, Italy
 #'
+#' @description
+#'
 #' A [`sf`][sf::st_as_sf()] polygon geometry object representing the
 #' administrative boundary of the city of Naples, Italy.
 #'
@@ -47,6 +49,8 @@
 
 #' Water fountains in the city of Naples, Italy
 #'
+#' @description
+#'
 #' A [`sf`][sf::st_as_sf()] polygon geometry object representing the
 #' locations of water fountains in the city of Naples, Italy.
 #'
@@ -57,6 +61,8 @@
 "naples_fountains"
 
 #' Population density in the city of Naples, Italy
+#'
+#' @description
 #'
 #' A [`RasterLayer`][raster::raster()] object representing the population
 #' density in the city of Naples, Italy.
@@ -76,6 +82,8 @@
 "naples_population"
 
 #' Hot days in the city of Naples, Italy
+#'
+#' @description
 #'
 #' A [`RasterLayer`][raster::raster()] object representing the number of hot
 #' days in the city of Naples, Italy.

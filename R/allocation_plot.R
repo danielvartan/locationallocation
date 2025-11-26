@@ -53,6 +53,11 @@ allocation_plot <- function(allocation, bb_area) {
   x <- y <- layer <- NULL
   # nolint end
 
+  max_limit <-
+    allocation$travel_time |>
+    raster::values() |>
+    max(na.rm = TRUE)
+
   ggplot2::ggplot() +
     ggplot2::geom_raster(
       mapping = ggplot2::aes(x = x, y = y, fill = layer),
@@ -69,7 +74,8 @@ allocation_plot <- function(allocation, bb_area) {
     ) +
     ggplot2::scale_fill_distiller(
       palette = "Spectral",
-      direction = -1
+      direction = -1,
+      limits = c(0, max_limit)
     ) +
     ggplot2::labs(
       x = NULL,
@@ -139,6 +145,11 @@ allocation_plot_discrete <- function(allocation, bb_area) {
   x <- y <- layer <- NULL
   # nolint end
 
+  max_limit <-
+    allocation$travel_time |>
+    raster::values() |>
+    max(na.rm = TRUE)
+
   ggplot2::ggplot() +
     ggplot2::geom_raster(
       mapping = ggplot2::aes(x = x, y = y, fill = layer),
@@ -155,7 +166,8 @@ allocation_plot_discrete <- function(allocation, bb_area) {
     ) +
     ggplot2::scale_fill_distiller(
       palette = "Spectral",
-      direction = -1
+      direction = -1,
+      limits = c(0, max_limit)
     ) +
     ggplot2::labs(
       x = NULL,

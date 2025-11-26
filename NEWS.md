@@ -3,7 +3,7 @@
 - Refactored the codebase for better maintainability.
 - Fixed R-CMD-check issues.
 - Added [`checkmate`](https://mllg.github.io/checkmate/) for defensive programming.
-- Added [`cli`](https://cli.r-lib.org/) for improved command line interface, including progress bars and clearer messages in `friction()`.
+- Added [`cli`](https://cli.r-lib.org/) for improved command line interface, including progress bars.
 - Added [`lintr`](https://lintr.r-lib.org/) and updated the code to follow the [tidy tools manifesto](https://tidyverse.tidyverse.org/articles/manifesto.html), the [tidyverse design principles](https://design.tidyverse.org/), and the [tidyverse style guide](https://style.tidyverse.org/).
 - Added [`spelling`](https://docs.ropensci.org/spelling/) for spell checking.
 - Added [`testthat`](https://testthat.r-lib.org/) for unit testing.
@@ -13,8 +13,8 @@
 - Added an R-CMD-check GitHub Action workflow.
 - Added default values to `allocation()`, `allocation_discrete()` and other functions.
 - Added the demo data as documented exports, and changed their names to: `naples_shape`, `naples_population`, `naples_fountains`, and `naples_hot_days`.
-- Changed the code to follow the [tidy tools manifesto](https://tidyverse.tidyverse.org/articles/manifesto.html), the [tidyverse design principles](https://design.tidyverse.org/), and the [tidyverse style guide](https://style.tidyverse.org/).
 - Changed the theme of [`ggplot2`](https://ggplot2.tidyverse.org/) plots to `theme_minimal()` with customizations.
+- Changed `allocation_plot()` and `allocation_plot_discrete()` to have `0` as a lower limit for the color scale.
 - Improved code efficiency and performance.
 - Improved documentation and examples for all functions.
 - Removed `demo_data_load()`, as it is no longer necessary.

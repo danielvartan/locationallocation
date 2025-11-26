@@ -20,7 +20,7 @@ test_check("locationallocation")
 # - Add a contributor guide.
 # - Add references to function documentations and data sources.
 # - Update the hex logo.
-# - Review algorithms.
+# - Conduct a thorough review of all algorithms.
 
 # # For Development Use Only (Comment the Code After Use) -----
 #
