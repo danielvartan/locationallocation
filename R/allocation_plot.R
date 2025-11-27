@@ -53,7 +53,7 @@
 #' \dontrun{
 #'   library(sf)
 #'
-#'   traveltime <- traveltime(
+#'   traveltime_data <- traveltime(
 #'     facilities = naples_fountains,
 #'     bb_area = naples_shape,
 #'     dowscaling_model_type = "lm",
@@ -64,7 +64,7 @@
 #'   allocation_data <-
 #'     naples_population |>
 #'     allocation_discrete(
-#'       traveltime = traveltime,
+#'       traveltime = traveltime_data,
 #'       bb_area = naples_shape,
 #'       facilities = naples_fountains,
 #'       candidate = naples_shape |> st_sample(20),

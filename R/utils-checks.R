@@ -141,6 +141,8 @@ assert_minimal_coverage <- function(
   traveltime_values <- demand_values <- NULL
   # nolint end
 
+  raster::crs(demand) <- "+proj=longlat +datum=WGS84 +no_defs +type=crs"
+
   if (is.null(threshold) && isTRUE(null_ok)) {
     TRUE
   } else {

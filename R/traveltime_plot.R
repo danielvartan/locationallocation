@@ -86,14 +86,23 @@ traveltime_plot <- function(
     ggplot2::theme(panel.grid = ggplot2::element_blank())
 
   if (!is.null(contour_traveltime)) {
-    plot +
-      ggplot2::geom_contour(
-        mapping = ggplot2::aes(x = x, y = y, z = layer),
-        data = data,
-        color = "black",
-        breaks = contour_traveltime
-      )
-  } else {
-    plot
+    max_travel_time <-
+      traveltime |>
+      magrittr::extract2("travel_time") |>
+      raster::values() |>
+      max(na.rm = TRUE)
+
+    if (max_travel_time > contour_traveltime) {
+      plot <-
+        plot +
+        ggplot2::geom_contour(
+          mapping = ggplot2::aes(x = x, y = y, z = layer),
+          data = data,
+          color = "black",
+          breaks = contour_traveltime
+        )
+    }
   }
+
+  plot
 }

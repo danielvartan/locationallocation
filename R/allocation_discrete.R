@@ -31,6 +31,8 @@
 #'   (default: `FALSE`).
 #'
 #' @return A [`list`][base::list] with the following elements:
+#'   - `objective_minutes`: The value of the `objectiveminutes` parameter used.
+#'   - `objective_share`: The value of the `objectiveshare` parameter used.
 #'   - `facilities`: A [`sf`][sf::sf()] object with the newly allocated
 #'   facilities.
 #'   - `travel_time`: A [`raster`][raster::raster()] RasterLayer object
@@ -375,6 +377,8 @@ allocation_discrete <- function(
       magrittr::divide_by(totalpopconstant)
 
     list(
+      objective_minutes = objectiveminutes,
+      objective_share = objectiveshare,
       facilities =
         candidate |>
         sf::st_as_sf() |>
@@ -590,6 +594,8 @@ allocation_discrete <- function(
     }
 
     list(
+      objective_minutes = objectiveminutes,
+      objective_share = objectiveshare,
       facilities =
         candidate |>
         sf::st_as_sf() |>

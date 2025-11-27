@@ -30,6 +30,8 @@
 #'   the demand layer (default: `1`).
 #'
 #' @return A [`list`][base::list] with the following elements:
+#'   - `objective_minutes`: The value of the `objectiveminutes` parameter used.
+#'   - `objective_share`: The value of the `objectiveshare` parameter used.
 #'   - `facilities`: A [`sf`][sf::sf()] object with the newly allocated
 #'   facilities.
 #'   - `travel_time`: A [`raster`][raster::raster()] RasterLayer object
@@ -292,6 +294,8 @@ allocation <- function(
   )
 
   list(
+    objective_minutes = objectiveminutes,
+    objective_share = objectiveshare,
     facilities =
       merged_facilities |>
       magrittr::extract(-c(seq_len(nrow(facilities))), ),

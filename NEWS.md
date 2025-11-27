@@ -17,6 +17,7 @@
 - Changed `allocation_plot()` to have `0` as a lower limit for the color scale.
 - Merged `allocation_plot()` and `allocation_plot_discrete()` into a single `allocation_plot()` function.
 - Changed `allocation()` and `allocation_discrete()` to raise an error when the initial coverage is greater or equal to the `objectiveshare` parameter.
+- Changed `traveltime_plot()` to only show travel time contours up to the maximum travel time in the travel time map.
 - Improved code efficiency and performance.
 - Improved documentation and examples for all functions.
 - Removed `demo_data_load()`, as it is no longer necessary.

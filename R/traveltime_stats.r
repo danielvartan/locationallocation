@@ -64,6 +64,8 @@ traveltime_stats <- function(
   traveltime_values <- demand_values <- P15_cumsum <- th <- NULL
   # nolint end
 
+  raster::crs(demand) <- "+proj=longlat +datum=WGS84 +no_defs +type=crs"
+
   data_curve <-
     traveltime[[1]] |>
     raster::`crs<-`(
