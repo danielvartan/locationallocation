@@ -56,7 +56,8 @@ A [`list`](https://rdrr.io/r/base/list.html) containing:
   indicating the percent of demand covered within the objective travel
   time.
 
-- `data`: A [`data.frame`](https://rdrr.io/r/base/data.frame.html)
+- `data`: A
+  [`tibble`](https://dplyr.tidyverse.org/reference/reexports.html)
   object with the data used to generate the cumulative curve plot.
 
 - `plot`: A

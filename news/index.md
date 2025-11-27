@@ -40,6 +40,12 @@
   and `allocation_plot_discrete()` into a single
   [`allocation_plot()`](https://giacfalk.github.io/locationallocation/reference/allocation_plot.md)
   function.
+- Changed
+  [`allocation()`](https://giacfalk.github.io/locationallocation/reference/allocation.md)
+  and
+  [`allocation_discrete()`](https://giacfalk.github.io/locationallocation/reference/allocation_discrete.md)
+  to raise an error when the initial coverage is greater or equal to the
+  `objectiveshare` parameter.
 - Improved code efficiency and performance.
 - Improved documentation and examples for all functions.
 - Removed `demo_data_load()`, as it is no longer necessary.

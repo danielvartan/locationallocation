@@ -193,13 +193,19 @@ Other location-allocation functions:
 ``` r
 if (FALSE) { # \dontrun{
   library(dplyr)
+  library(sf)
 
   allocation_data <-
     naples_population |>
-    allocation(
+    allocation_discrete(
+      traveltime = traveltime,
       bb_area = naples_shape,
       facilities = naples_fountains,
-      weights = naples_hot_day
+      candidate = naples_shape |> st_sample(20),
+      n_fac = 2,
+      weights = naples_hot_days,
+      objectiveminutes = 15,
+      objectiveshare = 0.9
     )
 
   allocation_data |> glimpse()
