@@ -58,7 +58,7 @@
 #'
 #'   allocation_data |> glimpse()
 #'
-#'   allocation_data |> allocation_plot_discrete(naples_shape)
+#'   allocation_data |> allocation_plot(naples_shape)
 #' }
 allocation_discrete <- function(
   demand,

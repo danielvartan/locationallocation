@@ -1,13 +1,13 @@
-#' Plot results of the `allocation()` function
+#' Plot results of the `allocation()` and `allocation_discrete()` functions
 #'
 #' @description
 #'
-#' `allocation_plot()` plot the results of the [`allocation`][allocation()]
-#' function, showing the potential locations for new facilities and the
-#' coverage attained.
+#' `allocation_plot()` plot the results of the [`allocation`][allocation()] and
+#' `allocation_discrete()` functions, showing the potential locations for new
+#' facilities and the coverage attained.
 #'
-#' @param allocation The output of the [`allocation`][allocation()]
-#'   function.
+#' @param allocation The output of the [`allocation`][allocation()] or
+#' `allocation_discrete()` function.
 #'
 #' @return A [`ggplot2`][ggplot2::ggplot()] plot showing the potential locations
 #'   for new facilities.
@@ -18,6 +18,9 @@
 #' @export
 #'
 #' @examples
+#'
+#' ## Plotting Results of the `allocation()` Function -----
+#'
 #' \dontrun{
 #'   traveltime_data <- traveltime(
 #'     facilities = naples_fountains,
@@ -44,66 +47,9 @@
 #'
 #'   allocation_data |> allocation_plot(naples_shape)
 #' }
-allocation_plot <- function(allocation, bb_area) {
-  assert_allocation(allocation)
-  assert_bb_area(bb_area)
-
-  # R CMD Check variable bindings fix
-  # nolint start
-  x <- y <- layer <- NULL
-  # nolint end
-
-  max_limit <-
-    allocation$travel_time |>
-    raster::values() |>
-    max(na.rm = TRUE)
-
-  ggplot2::ggplot() +
-    ggplot2::geom_raster(
-      mapping = ggplot2::aes(x = x, y = y, fill = layer),
-      data =
-        allocation[[2]] |>
-        mask_raster_to_polygon(bb_area) |>
-        raster::as.data.frame(xy = TRUE) |>
-        stats::na.omit()
-    ) +
-    ggplot2::geom_sf(
-      data = sf::st_as_sf(allocation[[1]]),
-      color = "black",
-      size = 2.5
-    ) +
-    ggplot2::scale_fill_distiller(
-      palette = "Spectral",
-      direction = -1,
-      limits = c(0, max_limit)
-    ) +
-    ggplot2::labs(
-      x = NULL,
-      y = NULL,
-      fill = "Minutes"
-    ) +
-    ggplot2::theme_bw() +
-    ggplot2::theme(panel.grid = ggplot2::element_blank())
-}
-
-#' Plot results of the `allocation_discrete()` function
 #'
-#' `allocation_plot_discrete()` is used to plot the results of the
-#' [`allocation_discrete`][allocation_discrete()] function. It shows the
-#' potential locations for new facilities and the coverage attained.
+#' ## Plotting Results of the `allocation_discrete()` Function -----
 #'
-#' @param allocation The output of the
-#'   [`allocation_discrete`][allocation_discrete()] function.
-#'
-#' @return A [`ggplot2`][ggplot2::ggplot()] plot showing the potential locations
-#'   for new facilities.
-#'
-#' @template params-bb-area
-#' @family plot functions
-#' @keywords reporting
-#' @export
-#'
-#' @examples
 #' \dontrun{
 #'   library(sf)
 #'
@@ -136,8 +82,8 @@ allocation_plot <- function(allocation, bb_area) {
 #'
 #'   allocation_data |> allocation_plot(naples_shape)
 #' }
-allocation_plot_discrete <- function(allocation, bb_area) {
-  assert_allocation_discrete(allocation)
+allocation_plot <- function(allocation, bb_area) {
+  assert_allocation(allocation)
   assert_bb_area(bb_area)
 
   # R CMD Check variable bindings fix

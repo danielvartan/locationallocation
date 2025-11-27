@@ -2,13 +2,13 @@
 % Please edit documentation in R/allocation_plot.R
 \name{allocation_plot}
 \alias{allocation_plot}
-\title{Plot results of the \code{allocation()} function}
+\title{Plot results of the \code{allocation()} and \code{allocation_discrete()} functions}
 \usage{
 allocation_plot(allocation, bb_area)
 }
 \arguments{
-\item{allocation}{The output of the \code{\link[=allocation]{allocation}}
-function.}
+\item{allocation}{The output of the \code{\link[=allocation]{allocation}} or
+\code{allocation_discrete()} function.}
 
 \item{bb_area}{A \code{\link[sf:st_as_sf]{sf}} boundary box object with the area
 of interest.}
@@ -18,11 +18,14 @@ A \code{\link[ggplot2:ggplot]{ggplot2}} plot showing the potential locations
 for new facilities.
 }
 \description{
-\code{allocation_plot()} plot the results of the \code{\link[=allocation]{allocation}}
-function, showing the potential locations for new facilities and the
-coverage attained.
+\code{allocation_plot()} plot the results of the \code{\link[=allocation]{allocation}} and
+\code{allocation_discrete()} functions, showing the potential locations for new
+facilities and the coverage attained.
 }
 \examples{
+
+## Plotting Results of the `allocation()` Function -----
+
 \dontrun{
   traveltime_data <- traveltime(
     facilities = naples_fountains,
@@ -49,10 +52,41 @@ coverage attained.
 
   allocation_data |> allocation_plot(naples_shape)
 }
+
+## Plotting Results of the `allocation_discrete()` Function -----
+
+\dontrun{
+  library(sf)
+
+  candidates <- naples_shape |> st_sample(20)
+
+  traveltime <- traveltime(
+    facilities = naples_fountains,
+    bb_area = naples_shape,
+    dowscaling_model_type = "lm",
+    mode = "walk",
+    res_output = 100
+  )
+
+  allocation_data <-
+    naples_population |>
+    allocation_discrete(
+      traveltime = traveltime,
+      bb_area = naples_shape,
+      facilities = naples_fountains,
+      candidate = candidates,
+      n_fac = 2,
+      weights = NULL,
+      objectiveminutes = 15,
+      dowscaling_model_type = "lm",
+      mode = "walk",
+      res_output = 100,
+      n_samples = 1000,
+      par = TRUE
+    )
+
+  allocation_data |> allocation_plot(naples_shape)
 }
-\seealso{
-Other plot functions: 
-\code{\link{allocation_plot_discrete}()}
 }
 \concept{plot functions}
 \keyword{reporting}

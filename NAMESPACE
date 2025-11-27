@@ -3,7 +3,6 @@
 export(allocation)
 export(allocation_discrete)
 export(allocation_plot)
-export(allocation_plot_discrete)
 export(friction)
 export(mask_raster_to_polygon)
 export(traveltime)

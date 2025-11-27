@@ -274,7 +274,7 @@ allocation_data <-
 ```{r}
 #| label: allocation-plot-4
 
-allocation_data |> allocation_plot_discrete(naples_shape)
+allocation_data |> allocation_plot(naples_shape)
 ```
 
 Now consider a scenario where the user wants to choose up to `n_fac` facilities to meet a target `objectiveshare` of the total demand, assuming that level of coverage is actually attainable.
@@ -306,7 +306,7 @@ allocation_data <-
 ```{r}
 #| label: allocation-plot-5
 
-allocation_data |> allocation_plot_discrete(naples_shape)
+allocation_data |> allocation_plot(naples_shape)
 ```
 
 Finally, consider a case with no preexisting facilities. The discrete location-allocation problem must then identify where to place new facilities to cover as much demand as possible, given the limited set of spatial options and the cap on how many facilities can be allocated.
@@ -338,7 +338,7 @@ allocation_data <-
 ```{r}
 #| label: allocation-plot-6
 
-allocation_data |> allocation_plot_discrete(naples_shape)
+allocation_data |> allocation_plot(naples_shape)
 ```
 
 ## Citation

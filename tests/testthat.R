@@ -15,7 +15,6 @@ test_check("locationallocation")
 # - Standardize parameter names (for example, `updatevalue` to `new_value`).
 # - Merge `traveltime` and `traveltime_discrete`.
 # - Merge `allocation` and `allocation_discrete`.
-# - Merge `allocation_plot` and `allocation_plot_discrete`.
 # - Document the data.
 # - Add a contributor guide.
 # - Add references to function documentations and data sources.

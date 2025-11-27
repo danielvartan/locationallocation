@@ -57,7 +57,6 @@ reference:
     Functions to visualize results from location-allocation models.
   contents:
   - allocation_plot
-  - allocation_plot_discrete
   - traveltime_plot
 
 - title: Data

@@ -498,7 +498,7 @@ traveltime=NULL, bb_area = naples_shape, facilities=naples_fountains,
 candidate=candidates, n_fac = 10, weights=NULL, objectiveminutes=15,
 dowscaling_model_type="lm", mode="walk", res_output=100, n_samples=100)
 
-allocation_plot_discrete(output_allocation_discrete, bb_area = naples_shape)
+allocation_plot(output_allocation_discrete, bb_area = naples_shape)
 ```
 
 The resulting map shows the coordinate location of the selected
@@ -523,7 +523,7 @@ traveltime=NULL, bb_area = naples_shape, facilities=NULL, candidate=candidates,
 n_fac = 10, weights=NULL, objectiveminutes=15, dowscaling_model_type="lm",
 mode="walk", res_output=100, n_samples=100)
 
-allocation_plot_discrete(output_allocation_discrete_from_scratch, bb_area = naples_shape)
+allocation_plot(output_allocation_discrete_from_scratch, bb_area = naples_shape)
 ```
 
 Also in this case, the resulting map shows the coordinate location of
