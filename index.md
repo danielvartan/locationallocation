@@ -259,7 +259,7 @@ allocation_data <-
 ```
 
 ``` r
-allocation_data |> allocation_plot_discrete(naples_shape)
+allocation_data |> allocation_plot(naples_shape)
 ```
 
 ![](reference/figures/allocation-plot-4-1.png)
@@ -291,7 +291,7 @@ allocation_data <-
 ```
 
 ``` r
-allocation_data |> allocation_plot_discrete(naples_shape)
+allocation_data |> allocation_plot(naples_shape)
 ```
 
 ![](reference/figures/allocation-plot-5-1.png)
@@ -324,7 +324,7 @@ allocation_data <-
 ```
 
 ``` r
-allocation_data |> allocation_plot_discrete(naples_shape)
+allocation_data |> allocation_plot(naples_shape)
 ```
 
 ![](reference/figures/allocation-plot-6-1.png)

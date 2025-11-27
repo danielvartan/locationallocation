@@ -7,8 +7,7 @@
 - Added [`checkmate`](https://mllg.github.io/checkmate/) for defensive
   programming.
 - Added [`cli`](https://cli.r-lib.org/) for improved command line
-  interface, including progress bars and clearer messages in
-  [`friction()`](https://giacfalk.github.io/locationallocation/reference/friction.md).
+  interface, including progress bars.
 - Added [`lintr`](https://lintr.r-lib.org/) and updated the code to
   follow the [tidy tools
   manifesto](https://tidyverse.tidyverse.org/articles/manifesto.html),
@@ -31,12 +30,16 @@
 - Added the demo data as documented exports, and changed their names to:
   `naples_shape`, `naples_population`, `naples_fountains`, and
   `naples_hot_days`.
-- Changed the code to follow the [tidy tools
-  manifesto](https://tidyverse.tidyverse.org/articles/manifesto.html),
-  the [tidyverse design principles](https://design.tidyverse.org/), and
-  the [tidyverse style guide](https://style.tidyverse.org/).
 - Changed the theme of [`ggplot2`](https://ggplot2.tidyverse.org/) plots
   to `theme_minimal()` with customizations.
+- Changed
+  [`allocation_plot()`](https://giacfalk.github.io/locationallocation/reference/allocation_plot.md)
+  to have `0` as a lower limit for the color scale.
+- Merged
+  [`allocation_plot()`](https://giacfalk.github.io/locationallocation/reference/allocation_plot.md)
+  and `allocation_plot_discrete()` into a single
+  [`allocation_plot()`](https://giacfalk.github.io/locationallocation/reference/allocation_plot.md)
+  function.
 - Improved code efficiency and performance.
 - Improved documentation and examples for all functions.
 - Removed `demo_data_load()`, as it is no longer necessary.

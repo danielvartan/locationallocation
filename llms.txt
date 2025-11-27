@@ -259,7 +259,7 @@ allocation_data <-
 ```
 
 ``` r
-allocation_data |> allocation_plot_discrete(naples_shape)
+allocation_data |> allocation_plot(naples_shape)
 ```
 
 ![](reference/figures/allocation-plot-4-1.png)
@@ -291,7 +291,7 @@ allocation_data <-
 ```
 
 ``` r
-allocation_data |> allocation_plot_discrete(naples_shape)
+allocation_data |> allocation_plot(naples_shape)
 ```
 
 ![](reference/figures/allocation-plot-5-1.png)
@@ -324,7 +324,7 @@ allocation_data <-
 ```
 
 ``` r
-allocation_data |> allocation_plot_discrete(naples_shape)
+allocation_data |> allocation_plot(naples_shape)
 ```
 
 ![](reference/figures/allocation-plot-6-1.png)
@@ -429,14 +429,9 @@ Functions to visualize results from location-allocation models.
 
   Plot results of the
   [`allocation()`](https://giacfalk.github.io/locationallocation/reference/allocation.md)
-  function
-
-- [`allocation_plot_discrete()`](https://giacfalk.github.io/locationallocation/reference/allocation_plot_discrete.md)
-  :
-
-  Plot results of the
+  and
   [`allocation_discrete()`](https://giacfalk.github.io/locationallocation/reference/allocation_discrete.md)
-  function
+  functions
 
 - [`traveltime_plot()`](https://giacfalk.github.io/locationallocation/reference/traveltime_plot.md)
   :

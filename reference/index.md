@@ -41,14 +41,9 @@ Functions to visualize results from location-allocation models.
 
   Plot results of the
   [`allocation()`](https://giacfalk.github.io/locationallocation/reference/allocation.md)
-  function
-
-- [`allocation_plot_discrete()`](https://giacfalk.github.io/locationallocation/reference/allocation_plot_discrete.md)
-  :
-
-  Plot results of the
+  and
   [`allocation_discrete()`](https://giacfalk.github.io/locationallocation/reference/allocation_discrete.md)
-  function
+  functions
 
 - [`traveltime_plot()`](https://giacfalk.github.io/locationallocation/reference/traveltime_plot.md)
   :
