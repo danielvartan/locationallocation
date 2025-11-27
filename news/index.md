@@ -46,6 +46,10 @@
   [`allocation_discrete()`](https://giacfalk.github.io/locationallocation/reference/allocation_discrete.md)
   to raise an error when the initial coverage is greater or equal to the
   `objectiveshare` parameter.
+- Changed
+  [`traveltime_plot()`](https://giacfalk.github.io/locationallocation/reference/traveltime_plot.md)
+  to only show travel time contours up to the maximum travel time in the
+  travel time map.
 - Improved code efficiency and performance.
 - Improved documentation and examples for all functions.
 - Removed `demo_data_load()`, as it is no longer necessary.

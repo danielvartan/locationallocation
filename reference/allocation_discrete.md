@@ -170,6 +170,11 @@ allocation_discrete(
 A [`list`](https://rdrr.io/r/base/list.html) with the following
 elements:
 
+- `objective_minutes`: The value of the `objectiveminutes` parameter
+  used.
+
+- `objective_share`: The value of the `objectiveshare` parameter used.
+
 - `facilities`: A
   [`sf`](https://r-spatial.github.io/sf/reference/sf.html) object with
   the newly allocated facilities.
