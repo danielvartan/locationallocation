@@ -2,16 +2,89 @@
 % Please edit documentation in R/allocation_plot.R
 \name{allocation_plot}
 \alias{allocation_plot}
-\title{Plot results of the allocation and allocation_discrete functions}
+\title{Plot results of the \code{allocation()} and \code{allocation_discrete()} functions}
 \usage{
-allocation_plot(output_allocation, bb_area)
+allocation_plot(allocation, bb_area)
 }
 \arguments{
-\item{output_allocation}{The output of the allocation function.}
+\item{allocation}{The output of the \code{\link[=allocation]{allocation}} or
+\code{allocation_discrete()} function.}
 
-\item{bb_area}{A boundary box object with the area of interest.}
+\item{bb_area}{A \code{\link[sf:st_as_sf]{sf}} boundary box object with the area
+of interest.}
+}
+\value{
+A \code{\link[ggplot2:ggplot]{ggplot2}} plot showing the potential locations
+for new facilities.
 }
 \description{
-This function is used to plot the results of the allocation and allocation_discrete functions. It shows the potential locations for new facilities and the coverage attained.
+\code{allocation_plot()} plot the results of the \code{\link[=allocation]{allocation}} and
+\code{allocation_discrete()} functions, showing the potential locations for new
+facilities and the coverage attained.
 }
+\examples{
+
+## Plotting Results of the `allocation()` Function -----
+
+\dontrun{
+  traveltime_data <- traveltime(
+    facilities = naples_fountains,
+    bb_area = naples_shape,
+    dowscaling_model_type = "lm",
+    mode = "walk",
+    res_output = 100
+  )
+
+  allocation_data <-
+    naples_population |>
+    allocation(
+      traveltime = traveltime_data,
+      bb_area = naples_shape,
+      facilities = naples_fountains,
+      weights = NULL,
+      objectiveminutes = 15,
+      objectiveshare = 0.99,
+      heur = "max",
+      dowscaling_model_type = "lm",
+      mode = "walk",
+      res_output = 100
+    )
+
+  allocation_data |> allocation_plot(naples_shape)
+}
+
+## Plotting Results of the `allocation_discrete()` Function -----
+
+\dontrun{
+  library(sf)
+
+  traveltime_data <- traveltime(
+    facilities = naples_fountains,
+    bb_area = naples_shape,
+    dowscaling_model_type = "lm",
+    mode = "walk",
+    res_output = 100
+  )
+
+  allocation_data <-
+    naples_population |>
+    allocation_discrete(
+      traveltime = traveltime_data,
+      bb_area = naples_shape,
+      facilities = naples_fountains,
+      candidate = naples_shape |> st_sample(20),
+      n_fac = 2,
+      weights = NULL,
+      objectiveminutes = 15,
+      dowscaling_model_type = "lm",
+      mode = "walk",
+      res_output = 100,
+      n_samples = 1000,
+      par = TRUE
+    )
+
+  allocation_data |> allocation_plot(naples_shape)
+}
+}
+\concept{plot functions}
 \keyword{reporting}

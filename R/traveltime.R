@@ -1,74 +1,86 @@
-#' Generate a traveltime map
+#' Generate a travel time map
 #'
-#' This function generates a traveltime map based on the input facilities, bounding box area, and travel mode.
-#' @param facilities A sf object with the existing facilities.
-#' @param bb_area A boundary box object with the area of interest.
-#' @param dowscaling_model_type The type of model used for the spatial downscaling of the travel time layer.
-#' @param mode The mode of transport.
-#' @param res_output The spatial resolution of the friction raster (and of the analysis), in meters. If <1000, a spatial downscaling approach is used.
+#' @description
+#'
+#' `traveltime()` generates a travel time map based on the input facilities,
+#' bounding box area, and travel mode.
+#'
+#' See the [`friction()`][friction] function for details on how the friction
+#' layer is generated.
+#'
+#' @return A [`list`][base::list] containing:
+#'   - `travel_time`: A [`RasterLayer`][raster::raster()] object with the travel
+#'     time map.
+#'   - `friction`: A [`list`][base::list] with the outputs of the
+#'     [`friction()`][friction] function.
+#'
+#' @template params-facilities
+#' @template params-bb-area
+#' @inheritParams friction
+#' @family travel time functions
 #' @keywords cats
 #' @export
-
-traveltime <- function(facilities, bb_area, dowscaling_model_type, mode, res_output = 100){
-
-  # Check facilities is a non-empty data frame
-  if (!inherits(facilities, "sf") || nrow(facilities) == 0) {
-    stop("Error: 'facilities' must be a non-empty sf point geometry data frame.")
-  }
-
-  # Check bb_area is a numeric vector of length 4 (xmin, ymin, xmax, ymax)
-  if (!inherits(bb_area, "sf") || nrow(bb_area) == 0) {
-    stop("Error: 'bb_area' must be a non-empty sf polygon.")
-  }
-
-  # Check dowscaling_model_type is a non-empty character string
-  allowed_downscaling <- c("lm", "rf")
-  if (!is.character(dowscaling_model_type) || length(dowscaling_model_type) != 1 || !(dowscaling_model_type %in% allowed_downscaling)) {
-    stop("Error: 'dowscaling_model_type' must either be 'lm' or 'rf'.")
-  }
-
-  # Check mode is a character string and one of the allowed values
-  allowed_modes <- c("walk", "fastest")
-  if (!is.character(mode) || length(mode) != 1 || !(mode %in% allowed_modes)) {
-    stop(paste("Error: 'mode' must be one of", paste(allowed_modes, collapse = ", "), "."))
-  }
-
-  # Check res_output is a single positive numeric value
-  if (!is.numeric(res_output) || length(res_output) != 1 || res_output <= 0) {
-    stop("Error: 'res_output' must be a single positive numeric value.")
-  }
-
-
-  ###
+#'
+#' @examples
+#' \dontrun{
+#'   library(dplyr)
+#'
+#'   traveltime_data <-
+#'     naples_fountains |>
+#'     traveltime(
+#'       bb_area = naples_shape,
+#'       dowscaling_model_type = "lm",
+#'       mode = "walk",
+#'       res_output = 100
+#'     )
+#'
+#'   traveltime_data |> glimpse()
+#'
+#'   traveltime_data |>
+#'     traveltime_plot(
+#'       bb_area = naples_shape,
+#'       facilities = naples_fountains
+#'   )
+#' }
+traveltime <- function(
+  facilities,
+  bb_area,
+  mode = "walk",
+  dowscaling_model_type = "lm",
+  res_output = 100
+) {
+  assert_facilities(facilities)
+  assert_bb_area(bb_area)
+  checkmate::assert_choice(dowscaling_model_type, choices = c("lm", "rf"))
+  checkmate::assert_choice(mode, choices = c("walk", "fastest"))
+  checkmate::assert_count(res_output)
 
   sf::sf_use_s2(TRUE)
 
-  ###
+  friction_data <- friction(
+    bb_area = bb_area,
+    mode = mode,
+    res_output = res_output,
+    dowscaling_model_type = dowscaling_model_type
+  )
 
+  points <-
+    facilities |>
+    facilities_coordinates(bb_area) |>
+    as.matrix()
 
-  out <- friction(bb_area = bb_area, mode=mode, res_output=res_output, dowscaling_model_type=dowscaling_model_type)
+  cli::cli_progress_step("Computing travel time map")
 
-  # assess current accessibility
+  # Run the accumulated cost algorithm to make the final output map.
+  # This can be quite slow (potentially hours).
+  travel_time <-
+    friction_data[[3]] |>
+    gdistance::accCost(points) |>
+    mask_raster_to_polygon(bb_area) |>
+    raster::`crs<-`(value = "+proj=longlat +datum=WGS84 +no_defs +type=crs")
 
-  points = as.data.frame(sf::st_coordinates(facilities |> sf::st_filter(bb_area)))
-
-  # Fetch the number of points
-  temp <- dim(points)
-  n.points <- temp[1]
-
-    # Convert the points into a matrix
-  xy.data.frame <- data.frame()
-  xy.data.frame[1:n.points,1] <- points[,1]
-  xy.data.frame[1:n.points,2] <- points[,2]
-  xy.matrix <- as.matrix(xy.data.frame)
-
-  # Run the accumulated cost algorithm to make the final output map. This can be quite slow (potentially hours).
-  t1 <- gdistance::accCost(out[[3]], xy.matrix)
-
-  t1 <- mask_raster_to_polygon(t1, bb_area)
-
-  raster::crs(t1) <- "+proj=longlat +datum=WGS84 +no_defs +type=crs"
-
-return(list(t1, out))
-
+  list(
+    travel_time = travel_time,
+    friction = friction_data
+  )
 }

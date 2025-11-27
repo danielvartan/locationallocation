@@ -1,13 +1,90 @@
 url: https://giacfalk.github.io/locationallocation
 
 template:
-  bootstrap: 5
+  bslib:
+    version: 5
   bootswatch: flatly
+  math-rendering: mathjax
+  light-switch: true
+  opengraph:
+    image:
+      src: man/figures/og-image.png
+      alt: "locationallocation"
+  params:
+    noindex: false
 
-home:
-  title: "locationallocation R package website"
+navbar:
+  structure:
+    left:
+    - home
+    - intro
+    - reference
+    - articles
+    - news
+    right:
+    - search
+    - lightswitch
+    - github
+  components:
+    home: ~
+    intro: ~
+    articles: ~
+
+reference:
+- title: Travel Time
+  desc: >
+    Functions to calculate travel time maps using geospatial data.
+  contents:
+  - friction
+  - traveltime
+
+- title: Maximal Coverage Location-Allocation (MCLA)
+  desc: >
+    Functions to solve Maximal Coverage Location-Allocation problems using
+    geospatial data.
+  contents:
+  - allocation
+  - allocation_discrete
+
+- title: Statistics
+  desc: >
+    Functions to compute statistics from location-allocation model results.
+  contents:
+  - traveltime_stats
+
+- title: Plots
+  desc: >
+    Functions to visualize results from location-allocation models.
+  contents:
+  - allocation_plot
+  - traveltime_plot
+
+- title: Data
+  desc: >
+    Datasets included in the package for examples and testing.
+  contents:
+  - naples_shape
+  - naples_fountains
+  - naples_population
+  - naples_hot_days
+
+- title: Utilities
+  desc: >
+    Utility functions to help with data manipulation.
+  contents:
+  - mask_raster_to_polygon
 
 articles:
   - title: "Use example"
     contents:
       - example_allocation
+
+authors:
+  Giacomo Falchetta:
+    href: https://github.com/giacfalk/
+  Daniel Vartanian:
+    href: https://github.com/danielvartan/
+
+development:
+  mode: release
+  version_label: warning

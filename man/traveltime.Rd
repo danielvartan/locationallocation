@@ -2,22 +2,90 @@
 % Please edit documentation in R/traveltime.R
 \name{traveltime}
 \alias{traveltime}
-\title{Generate a traveltime map}
+\title{Generate a travel time map}
 \usage{
-traveltime(facilities, bb_area, dowscaling_model_type, mode, res_output = 100)
+traveltime(
+  facilities,
+  bb_area,
+  mode = "walk",
+  dowscaling_model_type = "lm",
+  res_output = 100
+)
 }
 \arguments{
-\item{facilities}{A sf object with the existing facilities.}
+\item{facilities}{A \code{\link[sf:st_as_sf]{sf}} object with the existing
+facilities.}
 
-\item{bb_area}{A boundary box object with the area of interest.}
+\item{bb_area}{A \code{\link[sf:st_as_sf]{sf}} boundary box object with the area
+of interest.}
 
-\item{dowscaling_model_type}{The type of model used for the spatial downscaling of the travel time layer.}
+\item{mode}{(optional) A \code{\link[base:character]{character}} string indicating
+the mode of transport. Options are \code{"fastest"} and \code{"walk"} (default =
+\code{"walk"}).
+\itemize{
+\item For \code{"fastest"}: The friction layer accounts for multiple modes of
+transport, including walking, cycling, driving, and public transport, and are
+based on the Malaria Atlas Project (2019) \emph{Global Travel Speed Friction
+Surface}.
+\item For \code{"walk"}: The friction layer accounts only for walking speeds and is
+based on the Malaria Atlas Project (2015) \emph{Global Walking Only Friction
+Surface}.
+}}
 
-\item{mode}{The mode of transport.}
+\item{dowscaling_model_type}{(optional) A \code{\link[base:character]{character}}
+string indicating the type of model used for the spatial downscaling of the
+friction layer. Options are \code{"lm"} (linear model) and \code{"rf"} (random
+forest) (default: \code{"lm"}).}
 
-\item{res_output}{The spatial resolution of the friction raster (and of the analysis), in meters. If <1000, a spatial downscaling approach is used.}
+\item{res_output}{(optional) A positive
+\link[checkmate:checkIntegerish]{integerish} number indicating the spatial
+resolution of the friction raster (and of the analysis), in meters. If the
+resolution is less than \code{1000}, a spatial downscaling approach is used
+(default: \code{100}).}
+}
+\value{
+A \code{\link[base:list]{list}} containing:
+\itemize{
+\item \code{travel_time}: A \code{\link[raster:raster]{RasterLayer}} object with the travel
+time map.
+\item \code{friction}: A \code{\link[base:list]{list}} with the outputs of the
+\code{\link[=friction]{friction()}} function.
+}
 }
 \description{
-This function generates a traveltime map based on the input facilities, bounding box area, and travel mode.
+\code{traveltime()} generates a travel time map based on the input facilities,
+bounding box area, and travel mode.
+
+See the \code{\link[=friction]{friction()}} function for details on how the friction
+layer is generated.
 }
+\examples{
+\dontrun{
+  library(dplyr)
+
+  traveltime_data <-
+    naples_fountains |>
+    traveltime(
+      bb_area = naples_shape,
+      dowscaling_model_type = "lm",
+      mode = "walk",
+      res_output = 100
+    )
+
+  traveltime_data |> glimpse()
+
+  traveltime_data |>
+    traveltime_plot(
+      bb_area = naples_shape,
+      facilities = naples_fountains
+  )
+}
+}
+\seealso{
+Other travel time functions: 
+\code{\link{friction}()},
+\code{\link{traveltime_plot}()},
+\code{\link{traveltime_stats}()}
+}
+\concept{travel time functions}
 \keyword{cats}

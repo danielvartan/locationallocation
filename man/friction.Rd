@@ -2,20 +2,90 @@
 % Please edit documentation in R/friction.R
 \name{friction}
 \alias{friction}
-\title{Download and optionally downscale the friction surface layer to conduct location-allocation analysis.}
+\title{Download and downscale a friction surface layer}
 \usage{
-friction(bb_area, mode, res_output, dowscaling_model_type)
+friction(
+  bb_area,
+  mode = "walk",
+  dowscaling_model_type = "lm",
+  res_output = 100
+)
 }
 \arguments{
-\item{bb_area}{A spatial object representing the area of interest.}
+\item{bb_area}{A \code{\link[sf:st_as_sf]{sf}} boundary box object with the area
+of interest.}
 
-\item{mode}{The mode of transport. Options are "fastest" and "walk".}
+\item{mode}{(optional) A \code{\link[base:character]{character}} string indicating
+the mode of transport. Options are \code{"fastest"} and \code{"walk"} (default =
+\code{"walk"}).
+\itemize{
+\item For \code{"fastest"}: The friction layer accounts for multiple modes of
+transport, including walking, cycling, driving, and public transport, and are
+based on the Malaria Atlas Project (2019) \emph{Global Travel Speed Friction
+Surface}.
+\item For \code{"walk"}: The friction layer accounts only for walking speeds and is
+based on the Malaria Atlas Project (2015) \emph{Global Walking Only Friction
+Surface}.
+}}
 
-\item{res_output}{The spatial resolution of the friction raster (and of the analysis), in meters. If <1000, a spatial downscaling approach is used.}
+\item{dowscaling_model_type}{(optional) A \code{\link[base:character]{character}}
+string indicating the type of model used for the spatial downscaling of the
+friction layer. Options are \code{"lm"} (linear model) and \code{"rf"} (random
+forest) (default: \code{"lm"}).}
 
-\item{dowscaling_model_type}{The type of model used for the spatial downscaling of the friction layer. Options are "lm" (linear model) and "rf" (random forest).}
+\item{res_output}{(optional) A positive
+\link[checkmate:checkIntegerish]{integerish} number indicating the spatial
+resolution of the friction raster (and of the analysis), in meters. If the
+resolution is less than \code{1000}, a spatial downscaling approach is used
+(default: \code{100}).}
+}
+\value{
+A \code{\link[base:list]{list}} containing:
+\itemize{
+\item \code{friction_layer}: A \code{\link[raster:raster]{RasterLayer}} object with the
+friction surface layer.
+\item \code{transition_matrix}: A \code{\link[gdistance:transition]{TransitionLayer}} with
+the transition matrix for cost-distance calculations.
+\item \code{geocorrection_matrix}: A \code{\link[gdistance:transition]{TransitionLayer}}
+with the geocorrection matrix for accurate distance calculations.
+}
 }
 \description{
-This function retrieves the friction surface layer from the Malaria Atlas Project database and optionally downscales it to the spatial resolution of the analysis using road network data from OpenStreetMap. The function returns the friction surface layer, the transition matrix, and the geocorrection matrix.
+\code{friction()} retrieves a
+\href{https://en.wikipedia.org/wiki/Friction_of_distance}{friction surface} layer
+from the Malaria Atlas Project (\href{https://malariaatlas.org/}{MAP}) database
+(Hay et al., 2006; Malaria Atlas Project, 2015, 2019) and optionally
+downscale it to the spatial resolution of the analysis using road network
+data from OpenStreetMap (n.d.) (\href{https://www.openstreetmap.org/}{OSM}).
+
+This function requires an active internet connection.
 }
+\examples{
+\dontrun{
+  naples_shape |> friction()
+}
+}
+\references{
+Hay, S. I., & Snow, R. W. (2006). The Malaria Atlas Project: Developing
+global maps of malaria risk. \emph{PLOS Medicine}, \emph{3}(12), e473.
+\doi{10.1371/journal.pmed.0030473}
+
+Malaria Atlas Project. (2015). \emph{Friction surface: Global travel speed
+friction surface} (Version 201501).
+\url{https://data.malariaatlas.org/maps}
+
+Malaria Atlas Project. (2019). \emph{Friction surface: Global walking only
+friction surface} (Version 202001).
+\url{https://data.malariaatlas.org/maps}
+
+OpenStreetMap Foundation. (n.d.). \emph{OpenStreetMap} [Computer software].
+\url{https://www.openstreetmap.org}
+}
+\seealso{
+Other travel time functions: 
+\code{\link{traveltime}()},
+\code{\link{traveltime_plot}()},
+\code{\link{traveltime_stats}()}
+}
+\concept{travel time functions}
 \keyword{cats}

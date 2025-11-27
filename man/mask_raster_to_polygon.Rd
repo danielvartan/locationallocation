@@ -2,25 +2,28 @@
 % Please edit documentation in R/mask_raster_to_polygon.R
 \name{mask_raster_to_polygon}
 \alias{mask_raster_to_polygon}
-\title{Quick masking of a Rast object to an sf object}
+\title{Mask a \code{RasterLayer} object to a \code{sf} object}
 \usage{
-mask_raster_to_polygon(
-  ras = NULL,
-  mask = NULL,
-  inverse = FALSE,
-  updatevalue = NA
-)
+mask_raster_to_polygon(ras, mask, inverse = FALSE, updatevalue = NA)
 }
 \arguments{
-\item{ras}{A Rast object.}
+\item{ras}{A \code{\link[raster:raster]{RasterLayer}} object.}
 
-\item{mask}{A Rast or sf object.}
+\item{mask}{A \code{\link[raster:raster]{RasterLayer}} or \code{\link[sf:st_as_sf]{sf}}
+object.}
 
-\item{inverse}{Logical. If TRUE, the mask is inverted.}
+\item{inverse}{A \code{\link[base:logical]{logical}} flag. If \code{TRUE}, the mask
+is inverted (default: \code{FALSE}).}
 
-\item{updatevalue}{The value to update the Rast object with.}
+\item{updatevalue}{The value to update the \code{\link[raster:raster]{RasterLayer}}
+object with (default: \code{NA}).}
 }
 \description{
-This function rapidly masks a Rast object to an sf object.
+This function rapidly masks a \code{\link[raster:raster]{RasterLayer}} object to
+a \code{\link[sf:st_as_sf]{sf}} object.
 }
+\examples{
+naples_population |> mask_raster_to_polygon(naples_shape)
+}
+\concept{utility functions}
 \keyword{masking}

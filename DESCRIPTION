@@ -1,27 +1,63 @@
 Package: locationallocation
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
-URL: https://giacfalk.github.io/locationallocation
-Authors@R: 
-    person("Giacomo", "Falchetta", , "giacomo.falchetta@cmcc.it", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0003-2607-2195"))
-Description: What the package does (one paragraph).
+Title: Maximal Coverage Location-Allocation Using Geospatial Data
+Version: 0.1.1.9000
+Authors@R: c(
+        person(
+            given = "Giacomo",
+            family = "Falchetta",
+            role = c("aut", "cre", "ccp", "cph"),
+            email = "giacomo.falchetta@cmcc.it",
+            comment = c(ORCID = "0000-0003-2607-2195")
+        ),
+        person(
+            given = "Daniel",
+            family = "Vartanian",
+            role = c("ctb"),
+            email = "danielvartan@proton.me",
+            comment = c(ORCID = "0000-0001-7782-759X")
+        )
+  )
+Description: Functions to perform Maximal Coverage Location-Allocation analyses
+    using geospatial data. It is designed to help decision-makers optimally
+    allocate resources and facilities in various contexts, such as public
+    health, emergency response, and urban planning.
 License: GPL (>= 3)
-Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+URL: https://giacfalk.github.io/locationallocation,
+    https://github.com/giacfalk/locationallocation
+BugReports: https://github.com/giacfalk/locationallocation/issues/
+Depends:
+    R (>= 4.5)
 Imports:
-	sf,
-	raster,
-	terra,
-	gdistance,
-	malariaAtlas,
-	curl,
-	dissever,
-	osmdata,
-	fasterize,
-	magrittr,
-	tidyverse,
-	osmdata,
-	spatialEco,
-	parallel
+    checkmate (>= 2.3.3),
+    cli (>= 3.6.5),
+    curl (>= 7.0.0),
+    dissever (>= 0.2.3),
+    dplyr (>= 1.1.4),
+    gdistance (>= 1.6.5),
+    ggplot2 (>= 4.0.1),
+    graphics (>= 4.4),
+    magrittr (>= 2.0.4),
+    malariaAtlas (>= 1.6.4),
+    osmdata (>= 0.3.0),
+    parallel (>= 4.4),
+    raster (>= 3.6.32),
+    sf (>= 1.0.22),
+    spatialEco (>= 2.0.3),
+    stats (>= 4.4),
+    terra (>= 1.8.80)
+Suggests:
+    bslib (>= 0.9.0),
+    covr (>= 3.6.5),
+    knitr (>= 1.50),
+    lifecycle (>= 1.0.4),
+    lwgeom (>= 0.2.14),
+    rmarkdown (>= 2.30),
+    spelling (>= 2.3.2),
+    testthat (>= 3.3.0)
+Config/testthat/edition: 3
+Encoding: UTF-8
+Language: en-US
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+LazyData: true
+VignetteBuilder: knitr
