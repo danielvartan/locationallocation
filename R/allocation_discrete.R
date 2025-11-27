@@ -47,13 +47,19 @@
 #' @examples
 #' \dontrun{
 #'   library(dplyr)
+#'   library(sf)
 #'
 #'   allocation_data <-
 #'     naples_population |>
-#'     allocation(
+#'     allocation_discrete(
+#'       traveltime = traveltime,
 #'       bb_area = naples_shape,
 #'       facilities = naples_fountains,
-#'       weights = naples_hot_day
+#'       candidate = naples_shape |> st_sample(20),
+#'       n_fac = 2,
+#'       weights = naples_hot_days,
+#'       objectiveminutes = 15,
+#'       objectiveshare = 0.9
 #'     )
 #'
 #'   allocation_data |> glimpse()
@@ -121,6 +127,14 @@ allocation_discrete <- function(
   } else {
     traveltime_raster_outer <- traveltime
   }
+
+  assert_minimal_coverage(
+    traveltime = traveltime,
+    demand = demand,
+    objectiveminutes = objectiveminutes,
+    threshold = objectiveshare,
+    null_ok = TRUE
+  )
 
   if (is.null(facilities)) {
     facilities <-

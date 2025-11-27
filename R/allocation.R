@@ -55,7 +55,9 @@
 #'     allocation(
 #'       bb_area = naples_shape,
 #'       facilities = naples_fountains,
-#'       weights = naples_hot_day
+#'       weights = naples_hot_days,
+#'       objectiveminutes = 15,
+#'       objectiveshare = 0.99
 #'     )
 #'
 #'   allocation_data |> glimpse()
@@ -112,8 +114,14 @@ allocation <- function(
     )
   }
 
-  traveltime_raster_outer <- traveltime
+  assert_minimal_coverage(
+    traveltime = traveltime,
+    demand = demand,
+    objectiveminutes = objectiveminutes,
+    threshold = objectiveshare
+  )
 
+  traveltime_raster_outer <- traveltime
   demand <- demand |> mask_raster_to_polygon(bb_area)
 
   traveltime <-

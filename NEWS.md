@@ -16,6 +16,7 @@
 - Changed the theme of [`ggplot2`](https://ggplot2.tidyverse.org/) plots to `theme_minimal()` with customizations.
 - Changed `allocation_plot()` to have `0` as a lower limit for the color scale.
 - Merged `allocation_plot()` and `allocation_plot_discrete()` into a single `allocation_plot()` function.
+- Changed `allocation()` and `allocation_discrete()` to raise an error when the initial coverage is greater or equal to the `objectiveshare` parameter.
 - Improved code efficiency and performance.
 - Improved documentation and examples for all functions.
 - Removed `demo_data_load()`, as it is no longer necessary.

@@ -53,8 +53,6 @@
 #' \dontrun{
 #'   library(sf)
 #'
-#'   candidates <- naples_shape |> st_sample(20)
-#'
 #'   traveltime <- traveltime(
 #'     facilities = naples_fountains,
 #'     bb_area = naples_shape,
@@ -69,7 +67,7 @@
 #'       traveltime = traveltime,
 #'       bb_area = naples_shape,
 #'       facilities = naples_fountains,
-#'       candidate = candidates,
+#'       candidate = naples_shape |> st_sample(20),
 #'       n_fac = 2,
 #'       weights = NULL,
 #'       objectiveminutes = 15,

@@ -34,7 +34,7 @@ A \code{\link[base:list]{list}} containing:
 \itemize{
 \item \code{percent}: A \code{\link[base:numeric]{numeric}} value indicating the percent of
 demand covered within the objective travel time.
-\item \code{data}: A \code{\link[base:data.frame]{data.frame}} object with the data used to
+\item \code{data}: A \code{\link[dplyr:reexports]{tibble}} object with the data used to
 generate the cumulative curve plot.
 \item \code{plot}: A \code{\link[ggplot2:ggplot]{ggplot}} object with the cumulative curve
 plot.

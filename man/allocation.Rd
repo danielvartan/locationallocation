@@ -120,7 +120,9 @@ location-allocation problems.
     allocation(
       bb_area = naples_shape,
       facilities = naples_fountains,
-      weights = naples_hot_day
+      weights = naples_hot_days,
+      objectiveminutes = 15,
+      objectiveshare = 0.99
     )
 
   allocation_data |> glimpse()
