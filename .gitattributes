@@ -1,0 +1,11 @@
+*.qmd linguist-detectable
+*.qmd linguist-language=R
+
+data-raw/* linguist-documentation
+data/* linguist-documentation
+docs/* linguist-documentation
+man/* linguist-documentation
+paper/* linguist-documentation
+pkgdown/* linguist-documentation
+
+.vscode/* linguist-generated
