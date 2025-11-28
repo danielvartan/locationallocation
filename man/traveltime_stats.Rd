@@ -7,8 +7,8 @@
 traveltime_stats(
   traveltime,
   demand,
-  breaks = c(5, 10, 15, 30),
   objectiveminutes = 15,
+  breaks = c(5, 10, 15, 30),
   print = TRUE
 )
 }
@@ -19,21 +19,24 @@ traveltime_stats(
 \item{demand}{A \code{\link[raster:raster]{RasterLayer}} object with the
 demand layer (e.g. population density).}
 
+\item{objectiveminutes}{(optional) A number indicating the target travel time
+in minutes used to compute the statistics (default: \code{15}).}
+
 \item{breaks}{(optional) A \code{\link[base:numeric]{numeric}} object indicating the
 breaks (in minutes) for the cumulative curve plot
 (default: \code{c(5, 10, 15, 30)}).}
-
-\item{objectiveminutes}{(optional) A number indicating the target travel time
-in minutes used to compute the statistics (default: \code{15}).}
 
 \item{print}{(optional) A \code{\link[base:logical]{logical}} flag indicating
 whether to print the results to the console (default: \code{TRUE}).}
 }
 \value{
-A \code{\link[base:list]{list}} containing:
+An \link[base:invisible]{invisible} \code{\link[base:list]{list}} with the
+following elements:
 \itemize{
-\item \code{percent}: A \code{\link[base:numeric]{numeric}} value indicating the percent of
+\item \code{coverage}: A \code{\link[base:numeric]{numeric}} value indicating the share of
 demand covered within the objective travel time.
+\item \code{unmet_demand}: A \code{\link[base:numeric]{numeric}} value indicating the share
+of demand that remains unmet.
 \item \code{data}: A \code{\link[dplyr:reexports]{tibble}} object with the data used to
 generate the cumulative curve plot.
 \item \code{plot}: A \code{\link[ggplot2:ggplot]{ggplot}} object with the cumulative curve
@@ -60,8 +63,8 @@ along with a cumulative curve plot.
   traveltime_data |>
     traveltime_stats(
       demand = naples_population,
-      breaks = c(5, 10, 15, 30),
-      objectiveminutes = 15
+      objectiveminutes = 15,
+      breaks = c(5, 10, 15, 30)
     )
 }
 }

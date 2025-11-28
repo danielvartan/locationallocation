@@ -8,7 +8,10 @@ traveltime_plot(
   traveltime,
   bb_area,
   facilities = NULL,
-  contour_traveltime = 15
+  contour_traveltime = 15,
+  annotation_location = "br",
+  annotation_scale = TRUE,
+  annotation_north_arrow = TRUE
 )
 }
 \arguments{
@@ -23,6 +26,19 @@ facilities.}
 
 \item{contour_traveltime}{(optional) A number indicating the contour
 thresholds for the travel time (default: \code{15}).}
+
+\item{annotation_location}{(optional) A \code{\link[base:character]{character}} string
+specifying the location of the annotation on the plot. See
+\code{\link[ggspatial:annotation_scale]{annotation_scale}} for possible values
+(default: \code{"br"}).}
+
+\item{annotation_scale}{(optional) A \code{\link[base:logical]{logical}} flag
+indicating whether to include a scale annotation on the plot (default:
+\code{TRUE}).}
+
+\item{annotation_north_arrow}{(optional) A \code{\link[base:logical]{logical}} flag
+indicating whether to include a north arrow annotation on the plot
+(default: \code{TRUE}).}
 }
 \value{
 A \code{\link[ggplot2:ggplot]{ggplot2}} plot showing the travel time from

@@ -17,19 +17,18 @@ Conduct](https://img.shields.io/badge/Contributor%20Covenant-3.0-4baaaa.svg)](ht
 
 ## Overview
 
-Assessing and planning infrastructure and service networks,
-given a dispersed demand, limited capacity, accessibility targets, and
-concerns about spatial justice, is a central policy challenge. Problems
-of this type are commonly referred to as *Maximal Coverage
-Location-Allocation* (MCLA) spatial optimization problems.
+Assessing and planning infrastructure and service networks, given a
+dispersed demand, limited capacity, accessibility targets, and concerns
+about spatial justice, is a central policy challenge. Problems of this
+type are commonly referred to as *Maximal Coverage Location-Allocation*
+(MCLA) spatial optimization problems.
 
 `locationallocation` is an R package that provides tools for solving
 MCLA problems with geospatial data. It builds on widely used spatial
-libraries in R,
-follows [tidyverse
+libraries in R, follows [tidyverse
 principles](https://tidyverse.tidyverse.org/articles/manifesto.html),
 and integrates seamlessly with the broader [tidyverse
-ecosystem](https://www.tidyverse.org/). The package can generate
+ecosystem](https://tidyverse.org/). The package can generate
 travel-time maps and optimize the placement of facilities or
 infrastructure according to accessibility criteria, which can be
 weighted by one or more variables or by a user-defined function.
@@ -95,10 +94,10 @@ We can use the
 function to create a map of current accessibility to the facility points
 (represented by the [`sf`](https://r-spatial.github.io/sf/) object
 [`naples_fountains`](https://giacfalk.github.io/locationallocation/reference/naples_fountains.html))
-within the specified geographical boundaries. The function allows the user to
-select a travel mode (walking or fastest route) and an output spatial
-resolution in meters, achieved through [dissevering spatial downscaling
-techniques](https://doi.org/10.1016/j.cageo.2011.08.021).
+within the specified geographical boundaries. The function allows the
+user to select a travel mode (walking or fastest route) and an output
+spatial resolution in meters, achieved through [dissevering spatial
+downscaling techniques](https://doi.org/10.1016/j.cageo.2011.08.021).
 
 ``` r
 traveltime_data <-
@@ -172,6 +171,9 @@ allocation_data <-
   )
 ```
 
+    #> ✔ Target coverage share of 99% attained with 28 facilities within the 15
+    #> minutes threshold. The achieved coverage share is 99.04153%.
+
 ``` r
 allocation_data |> allocation_plot(naples_shape)
 ```
@@ -200,6 +202,9 @@ allocation_data <-
     exp_weights = 1
   )
 ```
+
+    #> ✔ Target coverage share of 99% attained with 25 facilities within the 15
+    #> minutes threshold. The achieved coverage share is 99.17146%.
 
 ``` r
 allocation_data |> allocation_plot(naples_shape)
@@ -230,6 +235,9 @@ allocation_data <-
     exp_weights = 1
   )
 ```
+
+    #> ✔ Target coverage share of 99% attained with 9 facilities within the 15
+    #> minutes threshold. The achieved coverage share is 99.17055%.
 
 ``` r
 allocation_data |> allocation_plot(naples_shape)
@@ -274,6 +282,9 @@ allocation_data <-
   )
 ```
 
+    #> ℹ 5 facilities allocated within the 15 minutes threshold. The maximum
+    #> coverage share attained was 88.82433%.
+
 ``` r
 allocation_data |> allocation_plot(naples_shape)
 ```
@@ -306,6 +317,9 @@ allocation_data <-
   )
 ```
 
+    #> ✔ Target coverage share of 90% attained with 2 facilities within the 15
+    #> minutes threshold. The achieved coverage share is 90.26097%.
+
 ``` r
 allocation_data |> allocation_plot(naples_shape)
 ```
@@ -331,13 +345,16 @@ allocation_data <-
     traveltime = NULL,
     weights = NULL,
     objectiveminutes = 15,
-    objectiveshare = 0.9,
+    objectiveshare = 0.45,
     approach = "norm",
     exp_demand = 1,
     exp_weights = 1,
     par = FALSE
   )
 ```
+
+    #> ✔ Target coverage share of 45% attained with 2 facilities within the 15
+    #> minutes threshold. The achieved coverage share is 45.79176%.
 
 ``` r
 allocation_data |> allocation_plot(naples_shape)

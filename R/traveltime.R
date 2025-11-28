@@ -8,7 +8,8 @@
 #' See the [`friction()`][friction] function for details on how the friction
 #' layer is generated.
 #'
-#' @return A [`list`][base::list] containing:
+#' @return An [invisible][base::invisible] [`list`][base::list] with the
+#'   following elements:
 #'   - `travel_time`: A [`RasterLayer`][raster::raster()] object with the travel
 #'     time map.
 #'   - `friction`: A [`list`][base::list] with the outputs of the
@@ -57,12 +58,13 @@ traveltime <- function(
 
   sf::sf_use_s2(TRUE)
 
-  friction_data <- friction(
-    bb_area = bb_area,
-    mode = mode,
-    res_output = res_output,
-    dowscaling_model_type = dowscaling_model_type
-  )
+  friction_data <-
+    bb_area |>
+    friction(
+      mode = mode,
+      res_output = res_output,
+      dowscaling_model_type = dowscaling_model_type
+    )
 
   points <-
     facilities |>
@@ -82,5 +84,7 @@ traveltime <- function(
   list(
     travel_time = travel_time,
     friction = friction_data
-  )
+  ) |>
+    `class<-`(c("traveltime", "list")) |>
+    invisible()
 }

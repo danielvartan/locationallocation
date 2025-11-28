@@ -21,6 +21,7 @@ test_check("locationallocation")
 # - Add references to function documentations and data sources.
 # - Update the hex logo.
 # - Conduct a thorough review of all algorithms.
+# - Unexport mask_raster_to_polygon().
 
 # # For Development Use Only (Comment the Code After Use) -----
 #

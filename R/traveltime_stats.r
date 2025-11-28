@@ -13,9 +13,12 @@
 #' @param print (optional) A [`logical`][base::logical] flag indicating
 #' whether to print the results to the console (default: `TRUE`).
 #'
-#' @return A [`list`][base::list] containing:
-#'   - `percent`: A [`numeric`][base::numeric] value indicating the percent of
-#'     demand covered within the objective travel time.
+#' @return An [invisible][base::invisible] [`list`][base::list] with the
+#'   following elements:
+#'   - `coverage`: A [`numeric`][base::numeric()] value indicating the share of
+#'   demand covered within the objective travel time.
+#'   - `unmet_demand`: A [`numeric`][base::numeric()] value indicating the share
+#'   of demand that remains unmet.
 #'   - `data`: A [`tibble`][dplyr::tibble] object with the data used to
 #'   generate the cumulative curve plot.
 #'   - `plot`: A [`ggplot`][ggplot2::ggplot] object with the cumulative curve
@@ -42,15 +45,15 @@
 #'   traveltime_data |>
 #'     traveltime_stats(
 #'       demand = naples_population,
-#'       breaks = c(5, 10, 15, 30),
-#'       objectiveminutes = 15
+#'       objectiveminutes = 15,
+#'       breaks = c(5, 10, 15, 30)
 #'     )
 #' }
 traveltime_stats <- function(
   traveltime,
   demand,
-  breaks = c(5, 10, 15, 30),
   objectiveminutes = 15,
+  breaks = c(5, 10, 15, 30),
   print = TRUE
 ) {
   assert_traveltime(traveltime)
@@ -98,7 +101,7 @@ traveltime_stats <- function(
         )
     )
 
-  percent_within_objective <-
+  coverage <-
     data_curve |>
     dplyr::filter(traveltime_values <= objectiveminutes) |>
     dplyr::pull(demand_values) |>
@@ -107,24 +110,29 @@ traveltime_stats <- function(
       data_curve |>
         dplyr::pull(demand_values) |>
         sum(na.rm = TRUE)
-    ) |>
-    magrittr::multiply_by(100) |>
-    round(5)
+    )
 
   plot <-
     data_curve |>
     ggplot2::ggplot() +
     ggplot2::geom_step(
-      ggplot2::aes(x = traveltime_values, y = P15_cumsum, color = th)
+      ggplot2::aes(
+        x = traveltime_values,
+        y = P15_cumsum,
+        color = th
+      )
     ) +
     ggplot2::scale_color_brewer(
       palette = "Reds",
       direction = 1
     ) +
     ggplot2::labs(
-      x = "Travel Time",
+      x = "Travel Time (Minutes)",
       y = "Cumulative Coverage (%)",
       color = "Minutes"
+    ) +
+    ggplot2::scale_y_continuous(
+      limits = c(0, 100)
     ) +
     ggplot2::theme_bw() +
     ggplot2::theme(panel.grid = ggplot2::element_blank())
@@ -132,9 +140,9 @@ traveltime_stats <- function(
   if (isTRUE(print)) {
     cli::cli_alert_info(
       paste0(
-        "{.strong {cli::col_blue(percent_within_objective)}}", "% ",
+        "{.strong {cli::col_blue(round(coverage * 100, 5))}}% ",
         "of coverage within the ",
-        "{.strong {cli::col_red(objectiveminutes)}} ",
+        "{.strong {cli::col_yellow(objectiveminutes)}} ",
         "minutes threshold."
       )
     )
@@ -143,7 +151,8 @@ traveltime_stats <- function(
   }
 
   list(
-    percent = percent_within_objective,
+    coverage = coverage,
+    unmet_demand = 1 - coverage,
     data = data_curve,
     plot = plot
   ) |>

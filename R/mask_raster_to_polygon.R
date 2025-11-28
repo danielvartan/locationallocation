@@ -13,6 +13,8 @@
 #' @param updatevalue The value to update the [`RasterLayer`][raster::raster()]
 #'   object with (default: `NA`).
 #'
+#' @return A masked [`RasterLayer`][raster::raster()] object.
+#'
 #' @family utility functions
 #' @keywords masking
 #' @export

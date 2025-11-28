@@ -15,12 +15,6 @@ plot <- function(x, ...) {
   }
 }
 
-count_facilities <- function(facilities) {
-  assert_facilities(facilities)
-
-  sf::st_geometry(facilities) |> length()
-}
-
 facilities_coordinates <- function(facilities, bb_area = NULL) {
   assert_facilities(facilities)
   assert_bb_area(bb_area, null_ok = TRUE)

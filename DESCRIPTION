@@ -22,8 +22,8 @@ Description: Functions to perform Maximal Coverage Location-Allocation analyses
     allocate resources and facilities in various contexts, such as public
     health, emergency response, and urban planning.
 License: GPL (>= 3)
-URL: https://giacfalk.github.io/locationallocation,
-    https://github.com/giacfalk/locationallocation
+URL: https://giacfalk.github.io/locationallocation/,
+    https://github.com/giacfalk/locationallocation/
 BugReports: https://github.com/giacfalk/locationallocation/issues/
 Depends:
     R (>= 4.5)
@@ -36,6 +36,7 @@ Imports:
     gdistance (>= 1.6.5),
     ggplot2 (>= 4.0.1),
     graphics (>= 4.4),
+    ggspatial (>= 1.1.10),
     magrittr (>= 2.0.4),
     malariaAtlas (>= 1.6.4),
     osmdata (>= 0.3.0),

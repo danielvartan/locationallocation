@@ -18,6 +18,9 @@ is inverted (default: \code{FALSE}).}
 \item{updatevalue}{The value to update the \code{\link[raster:raster]{RasterLayer}}
 object with (default: \code{NA}).}
 }
+\value{
+A masked \code{\link[raster:raster]{RasterLayer}} object.
+}
 \description{
 This function rapidly masks a \code{\link[raster:raster]{RasterLayer}} object to
 a \code{\link[sf:st_as_sf]{sf}} object.

@@ -40,7 +40,8 @@ resolution is less than \code{1000}, a spatial downscaling approach is used
 (default: \code{100}).}
 }
 \value{
-A \code{\link[base:list]{list}} containing:
+An \link[base:invisible]{invisible} \code{\link[base:list]{list}} with the
+following elements:
 \itemize{
 \item \code{friction_layer}: A \code{\link[raster:raster]{RasterLayer}} object with the
 friction surface layer.

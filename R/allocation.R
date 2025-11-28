@@ -29,7 +29,13 @@
 #'   the users want to increase the allocation in areas with higher values in
 #'   the demand layer (default: `1`).
 #'
-#' @return A [`list`][base::list] with the following elements:
+#' @return An [invisible][base::invisible] [`list`][base::list] with the
+#'   following elements:
+#'   - `coverage`: A [`numeric`][base::numeric()] value indicating the share of
+#'   demand covered within the objective travel time after allocating the new
+#'   facilities.
+#'   - `unmet_demand`: A [`numeric`][base::numeric()] value indicating the share
+#'   of demand that remains unmet after allocating the new facilities.
 #'   - `objective_minutes`: The value of the `objectiveminutes` parameter used.
 #'   - `objective_share`: The value of the `objectiveshare` parameter used.
 #'   - `facilities`: A [`sf`][sf::sf()] object with the newly allocated
@@ -90,7 +96,7 @@ allocation <- function(
   checkmate::assert_choice(dowscaling_model_type, choices = c("lm", "rf"))
   checkmate::assert_count(res_output, positive = TRUE)
   checkmate::assert_class(weights, "RasterLayer", null.ok = TRUE)
-  checkmate::assert_count(objectiveminutes, positive = TRUE)
+  checkmate::assert_number(objectiveminutes, lower = 0)
   checkmate::assert_number(objectiveshare, lower = 0, upper = 1)
   checkmate::assert_choice(heur, choices = c("max", "kd"))
   checkmate::assert_choice(approach, choices = c("norm", "absweights"))
@@ -120,7 +126,7 @@ allocation <- function(
     traveltime = traveltime,
     demand = demand,
     objectiveminutes = objectiveminutes,
-    threshold = objectiveshare
+    objectiveshare = objectiveshare
   )
 
   traveltime_raster_outer <- traveltime
@@ -270,7 +276,7 @@ allocation <- function(
     cli::cli_alert_info(
       paste0(
         "Iteration {.strong {cli::col_yellow(iter - 1)}}: ",
-        "Fraction of unmet demand: ",
+        "Share of unmet demand: ",
         "{.strong {cli::col_red(round(k * 100, 5))}}%."
       )
     )
@@ -282,23 +288,22 @@ allocation <- function(
     }
   }
 
-  cli::cli_alert_info(
-    paste0(
-      "{.strong {cli::col_red(nrow(as.data.frame(new_facilities)))}} ",
-      "facilities added to attain coverage of ",
-      "{.strong {cli::col_blue(objectiveshare * 100)}}% ",
-      "within ",
-      "{.strong {cli::col_green(objectiveminutes)}} ",
-      "minutes threshold."
-    )
-  )
+  out <-
+    list(
+      coverage = 1 - k,
+      unmet_demand = k,
+      objective_minutes = objectiveminutes,
+      objective_share = objectiveshare,
+      facilities =
+        merged_facilities |> #nolint
+        magrittr::extract(-c(seq_len(nrow(facilities))), ),
+      travel_time = traveltime_raster_new
+    ) |>
+    `class<-`(c("allocation", "list"))
 
-  list(
-    objective_minutes = objectiveminutes,
-    objective_share = objectiveshare,
-    facilities =
-      merged_facilities |>
-      magrittr::extract(-c(seq_len(nrow(facilities))), ),
-    travel_time = traveltime_raster_new
-  )
+  cli::cat_line()
+
+  out |> coverage_message()
+
+  invisible(out)
 }
