@@ -2,6 +2,8 @@
 
 <!-- quarto render -->
 
+<!-- Install the package before rendering this file: `devtools::install()` -->
+
 ```{r}
 #| label: setup
 #| include: false
@@ -53,7 +55,7 @@ cat(
 
 Assessing and planning infrastructure and service networks, given a dispersed demand, limited capacity, accessibility targets, and concerns about spatial justice, is a central policy challenge. Problems of this type are commonly referred to as *Maximal Coverage Location-Allocation* (MCLA) spatial optimization problems.
 
-`locationallocation` is an R package that provides tools for solving MCLA problems with geospatial data. It builds on widely used spatial libraries in R, follows [tidyverse principles](https://tidyverse.tidyverse.org/articles/manifesto.html), and integrates seamlessly with the broader [tidyverse ecosystem](https://www.tidyverse.org/). The package can generate travel-time maps and optimize the placement of facilities or infrastructure according to accessibility criteria, which can be weighted by one or more variables or by a user-defined function.
+`locationallocation` is an R package that provides tools for solving MCLA problems with geospatial data. It builds on widely used spatial libraries in R, follows [tidyverse principles](https://tidyverse.tidyverse.org/articles/manifesto.html), and integrates seamlessly with the broader [tidyverse ecosystem](https://tidyverse.org/). The package can generate travel-time maps and optimize the placement of facilities or infrastructure according to accessibility criteria, which can be weighted by one or more variables or by a user-defined function.
 
 Potential applications of the package extend to the domains of public infrastructure assessment and planning (public services provision, e.g. transport, social services, healthcare, parks), urban environmental and climate risk reduction interventions, logistics and hubs allocation, commercial and strategic decisions.
 
@@ -93,7 +95,8 @@ library(raster)
 library(sf)
 library(tidyterra)
 
-ggplot() +
+plot <-
+  ggplot() +
   geom_raster(
     data = naples_population |> as.data.frame(xy = TRUE),
     mapping = aes(x = x, y = y, fill = pop_napoli),
@@ -115,10 +118,12 @@ ggplot() +
   labs(
     x = NULL,
     y = NULL,
-    fill = NULL
+    fill = "Population"
   ) +
   theme_bw() +
   theme(panel.grid = element_blank())
+
+  plot |> locationallocation:::add_plot_annotation()
 ```
 
 We can use the [`traveltime()`](https://giacfalk.github.io/locationallocation/reference/traveltime.html) function to create a map of current accessibility to the facility points (represented by the [`sf`](https://r-spatial.github.io/sf/) object [`naples_fountains`](https://giacfalk.github.io/locationallocation/reference/naples_fountains.html)) within the specified geographical boundaries. The function allows the user to select a travel mode (walking or fastest route) and an output spatial resolution in meters, achieved through [dissevering spatial downscaling techniques](https://doi.org/10.1016/j.cageo.2011.08.021).
@@ -184,6 +189,13 @@ allocation_data <-
 ```
 
 ```{r}
+#| echo: false
+
+allocation_data |>
+  locationallocation:::coverage_message()
+```
+
+```{r}
 #| label: allocation-plot-1
 
 allocation_data |> allocation_plot(naples_shape)
@@ -211,6 +223,13 @@ allocation_data <-
 ```
 
 ```{r}
+#| echo: false
+
+allocation_data |>
+  locationallocation:::coverage_message()
+```
+
+```{r}
 #| label: allocation-plot-2
 
 allocation_data |> allocation_plot(naples_shape)
@@ -235,6 +254,13 @@ allocation_data <-
     exp_demand = 2, # <--- Changed
     exp_weights = 1
   )
+```
+
+```{r}
+#| echo: false
+
+allocation_data |>
+  locationallocation:::coverage_message()
 ```
 
 ```{r}
@@ -272,6 +298,13 @@ allocation_data <-
 ```
 
 ```{r}
+#| echo: false
+
+allocation_data |>
+  locationallocation:::coverage_message()
+```
+
+```{r}
 #| label: allocation-plot-4
 
 allocation_data |> allocation_plot(naples_shape)
@@ -304,6 +337,13 @@ allocation_data <-
 ```
 
 ```{r}
+#| echo: false
+
+allocation_data |>
+  locationallocation:::coverage_message()
+```
+
+```{r}
 #| label: allocation-plot-5
 
 allocation_data |> allocation_plot(naples_shape)
@@ -327,12 +367,19 @@ allocation_data <-
     traveltime = NULL,
     weights = NULL,
     objectiveminutes = 15,
-    objectiveshare = 0.9,
+    objectiveshare = 0.45,
     approach = "norm",
     exp_demand = 1,
     exp_weights = 1,
     par = FALSE
   )
+```
+
+```{r}
+#| echo: false
+
+allocation_data |>
+  locationallocation:::coverage_message()
 ```
 
 ```{r}

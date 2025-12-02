@@ -74,11 +74,6 @@ reference:
   contents:
   - mask_raster_to_polygon
 
-articles:
-  - title: "Use example"
-    contents:
-      - example_allocation
-
 authors:
   Giacomo Falchetta:
     href: https://github.com/giacfalk/

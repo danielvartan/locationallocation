@@ -15,6 +15,7 @@
 #' @template params-traveltime-a
 #' @template params-bb-area
 #' @template params-facilities
+#' @template params-annotation
 #' @family travel time functions
 #' @keywords reporting
 #' @export
@@ -40,12 +41,22 @@ traveltime_plot <- function(
   traveltime,
   bb_area,
   facilities = NULL,
-  contour_traveltime = 15
+  contour_traveltime = 15,
+  annotation_location = "br",
+  annotation_scale = TRUE,
+  annotation_north_arrow = TRUE
 ) {
   assert_traveltime(traveltime)
   assert_bb_area(bb_area)
   assert_facilities(facilities)
   checkmate::assert_numeric(contour_traveltime, lower = 1, null.ok = TRUE)
+  checkmate::assert_flag(annotation_scale)
+  checkmate::assert_flag(annotation_north_arrow)
+
+  checkmate::assert_choice(
+    annotation_location,
+    choices = c("bl", "br", "tl", "tr")
+  )
 
   # R CMD Check variable bindings fix
   # nolint start
@@ -53,7 +64,8 @@ traveltime_plot <- function(
   # nolint end
 
   data <-
-    traveltime[[1]] |>
+    traveltime |>
+    magrittr::extract2("travel_time") |>
     mask_raster_to_polygon(bb_area) |>
     raster::as.data.frame(xy = TRUE) |>
     stats::na.omit()
@@ -104,5 +116,10 @@ traveltime_plot <- function(
     }
   }
 
-  plot
+  plot |>
+    add_plot_annotation(
+      annotation_location = annotation_location,
+      annotation_scale = annotation_scale,
+      annotation_north_arrow = annotation_north_arrow
+    )
 }

@@ -113,16 +113,20 @@ to run the function in \link[parallel:clusterApply]{parallel} or not
 (default: \code{FALSE}).}
 }
 \value{
-A \code{\link[base:list]{list}} with the following elements:
+An \link[base:invisible]{invisible} \code{\link[base:list]{list}} with the
+following elements:
 \itemize{
+\item \code{coverage}: A \code{\link[base:numeric]{numeric}} value indicating the share of
+demand covered within the objective travel time after allocating the new
+facilities.
+\item \code{unmet_demand}: A \code{\link[base:numeric]{numeric}} value indicating the share
+of demand that remains unmet after allocating the new facilities.
 \item \code{objective_minutes}: The value of the \code{objectiveminutes} parameter used.
 \item \code{objective_share}: The value of the \code{objectiveshare} parameter used.
 \item \code{facilities}: A \code{\link[sf:sf]{sf}} object with the newly allocated
 facilities.
 \item \code{travel_time}: A \code{\link[raster:raster]{raster}} RasterLayer object
 representing the travel time map with the newly allocated facilities.
-\item \code{unmet_demand}: A \code{\link[base:numeric]{numeric}} value indicating the share
-of demand that remains unmet after allocating the new facilities.
 }
 }
 \description{

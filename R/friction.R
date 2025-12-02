@@ -31,7 +31,8 @@
 #'   resolution is less than `1000`, a spatial downscaling approach is used
 #'   (default: `100`).
 #'
-#' @return A [`list`][base::list()] containing:
+#' @return An [invisible][base::invisible] [`list`][base::list] with the
+#'   following elements:
 #'   - `friction_layer`: A [`RasterLayer`][raster::raster()] object with the
 #'   friction surface layer.
 #'   - `transition_matrix`: A [`TransitionLayer`][gdistance::transition()] with
@@ -205,5 +206,6 @@ friction <- function(
     friction_layer = friction_layer,
     transition_matrix = transition_matrix,
     geocorrection_matrix = geocorrection_matrix
-  )
+  ) |>
+    invisible()
 }

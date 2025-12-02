@@ -30,15 +30,19 @@
 #'   to run the function in [parallel][parallel::parLapply()] or not
 #'   (default: `FALSE`).
 #'
-#' @return A [`list`][base::list] with the following elements:
+#' @return An [invisible][base::invisible] [`list`][base::list] with the
+#'   following elements:
+#'   - `coverage`: A [`numeric`][base::numeric()] value indicating the share of
+#'   demand covered within the objective travel time after allocating the new
+#'   facilities.
+#'   - `unmet_demand`: A [`numeric`][base::numeric()] value indicating the share
+#'   of demand that remains unmet after allocating the new facilities.
 #'   - `objective_minutes`: The value of the `objectiveminutes` parameter used.
 #'   - `objective_share`: The value of the `objectiveshare` parameter used.
 #'   - `facilities`: A [`sf`][sf::sf()] object with the newly allocated
 #'   facilities.
 #'   - `travel_time`: A [`raster`][raster::raster()] RasterLayer object
 #'   representing the travel time map with the newly allocated facilities.
-#'   - `unmet_demand`: A [`numeric`][base::numeric()] value indicating the share
-#'   of demand that remains unmet after allocating the new facilities.
 #'
 #' @template params-objectiveshare-b
 #' @inheritParams allocation
@@ -99,7 +103,7 @@ allocation_discrete <- function(
   checkmate::assert_choice(dowscaling_model_type, choices = c("lm", "rf"))
   checkmate::assert_count(res_output, positive = TRUE)
   checkmate::assert_class(weights, "RasterLayer", null.ok = TRUE)
-  checkmate::assert_count(objectiveminutes, positive = TRUE)
+  checkmate::assert_number(objectiveminutes, lower = 0)
   checkmate::assert_number(objectiveshare, lower = 0, upper = 1, null.ok = TRUE)
   checkmate::assert_choice(approach, choices = c("norm", "absweights"))
   checkmate::assert_number(exp_demand, lower = 0)
@@ -108,12 +112,14 @@ allocation_discrete <- function(
 
   sf::sf_use_s2(TRUE)
 
-  if (is.null(traveltime)) {
-    if (!is.null(facilities)) {
+
+  if (!is.null(facilities)) {
+    if (is.null(traveltime)) {
       cli::cli_alert_info(
         paste0(
           "Travel time layer not detected. ",
-          "Running {.strong {cli::col_red('traveltime()')}} function first."
+          "Running {.strong {cli::col_red('traveltime()')}} ",
+          "function first."
         )
       )
 
@@ -125,20 +131,19 @@ allocation_discrete <- function(
           dowscaling_model_type = dowscaling_model_type,
           res_output = res_output
         )
+
+    } else {
+      traveltime_raster_outer <- traveltime
     }
+
+    assert_minimal_coverage(
+      traveltime = traveltime,
+      demand = demand,
+      objectiveminutes = objectiveminutes,
+      objectiveshare = objectiveshare,
+      null_ok = TRUE
+    )
   } else {
-    traveltime_raster_outer <- traveltime
-  }
-
-  assert_minimal_coverage(
-    traveltime = traveltime,
-    demand = demand,
-    objectiveminutes = objectiveminutes,
-    threshold = objectiveshare,
-    null_ok = TRUE
-  )
-
-  if (is.null(facilities)) {
     facilities <-
       data.frame(x = 0, y = 0) |>
       sf::st_as_sf(coords = c("x", "y"), crs = 4326) |>
@@ -376,7 +381,9 @@ allocation_discrete <- function(
       raster::cellStats("sum", na.rm = TRUE) |>
       magrittr::divide_by(totalpopconstant)
 
-    list(
+    out <- list(
+      coverage = 1 - k,
+      unmet_demand = k,
       objective_minutes = objectiveminutes,
       objective_share = objectiveshare,
       facilities =
@@ -390,9 +397,13 @@ allocation_discrete <- function(
                 which.min()
             ), # Do not remove the comma!
         ),
-      travel_time = traveltime_raster_new,
-      unmet_demand = k
-    )
+      travel_time = traveltime_raster_new
+    ) |>
+      `class<-`(c("allocation_discrete", "list"))
+
+    out |> coverage_message()
+
+    out
   } else {
     kiters <- seq(2, n_fac)
     kiter <- kiters[1] - 1
@@ -572,28 +583,9 @@ allocation_discrete <- function(
       if (k < (1 - objectiveshare) || kiter == n_fac) break
     }
 
-    if ((1 - k) >= objectiveshare) {
-      cli::cli_alert_info(
-        paste0(
-          "Target coverage share of ",
-          "{.strong {cli::col_blue((objectiveshare * 100))}}% ",
-          "attained with ",
-          "{.strong {cli::col_red(kiter)}} facilities."
-        ),
-        wrap = TRUE
-      )
-    } else {
-      cli::cli_alert_warning(
-        paste0(
-          "The target coverage share could not be attained with the ",
-          "maximum number of allocable facilities targeted by the ",
-          "{.strong {cli::col_red('n_fac')}} parameter."
-        ),
-        wrap = TRUE
-      )
-    }
-
-    list(
+    out <- list(
+      coverage = 1 - k,
+      unmet_demand = k,
       objective_minutes = objectiveminutes,
       objective_share = objectiveshare,
       facilities =
@@ -602,8 +594,12 @@ allocation_discrete <- function(
         magrittr::extract(
           samples[, which.min(unlist(outer))],
         ),
-      traveltime = traveltime_raster_new,
-      unmet_demand = k
-    )
+      travel_time = traveltime_raster_new
+    ) |>
+      `class<-`(c("allocation_discrete", "list"))
+
+    out |> coverage_message()
+
+    invisible(out)
   }
 }

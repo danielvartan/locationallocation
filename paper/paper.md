@@ -438,11 +438,11 @@ yielding:
         [1] "38.54 % of demand layer within the objectiveminutes threshold."
 
 We then can proceed and optimize allocation of new water naples_fountains to
-cover maximum fraction of (unweighted) population. Location-allocation
+cover maximum share of (unweighted) population. Location-allocation
 can be either solved discretely or continuously over space, and either
 with a facility constraint or with a policy goal for demand (population)
 coverage. For instance, if the goals is to optimise allocation of new
-water fountains to cover maximum fraction of heat-risk weighted
+water fountains to cover maximum share of heat-risk weighted
 population (exposure), we can use:
 
 ``` {.r language="R"}

@@ -13,8 +13,8 @@ Functions to perform Maximal Coverage Location-Allocation analyses using geospat
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://giacfalk.github.io/locationallocation}
-  \item \url{https://github.com/giacfalk/locationallocation}
+  \item \url{https://giacfalk.github.io/locationallocation/}
+  \item \url{https://github.com/giacfalk/locationallocation/}
   \item Report bugs at \url{https://github.com/giacfalk/locationallocation/issues/}
 }
 
