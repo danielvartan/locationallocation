@@ -8,7 +8,9 @@ friction(
   bb_area,
   mode = "walk",
   dowscaling_model_type = "lm",
-  res_output = 100
+  res_output = 100,
+  cache = FALSE,
+  file = NULL
 )
 }
 \arguments{
@@ -38,6 +40,14 @@ forest) (default: \code{"lm"}).}
 resolution of the friction raster (and of the analysis), in meters. If the
 resolution is less than \code{1000}, a spatial downscaling approach is used
 (default: \code{100}).}
+
+\item{cache}{(optional) A \code{\link[base:logical]{logical}} flag
+indicating whether to cache the downloaded friction data for future use
+(default: \code{TRUE}).}
+
+\item{file}{(optional) A \code{\link[base:character]{character}} string indicating
+the path to a local friction surface raster file. If provided, the
+function will use this file instead of downloading the friction data.}
 }
 \value{
 An \link[base:invisible]{invisible} \code{\link[base:list]{list}} with the

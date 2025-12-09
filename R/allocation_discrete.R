@@ -26,9 +26,11 @@
 #'   [integerish][checkmate::test_integerish()] number indicating the number of
 #'   samples to generate in the heuristic approach for identifying the best set
 #'   of facilities to be allocated (default: `1000`).
+#' @template params-objectiveshare-b
 #' @param par (optional) A [`logical`][base::logical()] flag indicating whether
 #'   to run the function in [parallel][parallel::parLapply()] or not
 #'   (default: `FALSE`).
+#' @inheritParams allocation
 #'
 #' @return An [invisible][base::invisible] [`list`][base::list] with the
 #'   following elements:
@@ -44,8 +46,6 @@
 #'   - `travel_time`: A [`raster`][raster::raster()] RasterLayer object
 #'   representing the travel time map with the newly allocated facilities.
 #'
-#' @template params-objectiveshare-b
-#' @inheritParams allocation
 #' @family location-allocation functions
 #' @keywords location-allocation
 #' @export
@@ -112,7 +112,6 @@ allocation_discrete <- function(
 
   sf::sf_use_s2(TRUE)
 
-
   if (!is.null(facilities)) {
     if (is.null(traveltime)) {
       cli::cli_alert_info(
@@ -131,7 +130,6 @@ allocation_discrete <- function(
           dowscaling_model_type = dowscaling_model_type,
           res_output = res_output
         )
-
     } else {
       traveltime_raster_outer <- traveltime
     }
@@ -229,7 +227,7 @@ allocation_discrete <- function(
           sf::st_as_sf() |>
           nrow() |>
           seq_len() |>
-          sample(n_fac,  replace = FALSE),
+          sample(n_fac, replace = FALSE),
       )
 
     runner <- function(i) {
@@ -386,8 +384,7 @@ allocation_discrete <- function(
       unmet_demand = k,
       objective_minutes = objectiveminutes,
       objective_share = objectiveshare,
-      facilities =
-        candidate |>
+      facilities = candidate |>
         sf::st_as_sf() |>
         magrittr::extract(
           samples |>
@@ -422,7 +419,7 @@ allocation_discrete <- function(
             sf::st_as_sf() |>
             nrow() |>
             seq_len() |>
-            sample(kiter,  replace = FALSE),
+            sample(kiter, replace = FALSE),
         )
 
       runner <- function(i) {
@@ -588,8 +585,7 @@ allocation_discrete <- function(
       unmet_demand = k,
       objective_minutes = objectiveminutes,
       objective_share = objectiveshare,
-      facilities =
-        candidate |>
+      facilities = candidate |>
         sf::st_as_sf() |>
         magrittr::extract(
           samples[, which.min(unlist(outer))],

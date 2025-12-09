@@ -7,13 +7,13 @@
 #' facilities and the coverage attained.
 #'
 #' @param allocation The output of the [`allocation`][allocation()] or
-#' `allocation_discrete()` function.
+#'   `allocation_discrete()` function.
+#' @template params-bb-area
+#' @template params-annotation
 #'
 #' @return A [`ggplot2`][ggplot2::ggplot()] plot showing the potential locations
 #'   for new facilities.
 #'
-#' @template params-bb-area
-#' @template params-annotation
 #' @family plot functions
 #' @keywords reporting
 #' @export
@@ -115,16 +115,14 @@ allocation_plot <- function(
     ggplot2::ggplot() +
     ggplot2::geom_raster(
       mapping = ggplot2::aes(x = x, y = y, fill = layer),
-      data =
-        allocation |> #nolint
+      data = allocation |> #nolint
         magrittr::extract2("travel_time") |>
         mask_raster_to_polygon(bb_area) |>
         raster::as.data.frame(xy = TRUE) |>
         stats::na.omit()
     ) +
     ggplot2::geom_sf(
-      data =
-        allocation |> #nolint
+      data = allocation |> #nolint
         magrittr::extract2("facilities") |>
         sf::st_as_sf(),
       color = "black",

@@ -46,6 +46,7 @@
     "dplyr",
     "dups",
     "envir",
+    "exdir",
     "expdemand",
     "extdata",
     "Falchetta",
