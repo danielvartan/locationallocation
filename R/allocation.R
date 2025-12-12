@@ -9,8 +9,14 @@
 #' See [`allocation_discrete()`][allocation_discrete()] for discrete
 #' location-allocation problems.
 #'
+#' @template params-demand
+#' @template params-bb-area
+#' @template params-facilities
+#' @template params-traveltime-b
 #' @param weights (optional) A raster with the weights for the demand (default:
 #' `NULL`).
+#' @template params-objectiveminutes
+#' @template params-objectiveshare-a
 #' @param heur (optional) The heuristic approach to be used. Options are `"max"`
 #'   and `"kd"` (default: `"max"`).
 #' @param approach (optional) The approach to be used for the allocation.
@@ -28,6 +34,7 @@
 #'   weights - with respect to the demand layer. This is useful in cases where
 #'   the users want to increase the allocation in areas with higher values in
 #'   the demand layer (default: `1`).
+#' @inheritParams friction
 #'
 #' @return An [invisible][base::invisible] [`list`][base::list] with the
 #'   following elements:
@@ -43,13 +50,6 @@
 #'   - `travel_time`: A [`raster`][raster::raster()] RasterLayer object
 #'   representing the travel time map with the newly allocated facilities.
 #'
-#' @template params-demand
-#' @template params-facilities
-#' @template params-bb-area
-#' @template params-traveltime-b
-#' @template params-objectiveminutes
-#' @template params-objectiveshare-a
-#' @inheritParams friction
 #' @family location-allocation functions
 #' @keywords location-allocation
 #' @export
@@ -294,8 +294,7 @@ allocation <- function(
       unmet_demand = k,
       objective_minutes = objectiveminutes,
       objective_share = objectiveshare,
-      facilities =
-        merged_facilities |> #nolint
+      facilities = merged_facilities |> #nolint
         magrittr::extract(-c(seq_len(nrow(facilities))), ),
       travel_time = traveltime_raster_new
     ) |>

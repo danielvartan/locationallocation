@@ -7,6 +7,9 @@
 #' the percent of demand which is covered within a given objective travel time
 #' along with a cumulative curve plot.
 #'
+#' @template params-traveltime-a
+#' @template params-demand
+#' @template params-objectiveminutes
 #' @param breaks (optional) A [`numeric`][base::numeric] object indicating the
 #'   breaks (in minutes) for the cumulative curve plot
 #'   (default: `c(5, 10, 15, 30)`).
@@ -24,9 +27,6 @@
 #'   - `plot`: A [`ggplot`][ggplot2::ggplot] object with the cumulative curve
 #'   plot.
 #'
-#' @template params-traveltime-a
-#' @template params-demand
-#' @template params-objectiveminutes
 #' @family travel time functions
 #' @keywords reporting
 #' @export
@@ -85,13 +85,11 @@ traveltime_stats <- function(
     dplyr::arrange(traveltime_values) |>
     dplyr::as_tibble() |>
     dplyr::mutate(
-      P15_cumsum =
-        demand_values |> #nolint
+      P15_cumsum = demand_values |> #nolint
         cumsum() |>
         magrittr::divide_by(sum(demand_values, na.rm = TRUE)) |>
         magrittr::multiply_by(100),
-      th =
-        traveltime_values |> #nolint
+      th = traveltime_values |> #nolint
         cut(
           breaks = c(-Inf, breaks, Inf),
           labels = c(

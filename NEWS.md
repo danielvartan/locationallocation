@@ -1,5 +1,7 @@
 # locationallocation 0.1.1.9000 (development version)
 
+- Added a `cache` argument to `friction()` and `traveltime()` functions to enable caching of friction surfaces for improved performance on repeated calls.
+- Added a `file` argument to `friction()` and `traveltime()` functions to allow loading a friction surface from disk.
 - Refactored the codebase for better maintainability.
 - Fixed R-CMD-check issues.
 - Added [`checkmate`](https://mllg.github.io/checkmate/) for defensive programming.

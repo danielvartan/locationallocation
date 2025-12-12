@@ -13,7 +13,7 @@ version: 0.1.1.9000
 doi: 10.31223/X5XQ69
 identifiers:
 - type: url
-  value: https://github.com/giacfalk/locationallocation
+  value: https://github.com/giacfalk/locationallocation/
 abstract: Functions to perform Maximal Coverage Location-Allocation analyses using
   geospatial data. It is designed to help decision-makers optimally allocate resources
   and facilities in various contexts, such as public health, emergency response, and
@@ -37,7 +37,7 @@ preferred-citation:
   doi: 10.31223/X5XQ69
   notes: Preprint, manuscript submitted for publication
 repository-code: https://github.com/giacfalk/locationallocation/issues/
-url: https://giacfalk.github.io/locationallocation
+url: https://giacfalk.github.io/locationallocation/
 contact:
 - family-names: Falchetta
   given-names: Giacomo
@@ -54,7 +54,7 @@ references:
     name: R Foundation for Statistical Computing
     address: Vienna, Austria
   year: '2025'
-  version: '>= 4.5'
+  version: '>= 4.4'
 - type: software
   title: checkmate
   abstract: 'checkmate: Fast and Versatile Argument Checks'
@@ -331,7 +331,7 @@ references:
     orcid: https://orcid.org/0000-0001-8049-7069
   year: '2025'
   doi: 10.32614/CRAN.package.sf
-  version: '>= 1.0.22'
+  version: '>= 1.0.23'
 - type: software
   title: spatialEco
   abstract: 'spatialEco: Spatial Analysis and Modelling Utilities'
@@ -370,7 +370,31 @@ references:
     orcid: https://orcid.org/0000-0001-5872-2872
   year: '2025'
   doi: 10.32614/CRAN.package.terra
-  version: '>= 1.8.80'
+  version: '>= 1.8.86'
+- type: software
+  title: tools
+  abstract: 'R: A Language and Environment for Statistical Computing'
+  notes: Imports
+  authors:
+  - name: R Core Team
+  institution:
+    name: R Foundation for Statistical Computing
+    address: Vienna, Austria
+  year: '2025'
+  version: '>= 4.4'
+- type: software
+  title: zip
+  abstract: 'zip: Cross-Platform ''zip'' Compression'
+  notes: Imports
+  url: https://r-lib.github.io/zip/
+  repository: https://CRAN.R-project.org/package=zip
+  authors:
+  - family-names: Csárdi
+    given-names: Gábor
+    email: csardi.gabor@gmail.com
+  year: '2025'
+  doi: 10.32614/CRAN.package.zip
+  version: '>= 2.3.3'
 - type: software
   title: bslib
   abstract: 'bslib: Custom ''Bootstrap'' ''Sass'' Themes for ''shiny'' and ''rmarkdown'''

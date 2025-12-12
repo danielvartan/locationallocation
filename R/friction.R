@@ -11,6 +11,7 @@
 #'
 #' This function requires an active internet connection.
 #'
+#' @template params-bb-area
 #' @param mode (optional) A [`character`][base::character()] string indicating
 #'   the mode of transport. Options are `"fastest"` and `"walk"` (default =
 #'   `"walk"`).
@@ -30,6 +31,8 @@
 #'   resolution of the friction raster (and of the analysis), in meters. If the
 #'   resolution is less than `1000`, a spatial downscaling approach is used
 #'   (default: `100`).
+#' @template params-cache
+#' @template params-file
 #'
 #' @return An [invisible][base::invisible] [`list`][base::list] with the
 #'   following elements:
@@ -40,7 +43,6 @@
 #'   - `geocorrection_matrix`: A [`TransitionLayer`][gdistance::transition()]
 #'   with the geocorrection matrix for accurate distance calculations.
 #'
-#' @template params-bb-area
 #' @family travel time functions
 #' @keywords cats
 #' @export
@@ -70,38 +72,57 @@ friction <- function(
   bb_area,
   mode = "walk",
   dowscaling_model_type = "lm",
-  res_output = 100
+  res_output = 100,
+  cache = FALSE,
+  file = NULL
 ) {
   assert_bb_area(bb_area)
   checkmate::assert_choice(mode, choices = c("walk", "fastest"))
   checkmate::assert_choice(dowscaling_model_type, choices = c("lm", "rf"))
   checkmate::assert_count(res_output)
+  checkmate::assert_flag(cache)
+  checkmate::assert_string(file, null.ok = TRUE)
   assert_internet()
 
-  handle <- curl::new_handle(timeout = 120) #nolint
+  handle <- curl::new_handle(timeout = 120)
 
-  cli::cli_progress_step(
-    "Downloading friction data from the Malaria Atlas Project"
-  )
+  if (!is.null(file)) {
+    cli::cli_progress_step("Using user-provided friction data file")
 
-  if (mode == "fastest") {
+    checkmate::assert_file_exists(file)
+
+    friction_layer <- file |> terra::rast()
+
     friction_layer <-
-      "Accessibility__201501_Global_Travel_Speed_Friction_Surface" |>
-      malariaAtlas::getRaster(
-        extent = matrix(sf::st_bbox(bb_area), ncol = 2)
+      friction_layer |>
+      terra::crop(
+        bb_area |>
+          sf::st_transform(sf::st_crs(friction_layer)) |>
+          terra::ext()
       ) |>
-      suppressMessages() |>
-      suppressWarnings()
-  } else if (mode == "walk") {
-    friction_layer <-
-      "Accessibility__202001_Global_Walking_Only_Friction_Surface" |>
-      malariaAtlas::getRaster(
-        extent = matrix(sf::st_bbox(bb_area), ncol = 2)
-      ) |>
-      suppressMessages()
+      raster::raster()
+  } else {
+    if (mode == "fastest") {
+      dataset <- "Accessibility__201501_Global_Travel_Speed_Friction_Surface"
+    } else if (mode == "walk") {
+      dataset <- "Accessibility__202001_Global_Walking_Only_Friction_Surface"
+    }
+
+    if (isTRUE(cache)) {
+      friction_layer <- get_cache_data(dataset, bb_area)
+    } else {
+      cli::cli_progress_step(
+        "Downloading friction data from the Malaria Atlas Project"
+      )
+
+      friction_layer <-
+        dataset |>
+        malariaAtlas::getRaster(
+          extent = matrix(sf::st_bbox(bb_area), ncol = 2),
+        ) |>
+        raster::raster()
+    }
   }
-
-  friction_layer <- raster::raster(friction_layer)
 
   if (res_output < 1000) {
     cli::cli_progress_step("Downloading data from OpenStreetMap")
@@ -111,6 +132,7 @@ friction <- function(
       sf::st_bbox() |>
       osmdata::opq() |>
       osmdata::add_osm_feature(key = "highway") |>
+      # fmt: skip
       osmdata::osmdata_sf () # Do not change! #nolint
 
     r <-

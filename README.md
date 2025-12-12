@@ -2,6 +2,8 @@
 
 <!-- quarto render -->
 
+<!-- Install the package before rendering this file: `devtools::install()` -->
+
 <!-- badges: start -->
 [![Project Status: Active - The project has reached a stable, usable
 state and is being actively
@@ -28,10 +30,10 @@ MCLA problems with geospatial data. It builds on widely used spatial
 libraries in R, follows [tidyverse
 principles](https://tidyverse.tidyverse.org/articles/manifesto.html),
 and integrates seamlessly with the broader [tidyverse
-ecosystem](https://tidyverse.org/). The package can generate
-travel-time maps and optimize the placement of facilities or
-infrastructure according to accessibility criteria, which can be
-weighted by one or more variables or by a user-defined function.
+ecosystem](https://tidyverse.org/). The package can generate travel-time
+maps and optimize the placement of facilities or infrastructure
+according to accessibility criteria, which can be weighted by one or
+more variables or by a user-defined function.
 
 Potential applications of the package extend to the domains of public
 infrastructure assessment and planning (public services provision,
@@ -142,7 +144,7 @@ traveltime_data |>
     breaks = c(5, 10, 15, 30),
     objectiveminutes = 15
   )
-#> ℹ 85.52495% of coverage within the 15 minutes threshold.
+#> ℹ 85.45148% of coverage within the 15 minutes threshold.
 ```
 
 ![](man/figures/traveltime-stats-1.png)
@@ -172,7 +174,7 @@ allocation_data <-
 ```
 
     #> ✔ Target coverage share of 99% attained with 28 facilities within the 15
-    #> minutes threshold. The achieved coverage share is 99.04153%.
+    #> minutes threshold. The achieved coverage share is 99.03953%.
 
 ``` r
 allocation_data |> allocation_plot(naples_shape)
@@ -204,7 +206,7 @@ allocation_data <-
 ```
 
     #> ✔ Target coverage share of 99% attained with 25 facilities within the 15
-    #> minutes threshold. The achieved coverage share is 99.17146%.
+    #> minutes threshold. The achieved coverage share is 99.16903%.
 
 ``` r
 allocation_data |> allocation_plot(naples_shape)
@@ -237,7 +239,7 @@ allocation_data <-
 ```
 
     #> ✔ Target coverage share of 99% attained with 9 facilities within the 15
-    #> minutes threshold. The achieved coverage share is 99.17055%.
+    #> minutes threshold. The achieved coverage share is 99.15597%.
 
 ``` r
 allocation_data |> allocation_plot(naples_shape)
@@ -283,7 +285,7 @@ allocation_data <-
 ```
 
     #> ℹ 5 facilities allocated within the 15 minutes threshold. The maximum
-    #> coverage share attained was 88.82433%.
+    #> coverage share attained was 88.76062%.
 
 ``` r
 allocation_data |> allocation_plot(naples_shape)
@@ -318,7 +320,7 @@ allocation_data <-
 ```
 
     #> ✔ Target coverage share of 90% attained with 2 facilities within the 15
-    #> minutes threshold. The achieved coverage share is 90.26097%.
+    #> minutes threshold. The achieved coverage share is 90.20134%.
 
 ``` r
 allocation_data |> allocation_plot(naples_shape)
@@ -354,7 +356,7 @@ allocation_data <-
 ```
 
     #> ✔ Target coverage share of 45% attained with 2 facilities within the 15
-    #> minutes threshold. The achieved coverage share is 45.79176%.
+    #> minutes threshold. The achieved coverage share is 46.40227%.
 
 ``` r
 allocation_data |> allocation_plot(naples_shape)
@@ -371,14 +373,14 @@ support its continued improvement.
 ``` r
 citation("locationallocation")
 #> To cite locationallocation in publications use:
-#>
+#> 
 #>   Falchetta, G. (2025). locationallocation: Solving Maximal Coverage
 #>   Location-Allocation geospatial infrastructure assessment and
 #>   planning problems [Preprint, manuscript submitted for
 #>   publication]. EarthArXiv. https://doi.org/10.31223/X5XQ69
-#>
+#> 
 #> A BibTeX entry for LaTeX users is
-#>
+#> 
 #>   @Article{falchetta2025,
 #>     title = {locationallocation: Solving Maximal Coverage Location-Allocation geospatial infrastructure assessment and planning problems},
 #>     author = {Giacomo Falchetta},

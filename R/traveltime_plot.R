@@ -6,16 +6,16 @@
 #' function, showing the travel time from the facilities to the area of
 #' interest.
 #'
+#' @template params-traveltime-a
+#' @template params-bb-area
+#' @template params-facilities
 #' @param contour_traveltime (optional) A number indicating the contour
 #'   thresholds for the travel time (default: `15`).
+#' @template params-annotation
 #'
 #' @return A [`ggplot2`][ggplot2::ggplot()] plot showing the travel time from
 #'   the  facilities to the area of interest.
 #'
-#' @template params-traveltime-a
-#' @template params-bb-area
-#' @template params-facilities
-#' @template params-annotation
 #' @family travel time functions
 #' @keywords reporting
 #' @export

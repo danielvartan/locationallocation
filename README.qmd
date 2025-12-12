@@ -25,6 +25,8 @@ source(here("R", ".setup.R"))
 ```{r}
 #| echo: false
 #| output: asis
+#| message: false
+#| warning: false
 
 cat(
   badge_repostatus("active"),

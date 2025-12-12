@@ -35,7 +35,9 @@ points_to_matrix <- function(points, n = NULL) {
   checkmate::assert_set_equal(colnames(points), c("X", "Y"))
   checkmate::assert_int(n, null.ok = TRUE)
 
-  if (checkmate::test_data_frame(points)) n <- nrow(points)
+  if (checkmate::test_data_frame(points)) {
+    n <- nrow(points)
+  }
 
   data.frame() |>
     magrittr::inset(seq_len(n), 1, points["X"]) |>
@@ -48,4 +50,8 @@ normalize_raster <- function(r) {
   r_max <- raster::cellStats(r, stat = "max")
 
   (r - r_min) / (r_max - r_min)
+}
+
+get_cache_directory <- function() {
+  tools::R_user_dir("locationallocation", which = "cache")
 }

@@ -8,6 +8,9 @@
 #' See the [`friction()`][friction] function for details on how the friction
 #' layer is generated.
 #'
+#' @template params-facilities
+#' @inheritParams friction
+#'
 #' @return An [invisible][base::invisible] [`list`][base::list] with the
 #'   following elements:
 #'   - `travel_time`: A [`RasterLayer`][raster::raster()] object with the travel
@@ -15,9 +18,6 @@
 #'   - `friction`: A [`list`][base::list] with the outputs of the
 #'     [`friction()`][friction] function.
 #'
-#' @template params-facilities
-#' @template params-bb-area
-#' @inheritParams friction
 #' @family travel time functions
 #' @keywords cats
 #' @export
@@ -48,13 +48,16 @@ traveltime <- function(
   bb_area,
   mode = "walk",
   dowscaling_model_type = "lm",
-  res_output = 100
+  res_output = 100,
+  cache = FALSE,
+  file = NULL
 ) {
   assert_facilities(facilities)
   assert_bb_area(bb_area)
   checkmate::assert_choice(dowscaling_model_type, choices = c("lm", "rf"))
   checkmate::assert_choice(mode, choices = c("walk", "fastest"))
   checkmate::assert_count(res_output)
+  checkmate::assert_string(file, null.ok = TRUE)
 
   sf::sf_use_s2(TRUE)
 
@@ -63,7 +66,9 @@ traveltime <- function(
     friction(
       mode = mode,
       res_output = res_output,
-      dowscaling_model_type = dowscaling_model_type
+      dowscaling_model_type = dowscaling_model_type,
+      cache = cache,
+      file = file
     )
 
   points <-

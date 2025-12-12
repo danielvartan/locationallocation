@@ -4,8 +4,8 @@
   "identifier": "locationallocation",
   "description": "Functions to perform Maximal Coverage Location-Allocation analyses using geospatial data. It is designed to help decision-makers optimally allocate resources and facilities in various contexts, such as public health, emergency response, and urban planning.",
   "name": "locationallocation: Maximal Coverage Location-Allocation Using Geospatial Data",
-  "relatedLink": "https://giacfalk.github.io/locationallocation",
-  "codeRepository": "https://github.com/giacfalk/locationallocation",
+  "relatedLink": "https://giacfalk.github.io/locationallocation/",
+  "codeRepository": "https://github.com/giacfalk/locationallocation/",
   "issueTracker": "https://github.com/giacfalk/locationallocation/issues/",
   "license": "https://spdx.org/licenses/GPL-3.0",
   "version": "0.1.1.9000",
@@ -162,7 +162,7 @@
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
-      "version": ">= 4.5"
+      "version": ">= 4.4"
     },
     "2": {
       "@type": "SoftwareApplication",
@@ -336,7 +336,7 @@
       "@type": "SoftwareApplication",
       "identifier": "sf",
       "name": "sf",
-      "version": ">= 1.0.22",
+      "version": ">= 1.0.23",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -368,7 +368,7 @@
       "@type": "SoftwareApplication",
       "identifier": "terra",
       "name": "terra",
-      "version": ">= 1.8.80",
+      "version": ">= 1.8.86",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -377,9 +377,28 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=terra"
     },
+    "20": {
+      "@type": "SoftwareApplication",
+      "identifier": "tools",
+      "name": "tools",
+      "version": ">= 4.4"
+    },
+    "21": {
+      "@type": "SoftwareApplication",
+      "identifier": "zip",
+      "name": "zip",
+      "version": ">= 2.3.3",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=zip"
+    },
     "SystemRequirements": null
   },
-  "fileSize": "3617.496KB",
+  "fileSize": "3620.701KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
