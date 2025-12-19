@@ -26,10 +26,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install system dependencies
+      - name: Install macOS system dependencies
         if: runner.os == 'macOS'
         run: |
-          # Install system dependencies
+          # Install macOS system dependencies
           brew install gdal proj geos
 
           echo "PROJ_LIB=/opt/homebrew/share/proj" >> "${GITHUB_ENV}"
@@ -44,9 +44,9 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: |
-            any::e1071, any::selectr, any::wk, any::rcmdcheck, local::.
+          extra-packages: any::rcmdcheck, local::.
           needs: check
+          upgrade: 'TRUE'
 
       - name: Check GDAL/PROJ Config
         if: runner.os == 'macOS'
