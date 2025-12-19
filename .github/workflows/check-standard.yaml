@@ -44,9 +44,9 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck, local::.
+          extra-packages: |
+            any::e1071, any::selectr, any::wk, any::rcmdcheck, local::.
           needs: check
-          cache: ${{ runner.os != 'macOS' }}
 
       - name: Check GDAL/PROJ Config
         if: runner.os == 'macOS'
