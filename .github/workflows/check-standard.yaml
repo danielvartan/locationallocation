@@ -10,23 +10,29 @@ permissions: read-all
 jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
-
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
-
     strategy:
       fail-fast: false
       matrix:
         config:
           - {os: macos-latest,   r: 'release'}
           - {os: windows-latest, r: 'release'}
+          - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-latest,   r: 'release'}
-
+          - {os: ubuntu-latest,   r: 'oldrel-1'}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
-
     steps:
       - uses: actions/checkout@v4
+
+      - name: Install system dependencies
+        if: runner.os == 'macOS'
+        run: |
+          # Install system dependencies
+          brew install gdal proj geos
+
+          echo "PROJ_LIB=/opt/homebrew/share/proj" >> "${GITHUB_ENV}"
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -40,6 +46,12 @@ jobs:
         with:
           extra-packages: any::rcmdcheck, local::.
           needs: check
+
+      - name: Check GDAL/PROJ Config
+        if: runner.os == 'macOS'
+        run: |
+          # Check GDAL/PROJ Config
+          Rscript -e "terra::gdal(lib = 'all')"
 
       - uses: r-lib/actions/check-r-package@v2
         with:
